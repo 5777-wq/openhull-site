@@ -1,0 +1,415 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>OpenHull — Design the shell that carries it all.</title>
+  <meta name="description" content="OpenHull：由 AI 智能体编排的开源参数化船舶初步设计工具链。输入一份设计任务书，自动产出主尺度方案、静水力表、型线图、阻力/推进/稳性评估与 DXF 图纸。">
+  <meta name="keywords" content="OpenHull, 船舶设计, 参数化设计, AI Agent, 开源, hull design, naval architecture, ship design">
+  <meta property="og:title" content="OpenHull — Design the shell that carries it all.">
+  <meta property="og:description" content="由 AI 智能体编排的开源参数化船舶初步设计工具链。">
+  <meta property="og:type" content="website">
+  <meta property="og:image" content="assets/img/og.png">
+  <link rel="icon" type="image/svg+xml" href="assets/img/favicon.svg">
+  <link rel="preload" href="assets/fonts/fraunces-latin-600.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="preload" href="assets/fonts/fraunces-latin-600-italic.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="preload" href="assets/fonts/plexmono-latin-400.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="stylesheet" href="assets/css/fonts.css">
+  <link rel="stylesheet" href="assets/css/style.css">
+</head>
+<body>
+
+  <!-- ═══════════════ NAV ═══════════════ -->
+  <header class="nav" id="nav">
+    <div class="nav__inner">
+      <a class="nav__brand" href="#top" aria-label="OpenHull">
+        <svg class="nav__mark" viewBox="0 0 32 32" fill="none" aria-hidden="true">
+          <path d="M3 12 C8 12 12 13.2 16 13.2 C20 13.2 24 12 29 9.5 C27 18.5 22.5 24 16 24 C9.5 24 5 18.5 3 12 Z" stroke="currentColor" stroke-width="1.6"/>
+          <path d="M6.5 15.5 H25.5" stroke="currentColor" stroke-width="1" stroke-dasharray="2.5 2.5" opacity=".55"/>
+          <path d="M9.5 19 H22.5" stroke="currentColor" stroke-width="1" stroke-dasharray="2.5 2.5" opacity=".35"/>
+        </svg>
+        <span class="nav__wordmark">OpenHull</span>
+      </a>
+      <nav class="nav__links" aria-label="主导航">
+        <a href="#intro" data-i18n="nav.intro">简介</a>
+        <a href="#process" data-i18n="nav.process">开发进程</a>
+        <a href="#advantages" data-i18n="nav.advantages">优势</a>
+        <a href="https://github.com/5777-wq/OpenHull" target="_blank" rel="noopener">
+          GitHub <span class="nav__gh-arrow" aria-hidden="true">↗</span>
+        </a>
+        <button class="lang-toggle" id="langToggle" type="button" aria-label="Switch language">EN</button>
+      </nav>
+    </div>
+  </header>
+
+  <main id="top">
+
+    <!-- ═══════════════ HERO ═══════════════ -->
+    <section class="hero" id="hero">
+      <div class="hero__grid" aria-hidden="true"></div>
+      <div class="hero__frame" aria-hidden="true">
+        <i class="tick tick--tl"></i><i class="tick tick--tr"></i>
+        <i class="tick tick--bl"></i><i class="tick tick--br"></i>
+      </div>
+
+      <div class="hero__inner">
+        <p class="hero__overline reveal">
+          <span class="hero__status-dot" aria-hidden="true"></span>
+          <span data-i18n="hero.overline">开源施工中 · 阶段 1 / 计算内核</span>
+        </p>
+
+        <h1 class="hero__title reveal" data-delay="1">
+          Design the shell<br>that carries it all.
+        </h1>
+
+        <p class="hero__sub reveal" data-delay="2" data-i18n="hero.sub">
+          由 AI 智能体编排的开源参数化船舶初步设计工具链
+        </p>
+
+        <p class="hero__desc reveal" data-delay="3" data-i18n="hero.desc">
+          给它一份设计任务书——船型、载重吨、服务航速、航区——智能体流水线自动完成
+          主尺度迭代、静水力计算、型线生成、阻力 / 推进 / 稳性评估，直至 DXF 图纸与设计报告。
+        </p>
+
+        <div class="hero__cta reveal" data-delay="4">
+          <a class="btn btn--primary" href="https://github.com/5777-wq/OpenHull" target="_blank" rel="noopener">
+            <svg viewBox="0 0 16 16" aria-hidden="true" class="btn__gh"><path fill="currentColor" d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27s1.36.09 2 .27c1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.01 8.01 0 0 0 16 8c0-4.42-3.58-8-8-8Z"/></svg>
+            <span data-i18n="hero.cta1">查看 GitHub 仓库</span>
+          </a>
+          <a class="btn btn--ghost" href="#intro"><span data-i18n="hero.cta2">了解它如何工作</span> ↓</a>
+        </div>
+
+        <!-- 型线图视觉 -->
+        <div class="hero__figure reveal" data-delay="5" aria-hidden="true">
+          <svg id="hullSvg" class="hull" viewBox="0 0 1160 430" fill="none" preserveAspectRatio="xMidYMax meet">
+            <!-- 水线组（半宽图抽象曲线） -->
+            <g class="hull__waterlines" stroke="var(--brass)" fill="none">
+              <path class="draw" d="M60 330 C240 322 420 318 580 318 C740 318 920 322 1100 330" stroke-width="1" opacity=".28"/>
+              <path class="draw" d="M95 300 C260 291 430 287 580 287 C730 287 900 291 1065 300" stroke-width="1" opacity=".38"/>
+              <path class="draw" d="M130 270 C280 260 450 256 580 256 C710 256 880 260 1030 270" stroke-width="1" opacity=".5"/>
+              <path class="draw" d="M170 240 C310 230 470 226 580 226 C690 226 850 230 990 240" stroke-width="1" opacity=".62"/>
+              <path class="draw" d="M215 212 C345 202 485 198 580 198 C675 198 815 202 945 212" stroke-width="1" opacity=".74"/>
+              <path class="draw" d="M262 186 C375 177 500 173 580 173 C660 173 785 177 898 186" stroke-width="1" opacity=".86"/>
+            </g>
+            <!-- 船体侧影 -->
+            <g class="hull__profile">
+              <path class="draw draw--slow" d="M85 118
+                C 200 128 330 134 580 134
+                C 760 134 900 126 1005 106
+                C 1042 99 1072 88 1092 74
+                L 1096 78
+                C 1082 112 1052 150 1010 186
+                C 950 238 872 286 780 322
+                C 700 353 620 366 540 366
+                C 400 366 260 330 165 268
+                C 118 237 92 200 82 168
+                C 79 158 80 148 85 118 Z"
+                stroke="var(--ivory)" stroke-width="1.8"/>
+              <!-- 甲板线 -->
+              <path class="draw draw--slow" d="M85 118 C 200 128 330 134 580 134 C 760 134 900 126 1005 106 C 1042 99 1072 88 1092 74"
+                stroke="var(--brass)" stroke-width="1.4" opacity=".9"/>
+              <!-- 球鼻艏示意 -->
+              <path class="draw" d="M1096 78 C 1102 96 1098 118 1084 136" stroke="var(--brass)" stroke-width="1" opacity=".6"/>
+              <!-- 站线 -->
+              <g class="hull__stations" stroke="var(--ivory)" stroke-width=".7" opacity=".22">
+                <line x1="200" y1="130" x2="212" y2="331"/>
+                <line x1="330" y1="134" x2="336" y2="351"/>
+                <line x1="460" y1="135" x2="462" y2="363"/>
+                <line x1="580" y1="134" x2="580" y2="366"/>
+                <line x1="700" y1="131" x2="697" y2="357"/>
+                <line x1="820" y1="124" x2="812" y2="335"/>
+                <line x1="930" y1="114" x2="916" y2="299"/>
+              </g>
+              <!-- 中垂线 -->
+              <line x1="580" y1="60" x2="580" y2="392" stroke="var(--brass)" stroke-width=".8" stroke-dasharray="6 5" opacity=".5"/>
+              <!-- 基线 -->
+              <line x1="60" y1="366" x2="1100" y2="366" stroke="var(--ivory)" stroke-width=".8" opacity=".3"/>
+              <!-- 标注 -->
+              <g class="hull__anno" fill="var(--brass)" opacity=".85">
+                <text x="592" y="52" text-anchor="start" class="hull__mono">LBP 280.000 m</text>
+                <text x="60" y="390" class="hull__mono">AP</text>
+                <text x="1100" y="390" text-anchor="end" class="hull__mono">FP</text>
+                <text x="1092" y="160" text-anchor="end" class="hull__mono" opacity=".8">T 16.500 m</text>
+              </g>
+            </g>
+          </svg>
+          <p class="hero__plate hull__mono" aria-hidden="true">
+            OpenHull · LINES PLAN — TB-001 CAPESIZE BULK CARRIER · SCALE 1:1200 · SHEET 01
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- ═══════════════ STATS ═══════════════ -->
+    <section class="stats">
+      <div class="wrap stats__row">
+        <div class="stat reveal">
+          <strong>10</strong>
+          <span data-i18n="stats.l1">语种 README</span>
+        </div>
+        <div class="stat reveal" data-delay="1">
+          <strong>2</strong>
+          <span data-i18n="stats.l2">艘公开基准船 · JBC / Series 60</span>
+        </div>
+        <div class="stat reveal" data-delay="2">
+          <strong>6</strong>
+          <span data-i18n="stats.l3">大开发阶段 · 从骨架到 v1.0</span>
+        </div>
+        <div class="stat reveal" data-delay="3">
+          <strong>100%</strong>
+          <span data-i18n="stats.l4">输出可追溯 · 项目宪法要求</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- ═══════════════ 01 简介 ═══════════════ -->
+    <section class="section" id="intro">
+      <div class="wrap">
+        <header class="section__head reveal">
+          <p class="section__no">01 <span data-i18n="intro.kicker">— 简介 / INTRODUCTION</span></p>
+          <h2 class="section__title" data-i18n="intro.title">一份任务书，一整套初步设计</h2>
+        </header>
+
+        <div class="intro__lead reveal">
+          <p data-i18n="intro.p1">
+            船舶初步设计的知识内核——教科书里的经验公式、系列试验图谱、规范里的查表计算——
+            本来就是公开的。真正缺的，是一层把它们编排成完整设计循环的自动化。
+            OpenHull 把这些知识数字化为可组合、可验证的 Python 模块，
+            再由 AI 智能体按《项目宪法》编排成流水线。
+          </p>
+          <p data-i18n="intro.p2">
+            人负责专业判断，AI 负责代码与搬运数据的手。
+          </p>
+        </div>
+
+        <!-- 流水线图 -->
+        <div class="pipeline reveal" data-delay="1">
+          <div class="pipeline__in">
+            <p class="pipeline__label hull__mono">INPUT · 任务书</p>
+            <div class="code" role="img" aria-label="任务书 YAML 示例">
+              <div class="code__bar"><i></i><i></i><i></i><span>taskbook_bulk_carrier.yaml</span></div>
+<pre><code><span class="c"># TB-001 · Capesize bulk carrier</span>
+<span class="k">ship_type</span>: <span class="v">bulk_carrier</span>
+<span class="k">requirements</span>:
+  <span class="k">deadweight_t</span>: <span class="n">149920</span>
+  <span class="k">service_speed_kn</span>: <span class="n">14.5</span>
+  <span class="k">trading_area</span>: <span class="v">unrestricted</span>
+<span class="k">constraints</span>:
+  <span class="k">block_coefficient</span>: <span class="n">0.8580</span></code></pre>
+            </div>
+          </div>
+
+          <div class="pipeline__mid" aria-hidden="true">
+            <div class="pipeline__core">
+              <svg viewBox="0 0 32 32" fill="none" class="pipeline__mark">
+                <path d="M3 12 C8 12 12 13.2 16 13.2 C20 13.2 24 12 29 9.5 C27 18.5 22.5 24 16 24 C9.5 24 5 18.5 3 12 Z" stroke="currentColor" stroke-width="1.6"/>
+              </svg>
+              <p class="hull__mono">OpenHull</p>
+              <p class="pipeline__core-sub" data-i18n="intro.core">智能体编排 · 公式白名单 · 基准验证</p>
+            </div>
+            <svg class="pipeline__flow" viewBox="0 0 120 24" fill="none">
+              <path d="M0 12 H108" stroke="currentColor" stroke-width="1" stroke-dasharray="4 4"/>
+              <path d="M104 6 L114 12 L104 18" stroke="currentColor" stroke-width="1" fill="none"/>
+            </svg>
+          </div>
+
+          <div class="pipeline__out">
+            <p class="pipeline__label hull__mono">OUTPUT · 成果</p>
+            <ul class="pipeline__list">
+              <li><i>01</i><span data-i18n="intro.o1">主尺度方案 · L / B / D / d / Cb</span></li>
+              <li><i>02</i><span data-i18n="intro.o2">静水力表 · △ / KM / TPC / MTC</span></li>
+              <li><i>03</i><span data-i18n="intro.o3">型线图 · 母型船 Lackenby 变换</span></li>
+              <li><i>04</i><span data-i18n="intro.o4">阻力 / 推进 / 稳性评估</span></li>
+              <li><i>05</i><span data-i18n="intro.o5">DXF 图纸 · 设计报告</span></li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ═══════════════ 02 开发进程 ═══════════════ -->
+    <section class="section section--alt" id="process">
+      <div class="wrap">
+        <header class="section__head reveal">
+          <p class="section__no">02 <span data-i18n="process.kicker">— 开发进程 / DEVELOPMENT</span></p>
+          <h2 class="section__title" data-i18n="process.title">六个阶段，验收只认数字</h2>
+        </header>
+        <p class="section__lead reveal" data-i18n="process.lead">
+          每个任务颗粒度不超过一晚。AI 先出实现方案，人审定公式，编码完成后再对公开基准船数据
+          逐项核对误差——"完成了"三个字不算数，数字达标才算数。
+        </p>
+
+        <ol class="timeline">
+          <li class="tl tl--done reveal">
+            <div class="tl__node"></div>
+            <div class="tl__body">
+              <div class="tl__head">
+                <h3 data-i18n="process.s0t">阶段 0 · 立项与立宪</h3>
+                <span class="tl__ver hull__mono">2026-09</span>
+                <span class="badge badge--done" data-i18n="badge.done">已完成</span>
+              </div>
+              <p data-i18n="process.s0d">项目宪法《AGENTS.md》九节：单位制、公式白名单、适用边界守卫、禁区与验收容差表；例题船选定 JBC + Series 60；设计任务书 TB-001 获批；代码骨架落地，21 项测试全绿。</p>
+            </div>
+          </li>
+
+          <li class="tl tl--active reveal">
+            <div class="tl__node"></div>
+            <div class="tl__body">
+              <div class="tl__head">
+                <h3 data-i18n="process.s1t">阶段 1 · 主尺度与静水力内核</h3>
+                <span class="tl__ver hull__mono">v0.1</span>
+                <span class="badge badge--active" data-i18n="badge.doing">进行中</span>
+              </div>
+              <p data-i18n="process.s1d">从载重吨与航速反推主尺度（算法可插拔注册表：载重系数法 / Watson 1977 / 母型船比例法），重量浮力平衡迭代，辛普森积分静水力内核，初稳性与干舷校核——全部对 JBC 实船值控制误差。当前进行到任务 1.2 · 主尺度初估。</p>
+            </div>
+          </li>
+
+          <li class="tl reveal">
+            <div class="tl__node"></div>
+            <div class="tl__body">
+              <div class="tl__head">
+                <h3 data-i18n="process.s2t">阶段 2 · 参数化型线生成</h3>
+                <span class="tl__ver hull__mono">v0.2</span>
+                <span class="badge" data-i18n="badge.plan">规划中</span>
+              </div>
+              <p data-i18n="process.s2d">母型船型值数字化，Lackenby 变换把 Cb 精确变换到目标值，生成横剖面 / 半宽水线 / 纵剖线三视图，光顺性数值检查，静水力改吃真型值，DXF 图纸输出。</p>
+            </div>
+          </li>
+
+          <li class="tl reveal">
+            <div class="tl__node"></div>
+            <div class="tl__body">
+              <div class="tl__head">
+                <h3 data-i18n="process.s3t">阶段 3 · 性能闭环</h3>
+                <span class="tl__ver hull__mono">v0.3</span>
+                <span class="badge" data-i18n="badge.plan">规划中</span>
+              </div>
+              <p data-i18n="process.s3d">Holtrop-Mennen 阻力预报、推进与航速反算、螺旋桨初步设计、大倾角稳性与 IMO 衡准逐条校核；最后由智能体编排自动寻优——在约束内扫描主尺度空间，输出可行方案集与帕累托权衡图。</p>
+            </div>
+          </li>
+
+          <li class="tl reveal">
+            <div class="tl__node"></div>
+            <div class="tl__body">
+              <div class="tl__head">
+                <h3 data-i18n="process.s4t">阶段 4 · 出图与报告</h3>
+                <span class="tl__ver hull__mono">v0.4</span>
+                <span class="badge" data-i18n="badge.plan">规划中</span>
+              </div>
+              <p data-i18n="process.s4d">静水力曲线图、总布置简图、自动生成带编号图表与结论段的设计报告——一条命令从任务书跑到成果包，成品可直接当课程设计提交。</p>
+            </div>
+          </li>
+
+          <li class="tl reveal">
+            <div class="tl__node"></div>
+            <div class="tl__body">
+              <div class="tl__head">
+                <h3 data-i18n="process.s5t">阶段 5 · 开源发布</h3>
+                <span class="tl__ver hull__mono">v1.0</span>
+                <span class="badge" data-i18n="badge.plan">规划中</span>
+              </div>
+              <p data-i18n="process.s5d">v1.0 的定义：两种以上不同船型跑通全流程且验证达标，附完整文档、学术引用条目与 CI。 十语 README 已提前就位。</p>
+            </div>
+          </li>
+        </ol>
+
+        <!-- 工作流 -->
+        <div class="workflow reveal">
+          <p class="workflow__label hull__mono" data-i18n="process.wf">每个任务的工作循环</p>
+          <ol class="workflow__steps">
+            <li><b>01</b><span data-i18n="process.w1">AI 出实现方案</span></li>
+            <li><b>02</b><span data-i18n="process.w2">人审定公式与出处</span></li>
+            <li><b>03</b><span data-i18n="process.w3">编码实现</span></li>
+            <li><b>04</b><span data-i18n="process.w4">对基准船数字验收</span></li>
+            <li><b>05</b><span data-i18n="process.w5">存档发布</span></li>
+          </ol>
+        </div>
+      </div>
+    </section>
+
+    <!-- ═══════════════ 03 优势 ═══════════════ -->
+    <section class="section" id="advantages">
+      <div class="wrap">
+        <header class="section__head reveal">
+          <p class="section__no">03 <span data-i18n="adv.kicker">— 优势 / ADVANTAGES</span></p>
+          <h2 class="section__title" data-i18n="adv.title">把工程纪律写进宪法</h2>
+        </header>
+
+        <div class="adv__grid">
+          <article class="adv reveal">
+            <span class="adv__no hull__mono">A-01</span>
+            <h3 data-i18n="adv.a1t">可追溯</h3>
+            <p data-i18n="adv.a1d">每一个输出结果都必须可追溯至某条公式或公开文献。经验公式强制声明适用范围——Fn、Cb 超出边界的输入一律报错拒绝，而不是悄悄给出一个行家一眼看穿的错误数字。</p>
+          </article>
+          <article class="adv reveal" data-delay="1">
+            <span class="adv__no hull__mono">A-02</span>
+            <h3 data-i18n="adv.a2t">基准验证优先</h3>
+            <p data-i18n="adv.a2d">与 JBC、Series 60 等公开基准船数据逐项对比，验证优先于新功能开发。静水力误差 <1%、KM 误差 <2%、TPC 误差 <3%——每个数字分开报告，藏在哪个总评里都不行。</p>
+          </article>
+          <article class="adv reveal" data-delay="2">
+            <span class="adv__no hull__mono">A-03</span>
+            <h3 data-i18n="adv.a3t">人机各司其职</h3>
+            <p data-i18n="adv.a3d">公式对不对、量级合不合理，由工程师拍板；代码、集成、数据搬运交给 AI。公式先入白名单再实现，页码级出处备查——AI 幻觉公式在制度上就无法进入代码库。</p>
+          </article>
+          <article class="adv reveal" data-delay="3">
+            <span class="adv__no hull__mono">A-04</span>
+            <h3 data-i18n="adv.a4t">解释性报错</h3>
+            <p data-i18n="adv.a4d">数据结构逐字段与跨字段校验，报错必须讲清四件事：哪个字段、输入了什么、允许范围是什么、物理或数学上为什么——比如 Cb=1.5 会被告知"排水体积塞不进外接矩形，所以 Cb ≤ 1"。</p>
+          </article>
+          <article class="adv reveal" data-delay="4">
+            <span class="adv__no hull__mono">A-05</span>
+            <h3 data-i18n="adv.a5t">算法可插拔</h3>
+            <p data-i18n="adv.a5d">每种算法自带 id、出处与适用范围元数据，挂在注册表上随取随用；任务书可以按 id 钉死算法，未来的前端下拉框直接生成——工程知识以可组合的方式沉淀。</p>
+          </article>
+          <article class="adv reveal" data-delay="5">
+            <span class="adv__no hull__mono">A-06</span>
+            <h3 data-i18n="adv.a6t">彻底开源</h3>
+            <p data-i18n="adv.a6d">MIT 许可，不替代解算器、不遥控 CAD 软件，只做"替代人在软件间搬运数据的手"。核心资产是仓库里经得起核对的 Python 代码与文档，谁都可以审阅、复算、 fork。</p>
+          </article>
+        </div>
+
+        <!-- 定位陈述 -->
+        <aside class="position reveal">
+          <p class="position__label hull__mono" data-i18n="adv.posLabel">POSITION · 卡位</p>
+          <p class="position__text" data-i18n="adv.posText">
+            商业船舶软件垄断的是交付环节，而初步设计的知识内核是公开的。
+            2026 年的生态调研显示：基础件齐全、学术先例俱在，
+            唯独"AI 智能体编排层"无人做成——
+            全世界尚无同类开源项目，这就是 OpenHull 的核心价值。
+          </p>
+        </aside>
+      </div>
+    </section>
+
+    <!-- ═══════════════ CTA ═══════════════ -->
+    <section class="cta" id="github">
+      <div class="wrap cta__inner reveal">
+        <h2 class="cta__title" data-i18n="cta.title">从一份任务书开始</h2>
+        <p class="cta__sub" data-i18n="cta.sub">项目正在施工，欢迎围观、验收与共建。</p>
+        <div class="hero__cta">
+          <a class="btn btn--primary" href="https://github.com/5777-wq/OpenHull" target="_blank" rel="noopener">
+            <svg viewBox="0 0 16 16" aria-hidden="true" class="btn__gh"><path fill="currentColor" d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27s1.36.09 2 .27c1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.01 8.01 0 0 0 16 8c0-4.42-3.58-8-8-8Z"/></svg>
+            <span>github.com/5777-wq/OpenHull</span>
+          </a>
+          <a class="btn btn--ghost" href="https://github.com/5777-wq/OpenHull/blob/main/AGENTS.md" target="_blank" rel="noopener"><span data-i18n="cta.constitution">阅读项目宪法 AGENTS.md</span> ↗</a>
+        </div>
+        <p class="cta__meta hull__mono">MIT License · README ×10 Languages · Python · uv</p>
+      </div>
+    </section>
+
+    <!-- ═══════════════ FOOTER ═══════════════ -->
+    <footer class="footer">
+      <div class="wrap">
+        <p class="footer__watermark" aria-hidden="true">OpenHull</p>
+        <div class="footer__row">
+          <p data-i18n="footer.line">由 AI 智能体与人类工程师协作建造。</p>
+          <p class="hull__mono">© 2026 OpenHull Contributors · MIT License</p>
+        </div>
+      </div>
+    </footer>
+
+  </main>
+
+  <script src="assets/js/main.js"></script>
+</body>
+</html>
