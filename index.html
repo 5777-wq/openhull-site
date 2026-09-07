@@ -25,9 +25,11 @@
     <div class="nav__inner">
       <a class="nav__brand" href="#top" aria-label="OpenHull">
         <svg class="nav__mark" viewBox="0 0 32 32" fill="none" aria-hidden="true">
-          <path d="M3 12 C8 12 12 13.2 16 13.2 C20 13.2 24 12 29 9.5 C27 18.5 22.5 24 16 24 C9.5 24 5 18.5 3 12 Z" stroke="currentColor" stroke-width="1.6"/>
-          <path d="M6.5 15.5 H25.5" stroke="currentColor" stroke-width="1" stroke-dasharray="2.5 2.5" opacity=".55"/>
-          <path d="M9.5 19 H22.5" stroke="currentColor" stroke-width="1" stroke-dasharray="2.5 2.5" opacity=".35"/>
+          <path d="M1.5 17.4 H4.1" stroke="currentColor" stroke-width=".9" stroke-dasharray="1.8 1.8" opacity=".5"/>
+          <path d="M28.2 17.4 H30.6" stroke="currentColor" stroke-width=".9" stroke-dasharray="1.8 1.8" opacity=".5"/>
+          <path d="M5 15.6 C 10 16.2, 15 16.4, 20 15.9 C 22.5 15.6, 24.6 14.9, 26.3 13.8 L 26.9 13.5 L 26.1 17 C 27.6 17.2, 27.9 18.2, 27.1 18.9 C 26.4 19.5, 25.2 19.8, 23.8 19.9 C 22.4 20.9, 20.6 21.6, 18.6 22 L 8 22 C 6.6 21.7, 5.5 20.6, 5.1 19 Z" fill="currentColor"/>
+          <path d="M8.2 16.05 V12.6 H12.8 V16.25 Z" fill="currentColor"/>
+          <path d="M13.8 16 L14.2 13.9 H16.2 L16.4 16.05 Z" fill="currentColor"/>
         </svg>
         <span class="nav__wordmark">OpenHull</span>
       </a>
@@ -80,62 +82,95 @@
           <a class="btn btn--ghost" href="#intro"><span data-i18n="hero.cta2">了解它如何工作</span> ↓</a>
         </div>
 
-        <!-- 型线图视觉 -->
+        <!-- 型线图视觉：散货船侧视轮廓（JBC 锚定，L/B≈11:1） -->
         <div class="hero__figure reveal" data-delay="5" aria-hidden="true">
-          <svg id="hullSvg" class="hull" viewBox="0 0 1160 430" fill="none" preserveAspectRatio="xMidYMax meet">
-            <!-- 水线组（半宽图抽象曲线） -->
-            <g class="hull__waterlines" stroke="var(--brass)" fill="none">
-              <path class="draw" d="M60 330 C240 322 420 318 580 318 C740 318 920 322 1100 330" stroke-width="1" opacity=".28"/>
-              <path class="draw" d="M95 300 C260 291 430 287 580 287 C730 287 900 291 1065 300" stroke-width="1" opacity=".38"/>
-              <path class="draw" d="M130 270 C280 260 450 256 580 256 C710 256 880 260 1030 270" stroke-width="1" opacity=".5"/>
-              <path class="draw" d="M170 240 C310 230 470 226 580 226 C690 226 850 230 990 240" stroke-width="1" opacity=".62"/>
-              <path class="draw" d="M215 212 C345 202 485 198 580 198 C675 198 815 202 945 212" stroke-width="1" opacity=".74"/>
-              <path class="draw" d="M262 186 C375 177 500 173 580 173 C660 173 785 177 898 186" stroke-width="1" opacity=".86"/>
+          <svg id="hullSvg" class="hull" viewBox="0 40 1160 360" fill="none" preserveAspectRatio="xMidYMax meet">
+            <!-- LBP 尺寸线 -->
+            <g stroke="var(--brass)" opacity=".55">
+              <line x1="120" y1="196" x2="120" y2="148" stroke-width=".8"/>
+              <line x1="1040" y1="188" x2="1040" y2="148" stroke-width=".8"/>
+              <line x1="120" y1="154" x2="1040" y2="154" stroke-width=".8"/>
+              <path d="M134 150 L120 154 L134 158" stroke-width=".8"/>
+              <path d="M1026 150 L1040 154 L1026 158" stroke-width=".8"/>
             </g>
+            <text x="580" y="146" text-anchor="middle" class="hull__anno hull__mono" fill="var(--brass)" opacity=".9">LBP 280.000 m</text>
+
+            <!-- 设计水线（船外虚线段） -->
+            <g stroke="var(--brass)" stroke-width=".9" stroke-dasharray="11 9" opacity=".35">
+              <line x1="58" y1="232" x2="120" y2="232"/>
+              <line x1="1068" y1="232" x2="1106" y2="232"/>
+            </g>
+
+            <!-- 站线（0–10 站，舱内） -->
+            <g stroke="var(--ivory)" stroke-width=".7" opacity=".13">
+              <line x1="212" y1="212" x2="212" y2="299"/>
+              <line x1="304" y1="216" x2="304" y2="299"/>
+              <line x1="396" y1="218" x2="396" y2="299"/>
+              <line x1="488" y1="219" x2="488" y2="299"/>
+              <line x1="580" y1="219" x2="580" y2="299"/>
+              <line x1="672" y1="218" x2="672" y2="299"/>
+              <line x1="764" y1="216" x2="764" y2="299"/>
+              <line x1="856" y1="213" x2="856" y2="299"/>
+              <line x1="948" y1="208" x2="948" y2="299"/>
+            </g>
+
             <!-- 船体侧影 -->
             <g class="hull__profile">
-              <path class="draw draw--slow" d="M85 118
-                C 200 128 330 134 580 134
-                C 760 134 900 126 1005 106
-                C 1042 99 1072 88 1092 74
-                L 1096 78
-                C 1082 112 1052 150 1010 186
-                C 950 238 872 286 780 322
-                C 700 353 620 366 540 366
-                C 400 366 260 330 165 268
-                C 118 237 92 200 82 168
-                C 79 158 80 148 85 118 Z"
-                stroke="var(--ivory)" stroke-width="1.8"/>
-              <!-- 甲板线 -->
-              <path class="draw draw--slow" d="M85 118 C 200 128 330 134 580 134 C 760 134 900 126 1005 106 C 1042 99 1072 88 1092 74"
-                stroke="var(--brass)" stroke-width="1.4" opacity=".9"/>
-              <!-- 球鼻艏示意 -->
-              <path class="draw" d="M1096 78 C 1102 96 1098 118 1084 136" stroke="var(--brass)" stroke-width="1" opacity=".6"/>
-              <!-- 站线 -->
-              <g class="hull__stations" stroke="var(--ivory)" stroke-width=".7" opacity=".22">
-                <line x1="200" y1="130" x2="212" y2="331"/>
-                <line x1="330" y1="134" x2="336" y2="351"/>
-                <line x1="460" y1="135" x2="462" y2="363"/>
-                <line x1="580" y1="134" x2="580" y2="366"/>
-                <line x1="700" y1="131" x2="697" y2="357"/>
-                <line x1="820" y1="124" x2="812" y2="335"/>
-                <line x1="930" y1="114" x2="916" y2="299"/>
+              <!-- 主体轮廓：平直龙骨 · 球鼻艏 · 艉封板 -->
+              <path class="draw draw--slow" d="M126 206
+                C 240 213, 420 217, 620 217
+                C 780 217, 920 210, 1036 192
+                C 1041 191, 1043 194, 1041 199
+                C 1037 213, 1035 226, 1037 236
+                C 1047 240, 1053 249, 1050 261
+                C 1044 273, 1024 279, 1000 282
+                C 972 286, 946 290, 922 295
+                L 210 300
+                C 186 298, 162 284, 150 262
+                C 142 248, 134 226, 126 206 Z"
+                stroke="var(--ivory)" stroke-width="1.6"/>
+              <!-- 甲板线（黄铜强调） -->
+              <path class="draw" d="M126 206 C 240 213, 420 217, 620 217 C 780 217, 920 210, 1038 191"
+                stroke="var(--brass)" stroke-width="1.3" opacity=".95"/>
+
+              <!-- 货舱口 ×5（散货船特征） -->
+              <g stroke="var(--brass)" stroke-width=".9" opacity=".55">
+                <rect x="300" y="200" width="86" height="13"/>
+                <rect x="420" y="203" width="86" height="13"/>
+                <rect x="540" y="204" width="86" height="13"/>
+                <rect x="660" y="203" width="86" height="13"/>
+                <rect x="780" y="201" width="86" height="13"/>
               </g>
-              <!-- 中垂线 -->
-              <line x1="580" y1="60" x2="580" y2="392" stroke="var(--brass)" stroke-width=".8" stroke-dasharray="6 5" opacity=".5"/>
+
+              <!-- 艉楼 · 驾驶台 · 烟囱 -->
+              <g stroke="var(--ivory)" stroke-width=".9" opacity=".65">
+                <path d="M152 206 V164 H220 V206"/>
+                <line x1="152" y1="180" x2="220" y2="180" opacity=".6"/>
+                <line x1="152" y1="193" x2="220" y2="193" opacity=".6"/>
+                <path d="M234 206 L238 176 H264 L266 206"/>
+                <line x1="958" y1="210" x2="950" y2="170" opacity=".6"/>
+                <line x1="943" y1="176" x2="957" y2="170" opacity=".6"/>
+              </g>
+
+              <!-- 载重线标志（Plimsoll disc，船中附近） -->
+              <g stroke="var(--brass)" opacity=".8">
+                <circle cx="600" cy="248" r="10" stroke-width="1.2"/>
+                <line x1="580" y1="248" x2="620" y2="248" stroke-width="1.2"/>
+              </g>
+
               <!-- 基线 -->
-              <line x1="60" y1="366" x2="1100" y2="366" stroke="var(--ivory)" stroke-width=".8" opacity=".3"/>
+              <line x1="58" y1="302" x2="1106" y2="302" stroke="var(--ivory)" stroke-width=".7" opacity=".22"/>
+
               <!-- 标注 -->
-              <g class="hull__anno" fill="var(--brass)" opacity=".85">
-                <text x="592" y="52" text-anchor="start" class="hull__mono">LBP 280.000 m</text>
-                <text x="60" y="390" class="hull__mono">AP</text>
-                <text x="1100" y="390" text-anchor="end" class="hull__mono">FP</text>
-                <text x="1092" y="160" text-anchor="end" class="hull__mono" opacity=".8">T 16.500 m</text>
+              <g class="hull__anno" fill="var(--brass)" opacity=".9">
+                <text x="114" y="324" text-anchor="middle" class="hull__mono">AP</text>
+                <text x="1046" y="324" text-anchor="middle" class="hull__mono">FP</text>
+                <text x="1070" y="226" class="hull__mono">T 16.500 m</text>
               </g>
             </g>
           </svg>
           <p class="hero__plate hull__mono" aria-hidden="true">
-            OpenHull · LINES PLAN — TB-001 CAPESIZE BULK CARRIER · SCALE 1:1200 · SHEET 01
+            OpenHull · PROFILE — TB-001 CAPESIZE BULK CARRIER · SCALE 1:1200 · SHEET 01
           </p>
         </div>
       </div>
@@ -203,7 +238,11 @@
           <div class="pipeline__mid" aria-hidden="true">
             <div class="pipeline__core">
               <svg viewBox="0 0 32 32" fill="none" class="pipeline__mark">
-                <path d="M3 12 C8 12 12 13.2 16 13.2 C20 13.2 24 12 29 9.5 C27 18.5 22.5 24 16 24 C9.5 24 5 18.5 3 12 Z" stroke="currentColor" stroke-width="1.6"/>
+                <path d="M1.5 17.4 H4.1" stroke="currentColor" stroke-width=".9" stroke-dasharray="1.8 1.8" opacity=".5"/>
+                <path d="M28.2 17.4 H30.6" stroke="currentColor" stroke-width=".9" stroke-dasharray="1.8 1.8" opacity=".5"/>
+                <path d="M5 15.6 C 10 16.2, 15 16.4, 20 15.9 C 22.5 15.6, 24.6 14.9, 26.3 13.8 L 26.9 13.5 L 26.1 17 C 27.6 17.2, 27.9 18.2, 27.1 18.9 C 26.4 19.5, 25.2 19.8, 23.8 19.9 C 22.4 20.9, 20.6 21.6, 18.6 22 L 8 22 C 6.6 21.7, 5.5 20.6, 5.1 19 Z" fill="currentColor"/>
+                <path d="M8.2 16.05 V12.6 H12.8 V16.25 Z" fill="currentColor"/>
+                <path d="M13.8 16 L14.2 13.9 H16.2 L16.4 16.05 Z" fill="currentColor"/>
               </svg>
               <p class="hull__mono">OpenHull</p>
               <p class="pipeline__core-sub" data-i18n="intro.core">智能体编排 · 公式白名单 · 基准验证</p>
