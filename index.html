@@ -50,19 +50,22 @@
     <!-- ═══════════════ HERO ═══════════════ -->
     <section class="hero" id="hero">
       <div class="hero__grid" aria-hidden="true"></div>
+      <div class="hero__aura" aria-hidden="true"><i></i><i></i></div>
       <div class="hero__frame" aria-hidden="true">
         <i class="tick tick--tl"></i><i class="tick tick--tr"></i>
         <i class="tick tick--bl"></i><i class="tick tick--br"></i>
+        <span class="frame-tag frame-tag--tr hull__mono">SHEET 01 · REV C</span>
+        <span class="frame-tag frame-tag--bl hull__mono">OPENHULL / PRELIMINARY DESIGN</span>
       </div>
 
       <div class="hero__inner">
         <p class="hero__overline reveal">
           <span class="hero__status-dot" aria-hidden="true"></span>
-          <span data-i18n="hero.overline">开源施工中 · 阶段 1 / 计算内核</span>
+          <span data-i18n="hero.overline">开源施工中 · 阶段 1 计算内核 · 1.1–1.3 完成</span>
         </p>
 
         <h1 class="hero__title reveal" data-delay="1">
-          Design the shell<br>that carries it all.
+          Design the shell<br>that <em>carries it all.</em>
         </h1>
 
         <p class="hero__sub reveal" data-delay="2" data-i18n="hero.sub">
@@ -180,20 +183,20 @@
     <section class="stats">
       <div class="wrap stats__row">
         <div class="stat reveal">
-          <strong>10</strong>
+          <strong data-count="10">10</strong>
           <span data-i18n="stats.l1">语种 README</span>
         </div>
         <div class="stat reveal" data-delay="1">
-          <strong>2</strong>
+          <strong data-count="2">2</strong>
           <span data-i18n="stats.l2">艘公开基准船 · JBC / Series 60</span>
         </div>
         <div class="stat reveal" data-delay="2">
-          <strong>6</strong>
+          <strong data-count="6">6</strong>
           <span data-i18n="stats.l3">大开发阶段 · 从骨架到 v1.0</span>
         </div>
         <div class="stat reveal" data-delay="3">
-          <strong>100%</strong>
-          <span data-i18n="stats.l4">输出可追溯 · 项目宪法要求</span>
+          <strong data-count="56">56</strong>
+          <span data-i18n="stats.l4">项测试全绿 · 随任务增长</span>
         </div>
       </div>
     </section>
@@ -202,8 +205,11 @@
     <section class="section" id="intro">
       <div class="wrap">
         <header class="section__head reveal">
-          <p class="section__no">01 <span data-i18n="intro.kicker">— 简介 / INTRODUCTION</span></p>
-          <h2 class="section__title" data-i18n="intro.title">一份任务书，一整套初步设计</h2>
+          <div>
+            <p class="section__no">01 <span data-i18n="intro.kicker">— 简介 / INTRODUCTION</span></p>
+            <h2 class="section__title" data-i18n="intro.title">一份任务书，一整套初步设计</h2>
+          </div>
+          <span class="section__meta hull__mono">SEC.01 / TB-001</span>
         </header>
 
         <div class="intro__lead reveal">
@@ -271,8 +277,11 @@
     <section class="section section--alt" id="process">
       <div class="wrap">
         <header class="section__head reveal">
-          <p class="section__no">02 <span data-i18n="process.kicker">— 开发进程 / DEVELOPMENT</span></p>
-          <h2 class="section__title" data-i18n="process.title">六个阶段，验收只认数字</h2>
+          <div>
+            <p class="section__no">02 <span data-i18n="process.kicker">— 开发进程 / DEVELOPMENT</span></p>
+            <h2 class="section__title" data-i18n="process.title">六个阶段，验收只认数字</h2>
+          </div>
+          <span class="section__meta hull__mono">SEC.02 / PIPELINE</span>
         </header>
         <p class="section__lead reveal" data-i18n="process.lead">
           每个任务颗粒度不超过一晚。AI 先出实现方案，人审定公式，编码完成后再对公开基准船数据
@@ -300,7 +309,8 @@
                 <span class="tl__ver hull__mono">v0.1</span>
                 <span class="badge badge--active" data-i18n="badge.doing">进行中</span>
               </div>
-              <p data-i18n="process.s1d">从载重吨与航速反推主尺度（算法可插拔注册表：载重系数法 / Watson 1977 / 母型船比例法），重量浮力平衡迭代，辛普森积分静水力内核，初稳性与干舷校核——全部对 JBC 实船值控制误差。当前进行到任务 1.2 · 主尺度初估。</p>
+              <p data-i18n="process.s1d">任务 1.1–1.3 已完成：解释性数据结构、可插拔主尺度初估注册表（载重系数法 / Watson 1977 / 母型船比例法）、重量浮力平衡迭代——56 项测试全绿，误差逐项对齐 JBC 公开值。当前推进 1.4 · 静水力计算内核（辛普森数值积分）。</p>
+              <p class="tl__chips hull__mono" aria-label="task progress"><span class="chip chip--done">1.1 ✓</span><span class="chip chip--done">1.2 ✓</span><span class="chip chip--done">1.3 ✓</span><span class="chip chip--next">▸ 1.4</span><span class="chip">1.5</span><span class="chip">1.6</span><span class="chip">…</span></p>
             </div>
           </li>
 
@@ -371,8 +381,11 @@
     <section class="section" id="advantages">
       <div class="wrap">
         <header class="section__head reveal">
-          <p class="section__no">03 <span data-i18n="adv.kicker">— 优势 / ADVANTAGES</span></p>
-          <h2 class="section__title" data-i18n="adv.title">把工程纪律写进宪法</h2>
+          <div>
+            <p class="section__no">03 <span data-i18n="adv.kicker">— 优势 / ADVANTAGES</span></p>
+            <h2 class="section__title" data-i18n="adv.title">把工程纪律写进宪法</h2>
+          </div>
+          <span class="section__meta hull__mono">SEC.03 / AGENTS.MD</span>
         </header>
 
         <div class="adv__grid">
@@ -404,20 +417,19 @@
           <article class="adv reveal" data-delay="5">
             <span class="adv__no hull__mono">A-06</span>
             <h3 data-i18n="adv.a6t">彻底开源</h3>
-            <p data-i18n="adv.a6d">MIT 许可，不替代解算器、不遥控 CAD 软件，只做"替代人在软件间搬运数据的手"。核心资产是仓库里经得起核对的 Python 代码与文档，谁都可以审阅、复算、 fork。</p>
+            <p data-i18n="adv.a6d">MIT 许可，不替代解算器、不遥控 CAD 软件，只做「替代人在软件间搬运数据的手」。核心资产是仓库里经得起核对的 Python 代码与文档，谁都可以审阅、复算、fork。</p>
+          </article>
+
+          <article class="adv adv--wide adv--callout reveal" data-delay="6">
+            <p class="adv__no hull__mono" data-i18n="adv.posLabel">POSITION · 卡位</p>
+            <p class="position__text" data-i18n="adv.posText">
+              商业船舶软件垄断的是交付环节，而初步设计的知识内核是公开的。
+              2026 年的生态调研显示：基础件齐全、学术先例俱在，
+              唯独「AI 智能体编排层」无人做成——
+              全世界尚无同类开源项目，这就是 OpenHull 的核心价值。
+            </p>
           </article>
         </div>
-
-        <!-- 定位陈述 -->
-        <aside class="position reveal">
-          <p class="position__label hull__mono" data-i18n="adv.posLabel">POSITION · 卡位</p>
-          <p class="position__text" data-i18n="adv.posText">
-            商业船舶软件垄断的是交付环节，而初步设计的知识内核是公开的。
-            2026 年的生态调研显示：基础件齐全、学术先例俱在，
-            唯独"AI 智能体编排层"无人做成——
-            全世界尚无同类开源项目，这就是 OpenHull 的核心价值。
-          </p>
-        </aside>
       </div>
     </section>
 

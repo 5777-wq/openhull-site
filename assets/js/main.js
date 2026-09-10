@@ -16,7 +16,7 @@
       "nav.intro": "简介",
       "nav.process": "开发进程",
       "nav.advantages": "优势",
-      "hero.overline": "开源施工中 · 阶段 1 / 计算内核",
+      "hero.overline": "开源施工中 · 阶段 1 计算内核 · 1.1–1.3 完成",
       "hero.sub": "由 AI 智能体编排的开源参数化船舶初步设计工具链",
       "hero.desc": "给它一份设计任务书——船型、载重吨、服务航速、航区——智能体流水线自动完成主尺度迭代、静水力计算、型线生成、阻力 / 推进 / 稳性评估，直至 DXF 图纸与设计报告。",
       "hero.cta1": "查看 GitHub 仓库",
@@ -24,7 +24,7 @@
       "stats.l1": "语种 README",
       "stats.l2": "艘公开基准船 · JBC / Series 60",
       "stats.l3": "大开发阶段 · 从骨架到 v1.0",
-      "stats.l4": "输出可追溯 · 项目宪法要求",
+      "stats.l4": "项测试全绿 · 随任务增长",
       "intro.kicker": "— 简介 / INTRODUCTION",
       "intro.title": "一份任务书，一整套初步设计",
       "intro.p1": "船舶初步设计的知识内核——教科书里的经验公式、系列试验图谱、规范里的查表计算——本来就是公开的。真正缺的，是一层把它们编排成完整设计循环的自动化。OpenHull 把这些知识数字化为可组合、可验证的 Python 模块，再由 AI 智能体按《项目宪法》编排成流水线。",
@@ -41,7 +41,7 @@
       "process.s0t": "阶段 0 · 立项与立宪",
       "process.s0d": "项目宪法《AGENTS.md》九节：单位制、公式白名单、适用边界守卫、禁区与验收容差表；例题船选定 JBC + Series 60；设计任务书 TB-001 获批；代码骨架落地，21 项测试全绿。",
       "process.s1t": "阶段 1 · 主尺度与静水力内核",
-      "process.s1d": "从载重吨与航速反推主尺度（算法可插拔注册表：载重系数法 / Watson 1977 / 母型船比例法），重量浮力平衡迭代，辛普森积分静水力内核，初稳性与干舷校核——全部对 JBC 实船值控制误差。当前进行到任务 1.2 · 主尺度初估。",
+      "process.s1d": "任务 1.1–1.3 已完成：解释性数据结构、可插拔主尺度初估注册表（载重系数法 / Watson 1977 / 母型船比例法）、重量浮力平衡迭代——56 项测试全绿，误差逐项对齐 JBC 公开值。当前推进 1.4 · 静水力计算内核（辛普森数值积分）。",
       "process.s2t": "阶段 2 · 参数化型线生成",
       "process.s2d": "母型船型值数字化，Lackenby 变换把 Cb 精确变换到目标值，生成横剖面 / 半宽水线 / 纵剖线三视图，光顺性数值检查，静水力改吃真型值，DXF 图纸输出。",
       "process.s3t": "阶段 3 · 性能闭环",
@@ -85,7 +85,7 @@
       "nav.intro": "Introduction",
       "nav.process": "Development",
       "nav.advantages": "Advantages",
-      "hero.overline": "UNDER CONSTRUCTION · STAGE 1 / CALCULATION CORE",
+      "hero.overline": "UNDER CONSTRUCTION · STAGE 1 · TASKS 1.1–1.3 DONE",
       "hero.sub": "The open-source parametric ship preliminary-design toolchain, orchestrated by AI agents",
       "hero.desc": "Hand it a design task book — ship type, deadweight, service speed, trading area — and the agent pipeline performs principal-dimension iteration, hydrostatics, hull-form generation and resistance / propulsion / stability assessment, all the way to DXF drawings and design reports.",
       "hero.cta1": "View on GitHub",
@@ -93,7 +93,7 @@
       "stats.l1": "language README",
       "stats.l2": "benchmark ships · JBC / Series 60",
       "stats.l3": "development stages · skeleton to v1.0",
-      "stats.l4": "traceable outputs · required by the constitution",
+      "stats.l4": "unit tests passing · and counting",
       "intro.kicker": "— INTRODUCTION",
       "intro.title": "One task book, one complete preliminary design",
       "intro.p1": "The knowledge core of ship preliminary design — empirical formulas from textbooks, series-test atlases, table lookups from the rules — has always been public. What is missing is an automation layer that orchestrates them into a complete design loop. OpenHull turns that knowledge into composable, verifiable Python modules, then lets AI agents orchestrate them into a pipeline under a written constitution.",
@@ -110,7 +110,7 @@
       "process.s0t": "Stage 0 · Foundation & constitution",
       "process.s0d": "The project constitution AGENTS.md in nine sections: units, formula whitelist, applicability guards, forbidden zones and acceptance tolerances; benchmark ships JBC + Series 60; task book TB-001 ratified; code skeleton in place, 21 tests green.",
       "process.s1t": "Stage 1 · Dimensions & hydrostatics core",
-      "process.s1d": "Deriving principal dimensions from deadweight and speed (pluggable algorithm registry: deadweight-coefficient / Watson 1977 / parent-hull ratio methods), weight–buoyancy balance iteration, Simpson-integral hydrostatics, initial stability and freeboard checks — all error-controlled against published JBC values. Currently on task 1.2 · principal-dimension estimation.",
+      "process.s1d": "Tasks 1.1–1.3 complete: explanatory data structures, the pluggable principal-dimension registry (deadweight-coefficient / Watson 1977 / parent-hull methods), and weight–buoyancy balance iteration — 56 tests green, every error checked against published JBC values. Now on 1.4 · the hydrostatics core (Simpson numerical integration).",
       "process.s2t": "Stage 2 · Parametric hull-form generation",
       "process.s2d": "Digitizing the parent hull's offsets, Lackenby transformation to hit the target Cb, generating body plan / half-breadth / sheer views, numeric fairness checks, hydrostatics switched to true offsets, DXF output.",
       "process.s3t": "Stage 3 · Performance loop",
@@ -202,6 +202,7 @@
       entries.forEach(function (entry) {
         if (entry.isIntersecting) {
           entry.target.classList.add("in");
+          if (!STATIC && entry.target.classList.contains("stat")) countUp(entry.target);
           io.unobserve(entry.target);
         }
       });
@@ -210,6 +211,34 @@
   } else {
     document.querySelectorAll(".reveal").forEach(function (el) { el.classList.add("in"); });
   }
+
+  /* ─────────────── 统计数字滚动 ─────────────── */
+
+  function countUp(statEl) {
+    var strong = statEl.querySelector("strong[data-count]");
+    if (!strong) return;
+    var target = parseInt(strong.getAttribute("data-count"), 10);
+    if (isNaN(target)) return;
+    var t0 = null, dur = 1300;
+    function step(ts) {
+      if (!t0) t0 = ts;
+      var p = Math.min((ts - t0) / dur, 1);
+      p = 1 - Math.pow(1 - p, 3); // ease-out cubic
+      strong.textContent = Math.round(target * p);
+      if (p < 1) requestAnimationFrame(step);
+    }
+    requestAnimationFrame(step);
+  }
+
+  /* ─────────────── bento 卡片聚光灯 ─────────────── */
+
+  document.querySelectorAll(".adv").forEach(function (card) {
+    card.addEventListener("pointermove", function (e) {
+      var r = card.getBoundingClientRect();
+      card.style.setProperty("--mx", (e.clientX - r.left) + "px");
+      card.style.setProperty("--my", (e.clientY - r.top) + "px");
+    });
+  });
 
   /* ─────────────── 型线描线动画 ─────────────── */
 
