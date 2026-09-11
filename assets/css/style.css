@@ -5,18 +5,21 @@
    ═══════════════════════════════════════════════════════════ */
 
 :root {
-  --bg:        #0a0d13;
-  --bg-2:      #0d1119;
-  --bg-3:      #10141d;
-  --ivory:     #eae7de;
-  --text:      #c6cad2;
-  --muted:     #8b919b;
-  --faint:     #6d737d;
-  --brass:     #c9a86a;
-  --brass-hi:  #e4cb94;
-  --brass-dim: rgba(201, 168, 106, .35);
-  --line:      rgba(234, 231, 222, .09);
-  --line-2:    rgba(234, 231, 222, .16);
+  /* ── 黑白编辑部风格（Minimalist Monochrome Editorial）──
+     历史变量名保留（--brass/--ivory）以免全量改名，
+     语义已变为：--ivory = 主前景(墨黑) · --brass = 强调(墨黑) */
+  --bg:        #fbfbf9;
+  --bg-2:      #f4f4f0;
+  --bg-3:      #ecece6;
+  --ivory:     #161613;
+  --text:      #3c4046;
+  --muted:     #5d6168;
+  --faint:     #9a9aa0;
+  --brass:     #161613;
+  --brass-hi:  #454542;
+  --brass-dim: rgba(22, 22, 19, .3);
+  --line:      rgba(22, 22, 19, .1);
+  --line-2:    rgba(22, 22, 19, .18);
   --serif-en:  "Fraunces", "Noto Serif SC", "Songti SC", "SimSun", serif;
   --serif:     "Fraunces", "Noto Serif SC", "Songti SC", "STSong", "SimSun", serif;
   --mono:      "IBM Plex Mono", ui-monospace, "SF Mono", "Cascadia Mono", Consolas, monospace;
@@ -43,7 +46,7 @@ body {
   overflow-x: hidden;
 }
 
-::selection { background: var(--brass); color: #14100a; }
+::selection { background: var(--brass); color: #fff; }
 
 /* 键盘导航焦点环（pro-max 清单） */
 :focus-visible {
@@ -93,7 +96,7 @@ button { font: inherit; background: none; border: 0; cursor: pointer; color: inh
   border-bottom: 1px solid transparent;
 }
 .nav--scrolled {
-  background: rgba(10, 13, 19, .78);
+  background: rgba(251, 251, 249, .85);
   backdrop-filter: blur(14px) saturate(1.3);
   -webkit-backdrop-filter: blur(14px) saturate(1.3);
   border-bottom-color: var(--line);
@@ -146,7 +149,7 @@ button { font: inherit; background: none; border: 0; cursor: pointer; color: inh
   padding: 6px 14px;
   transition: all .3s;
 }
-.lang-toggle:hover { border-color: var(--brass); background: rgba(201, 168, 106, .08); }
+.lang-toggle:hover { border-color: var(--brass); background: rgba(22, 22, 19, .05); }
 
 /* ─────────────────────────── HERO ─────────────────────────── */
 
@@ -174,29 +177,29 @@ button { font: inherit; background: none; border: 0; cursor: pointer; color: inh
   content: "";
   position: absolute; inset: 0;
   background:
-    radial-gradient(ellipse 60% 45% at 78% 68%, rgba(201, 168, 106, .07), transparent 65%),
-    radial-gradient(ellipse 50% 40% at 15% 20%, rgba(70, 96, 140, .12), transparent 65%);
+    radial-gradient(ellipse 60% 45% at 78% 68%, rgba(22, 22, 19, .045), transparent 65%),
+    radial-gradient(ellipse 50% 40% at 15% 20%, rgba(22, 22, 19, .035), transparent 65%);
   pointer-events: none;
 }
 
-/* 双色光晕（缓慢漂移） */
+/* 双色光晕（缓慢漂移，黑白下为极淡灰晕） */
 .hero__aura { position: absolute; inset: 0; overflow: hidden; pointer-events: none; }
 .hero__aura i {
   position: absolute;
   border-radius: 50%;
   filter: blur(90px);
-  opacity: .5;
+  opacity: .45;
 }
 .hero__aura i:first-child {
   width: 560px; height: 560px;
   right: -120px; bottom: -160px;
-  background: radial-gradient(circle, rgba(201, 168, 106, .14), transparent 65%);
+  background: radial-gradient(circle, rgba(22, 22, 19, .07), transparent 65%);
   animation: drift1 16s ease-in-out infinite alternate;
 }
 .hero__aura i:last-child {
   width: 520px; height: 520px;
   left: -160px; top: -120px;
-  background: radial-gradient(circle, rgba(70, 110, 165, .16), transparent 65%);
+  background: radial-gradient(circle, rgba(22, 22, 19, .05), transparent 65%);
   animation: drift2 20s ease-in-out infinite alternate;
 }
 @keyframes drift1 { to { transform: translate(-70px, -50px) scale(1.12); } }
@@ -246,13 +249,13 @@ button { font: inherit; background: none; border: 0; cursor: pointer; color: inh
   width: 7px; height: 7px;
   border-radius: 50%;
   background: var(--brass);
-  box-shadow: 0 0 0 0 rgba(201, 168, 106, .5);
+  box-shadow: 0 0 0 0 rgba(22, 22, 19, .35);
   animation: pulse 2.4s infinite;
 }
 @keyframes pulse {
-  0%   { box-shadow: 0 0 0 0 rgba(201, 168, 106, .45); }
-  70%  { box-shadow: 0 0 0 9px rgba(201, 168, 106, 0); }
-  100% { box-shadow: 0 0 0 0 rgba(201, 168, 106, 0); }
+  0%   { box-shadow: 0 0 0 0 rgba(22, 22, 19, .4); }
+  70%  { box-shadow: 0 0 0 9px rgba(22, 22, 19, 0); }
+  100% { box-shadow: 0 0 0 0 rgba(22, 22, 19, 0); }
 }
 
 .hero__title {
@@ -296,15 +299,15 @@ button { font: inherit; background: none; border: 0; cursor: pointer; color: inh
 }
 .btn:active { transform: scale(0.97); }
 .btn--primary {
-  background: linear-gradient(180deg, var(--brass-hi), var(--brass));
-  color: #16120a;
+  background: linear-gradient(180deg, #3a3a37, var(--brass));
+  color: #fff;
   font-weight: 600;
-  box-shadow: 0 8px 32px -8px rgba(201, 168, 106, .45);
+  box-shadow: 0 8px 32px -8px rgba(22, 22, 19, .35);
 }
 .btn--primary:hover {
-  background: linear-gradient(180deg, #efd9a8, var(--brass-hi));
+  background: linear-gradient(180deg, #2c2c29, #1f1f1c);
   transform: translateY(-2px);
-  box-shadow: 0 14px 40px -8px rgba(201, 168, 106, .55);
+  box-shadow: 0 14px 40px -8px rgba(22, 22, 19, .45);
 }
 .btn__gh { width: 17px; height: 17px; }
 .btn--ghost {
@@ -316,7 +319,7 @@ button { font: inherit; background: none; border: 0; cursor: pointer; color: inh
 /* 型线图 */
 .hero__figure { margin-top: 30px; }
 .hull { width: 100%; height: auto; display: block; }
-.hull__profile path { filter: drop-shadow(0 10px 24px rgba(234, 231, 222, .1)); }
+.hull__profile path { filter: drop-shadow(0 10px 24px rgba(22, 22, 19, .18)); }
 .hull__plate {
   margin-top: 10px;
   text-align: right;
@@ -416,7 +419,7 @@ button { font: inherit; background: none; border: 0; cursor: pointer; color: inh
 }
 .code:hover {
   border-color: var(--brass-dim);
-  box-shadow: 0 30px 70px -30px rgba(0, 0, 0, .9), 0 0 40px -18px rgba(201, 168, 106, .35);
+  box-shadow: 0 30px 70px -30px rgba(22, 22, 19, .25), 0 0 40px -18px rgba(22, 22, 19, .18);
 }
 /* 一次性扫光：首次进入视口时（愉悦预算只花一次） */
 .code { position: relative; }
@@ -425,7 +428,7 @@ button { font: inherit; background: none; border: 0; cursor: pointer; color: inh
   position: absolute;
   top: 0; bottom: 0; left: -90px;
   width: 70px;
-  background: linear-gradient(105deg, transparent, rgba(201, 168, 106, .16), transparent);
+  background: linear-gradient(105deg, transparent, rgba(255, 255, 255, .13), transparent);
   transform: skewX(-14deg);
   pointer-events: none;
 }
@@ -449,10 +452,10 @@ button { font: inherit; background: none; border: 0; cursor: pointer; color: inh
   color: var(--ivory);
   overflow-x: auto;
 }
-.code .c { color: var(--faint); }
-.code .k { color: var(--brass); }
-.code .v { color: var(--ivory); }
-.code .n { color: #9fb8d4; }
+.code .c { color: #7d838d; }
+.code .k { color: #f0f2f5; font-weight: 500; }
+.code .v { color: #c9cdd3; }
+.code .n { color: #a8b0bb; }
 
 .pipeline__mid { text-align: center; }
 .pipeline__core {
@@ -466,8 +469,8 @@ button { font: inherit; background: none; border: 0; cursor: pointer; color: inh
   align-items: center;
   justify-content: center;
   gap: 7px;
-  background: radial-gradient(circle at 50% 35%, rgba(201, 168, 106, .1), transparent 70%);
-  box-shadow: 0 0 60px -12px rgba(201, 168, 106, .25);
+  background: radial-gradient(circle at 50% 35%, rgba(22, 22, 19, .05), transparent 70%);
+  box-shadow: 0 0 60px -12px rgba(22, 22, 19, .2);
 }
 .pipeline__mark { width: 34px; height: 34px; color: var(--brass); }
 .pipeline__core p { font-family: var(--serif-en); font-weight: 600; font-size: 1.02rem; color: var(--ivory); }
@@ -514,7 +517,7 @@ button { font: inherit; background: none; border: 0; cursor: pointer; color: inh
 .tl--done .tl__node {
   background: var(--brass);
   border-color: var(--brass);
-  box-shadow: 0 0 18px rgba(201, 168, 106, .5);
+  box-shadow: 0 0 18px rgba(22, 22, 19, .35);
 }
 .tl--active .tl__node {
   border-color: var(--brass);
@@ -551,7 +554,7 @@ button { font: inherit; background: none; border: 0; cursor: pointer; color: inh
 .badge--done { border-color: var(--brass-dim); color: var(--brass); }
 .badge--active {
   border-color: var(--brass);
-  color: #16120a;
+  color: #fff;
   background: var(--brass);
   font-weight: 600;
 }
@@ -575,7 +578,7 @@ button { font: inherit; background: none; border: 0; cursor: pointer; color: inh
 .tl__chips .chip--done { border-color: var(--brass-dim); color: var(--brass); }
 .tl__chips .chip--next {
   border-color: var(--brass);
-  color: #16120a;
+  color: #fff;
   background: var(--brass);
   font-weight: 600;
 }
@@ -636,9 +639,9 @@ button { font: inherit; background: none; border: 0; cursor: pointer; color: inh
   position: absolute;
   inset: 0;
   background: radial-gradient(420px circle at var(--mx, 50%) var(--my, 50%),
-    rgba(201, 168, 106, .08), transparent 65%);
+    rgba(22, 22, 19, .05), transparent 65%);
   opacity: 0;
-  transition: opacity .45s var(--ease);
+  transition: opacity .45s var(--ease-out);
   pointer-events: none;
 }
 .adv:hover::before { opacity: 1; }
@@ -655,7 +658,7 @@ button { font: inherit; background: none; border: 0; cursor: pointer; color: inh
 .adv p { font-size: .92rem; color: var(--muted); }
 .adv--callout {
   background:
-    radial-gradient(ellipse 70% 130% at 12% 0%, rgba(201, 168, 106, .08), transparent 55%),
+    radial-gradient(ellipse 70% 130% at 12% 0%, rgba(22, 22, 19, .05), transparent 55%),
     var(--bg-2);
   padding-top: 40px;
   padding-bottom: 40px;
@@ -677,7 +680,7 @@ button { font: inherit; background: none; border: 0; cursor: pointer; color: inh
   text-align: center;
   border-top: 1px solid var(--line);
   background:
-    radial-gradient(ellipse 55% 65% at 50% 110%, rgba(201, 168, 106, .09), transparent 70%),
+    radial-gradient(ellipse 55% 65% at 50% 110%, rgba(22, 22, 19, .07), transparent 70%),
     var(--bg-2);
 }
 .cta__title {
@@ -705,7 +708,7 @@ button { font: inherit; background: none; border: 0; cursor: pointer; color: inh
   line-height: 1;
   text-align: center;
   color: transparent;
-  -webkit-text-stroke: 1px rgba(234, 231, 222, .12);
+  -webkit-text-stroke: 1px rgba(22, 22, 19, .15);
   user-select: none;
   margin-bottom: 54px;
 }
