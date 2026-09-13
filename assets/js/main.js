@@ -79,6 +79,12 @@
       "cta.sub": "项目正在施工，欢迎围观、验收与共建。",
       "cta.constitution": "阅读项目宪法 AGENTS.md",
       "footer.line": "由 AI 智能体与人类工程师协作建造。",
+      "theme.paper": "纸墨",
+      "theme.noir": "墨夜",
+      "theme.deep": "深海",
+      "theme.blueprint": "蓝图",
+      "theme.amber": "琥珀",
+      "theme.terminal": "终端",
       "doc.title": "OpenHull — Design the shell that carries it all."
     },
     en: {
@@ -148,6 +154,12 @@
       "cta.sub": "The project is under construction — watching, auditing and contributing are all welcome.",
       "cta.constitution": "Read the constitution, AGENTS.md",
       "footer.line": "Built by AI agents and human engineers, together.",
+      "theme.paper": "Paper",
+      "theme.noir": "Noir",
+      "theme.deep": "Deep Sea",
+      "theme.blueprint": "Blueprint",
+      "theme.amber": "Amber",
+      "theme.terminal": "Terminal",
       "doc.title": "OpenHull — Design the shell that carries it all."
     }
   };
@@ -182,6 +194,64 @@
     });
   }
   applyLang(lang);
+
+  /* ─────────────── 主题切换 ─────────────── */
+
+  var THEMES = ["paper", "noir", "deep", "blueprint", "amber", "terminal"];
+
+  function applyTheme(t) {
+    if (THEMES.indexOf(t) < 0) t = "paper";
+    document.documentElement.setAttribute("data-theme", t);
+    try { localStorage.setItem("openhull-theme", t); } catch (e) {}
+    var pop = document.getElementById("themePop");
+    if (pop) {
+      pop.querySelectorAll("[data-theme-set]").forEach(function (b) {
+        b.classList.toggle("active", b.getAttribute("data-theme-set") === t);
+      });
+    }
+  }
+
+  function setTheme(t) {
+    if (document.startViewTransition) document.startViewTransition(function () { applyTheme(t); });
+    else applyTheme(t);
+  }
+
+  var themeBtn = document.getElementById("themeBtn");
+  var themePop = document.getElementById("themePop");
+  if (themeBtn && themePop) {
+    themeBtn.addEventListener("click", function (e) {
+      e.stopPropagation();
+      themePop.hidden = !themePop.hidden;
+      themeBtn.setAttribute("aria-expanded", String(!themePop.hidden));
+    });
+    themePop.querySelectorAll("[data-theme-set]").forEach(function (b) {
+      b.addEventListener("click", function () {
+        setTheme(b.getAttribute("data-theme-set"));
+        themePop.hidden = true;
+        themeBtn.setAttribute("aria-expanded", "false");
+      });
+    });
+    document.addEventListener("click", function (e) {
+      if (!themePop.hidden && !e.target.closest(".theme-menu")) {
+        themePop.hidden = true;
+        themeBtn.setAttribute("aria-expanded", "false");
+      }
+    });
+    document.addEventListener("keydown", function (e) {
+      if (e.key === "Escape" && !themePop.hidden) {
+        themePop.hidden = true;
+        themeBtn.setAttribute("aria-expanded", "false");
+      }
+    });
+  }
+
+  var initTheme = "paper";
+  try {
+    var urlTheme = new URLSearchParams(location.search).get("theme");
+    if (urlTheme && THEMES.indexOf(urlTheme) >= 0) initTheme = urlTheme;
+    else initTheme = localStorage.getItem("openhull-theme") || "paper";
+  } catch (e) {}
+  applyTheme(initTheme);
 
   /* ─────────────── 导航滚动态 ─────────────── */
 

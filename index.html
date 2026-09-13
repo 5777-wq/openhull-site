@@ -40,6 +40,22 @@
         <a href="https://github.com/5777-wq/OpenHull" target="_blank" rel="noopener">
           GitHub <span class="nav__gh-arrow" aria-hidden="true">↗</span>
         </a>
+        <div class="theme-menu">
+          <button class="theme-btn" id="themeBtn" aria-haspopup="true" aria-expanded="false" aria-label="切换主题 / Switch theme">
+            <svg viewBox="0 0 20 20" width="15" height="15" aria-hidden="true">
+              <circle cx="10" cy="10" r="7.5" fill="none" stroke="currentColor" stroke-width="1.4"/>
+              <path d="M10 2.5 a7.5 7.5 0 0 1 0 15 Z" fill="currentColor"/>
+            </svg>
+          </button>
+          <div class="theme-pop" id="themePop" hidden>
+            <button data-theme-set="paper"><i class="sw sw-paper"></i><span data-i18n="theme.paper">纸墨</span></button>
+            <button data-theme-set="noir"><i class="sw sw-noir"></i><span data-i18n="theme.noir">墨夜</span></button>
+            <button data-theme-set="deep"><i class="sw sw-deep"></i><span data-i18n="theme.deep">深海</span></button>
+            <button data-theme-set="blueprint"><i class="sw sw-blueprint"></i><span data-i18n="theme.blueprint">蓝图</span></button>
+            <button data-theme-set="amber"><i class="sw sw-amber"></i><span data-i18n="theme.amber">琥珀</span></button>
+            <button data-theme-set="terminal"><i class="sw sw-terminal"></i><span data-i18n="theme.terminal">终端</span></button>
+          </div>
+        </div>
         <button class="lang-toggle" id="langToggle" type="button" aria-label="Switch language">EN</button>
       </nav>
     </div>
