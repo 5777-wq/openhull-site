@@ -82,7 +82,6 @@
     <!-- ═══════════════ HERO ═══════════════ -->
     <section class="hero" id="hero">
       <div class="hero__grid" aria-hidden="true"></div>
-      <div class="hero__aura" aria-hidden="true"><i></i><i></i></div>
       <div class="hero__frame" aria-hidden="true">
         <i class="tick tick--tl"></i><i class="tick tick--tr"></i>
         <i class="tick tick--bl"></i><i class="tick tick--br"></i>
@@ -93,7 +92,7 @@
       <div class="hero__inner">
         <p class="hero__overline reveal">
           <span class="hero__status-dot" aria-hidden="true"></span>
-          <span data-i18n="hero.overline">开源施工中 · 阶段 2 型线生成 · v0.1 已发布</span>
+          <span data-i18n="hero.overline">个人项目，夜间施工 · v0.1 已发布 · 正在写阶段 2：型线</span>
         </p>
 
         <h1 class="hero__title reveal" data-delay="1">
@@ -101,12 +100,12 @@
         </h1>
 
         <p class="hero__sub reveal" data-delay="2" data-i18n="hero.sub">
-          由 AI 智能体编排的开源参数化船舶初步设计工具链
+          给一份任务书，AI 帮你把船舶初步设计算出来、画出来。开源，可核查。
         </p>
 
         <p class="hero__desc reveal" data-delay="3" data-i18n="hero.desc">
-          给它一份设计任务书——船型、载重吨、服务航速、航区——智能体流水线自动完成
-          主尺度迭代、静水力计算、型线生成、阻力 / 推进 / 稳性评估，直至 DXF 图纸与设计报告。
+          现在它能做：主尺度估算、静水力计算、重量浮力平衡、从型值表画型线图。
+          JBC 基准船的静水力误差压到了 1% 以内。阻力、推进、稳性和报告在路线图上，按阶段来。
         </p>
 
         <div class="hero__cta reveal" data-delay="4">
@@ -114,7 +113,7 @@
             <svg viewBox="0 0 16 16" aria-hidden="true" class="btn__gh"><path fill="currentColor" d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27s1.36.09 2 .27c1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.01 8.01 0 0 0 16 8c0-4.42-3.58-8-8-8Z"/></svg>
             <span data-i18n="hero.cta1">查看 GitHub 仓库</span>
           </a>
-          <a class="btn btn--ghost" href="#intro"><span data-i18n="hero.cta2">了解它如何工作</span> ↓</a>
+          <a class="btn btn--ghost" href="#intro"><span data-i18n="hero.cta2">先看它做什么</span> ↓</a>
         </div>
 
         <!-- 型线图视觉：散货船侧视轮廓（JBC 锚定，L/B≈11:1） -->
@@ -216,19 +215,19 @@
       <div class="wrap stats__row">
         <div class="stat reveal">
           <strong data-count="10">10</strong>
-          <span data-i18n="stats.l1">语种 README</span>
+          <span data-i18n="stats.l1">种语言的 README</span>
         </div>
         <div class="stat reveal" data-delay="1">
           <strong data-count="2">2</strong>
-          <span data-i18n="stats.l2">艘公开基准船 · JBC / Series 60</span>
+          <span data-i18n="stats.l2">艘基准船：JBC、Series 60</span>
         </div>
         <div class="stat reveal" data-delay="2">
           <strong data-count="6">6</strong>
-          <span data-i18n="stats.l3">大开发阶段 · 从骨架到 v1.0</span>
+          <span data-i18n="stats.l3">个阶段，从骨架到 v1.0</span>
         </div>
         <div class="stat reveal" data-delay="3">
           <strong data-count="158">158</strong>
-          <span data-i18n="stats.l4">项测试全绿 · CI 运行中</span>
+          <span data-i18n="stats.l4">个测试，都是绿的</span>
         </div>
       </div>
     </section>
@@ -239,20 +238,19 @@
         <header class="section__head reveal">
           <div>
             <p class="section__no">01 <span data-i18n="intro.kicker">— 简介 / INTRODUCTION</span></p>
-            <h2 class="section__title" data-i18n="intro.title">一份任务书，一整套初步设计</h2>
+            <h2 class="section__title" data-i18n="intro.title">它做什么</h2>
           </div>
           <span class="section__meta hull__mono">SEC.01 / TB-001</span>
         </header>
 
         <div class="intro__lead reveal">
           <p data-i18n="intro.p1">
-            船舶初步设计的知识内核——教科书里的经验公式、系列试验图谱、规范里的查表计算——
-            本来就是公开的。真正缺的，是一层把它们编排成完整设计循环的自动化。
-            OpenHull 把这些知识数字化为可组合、可验证的 Python 模块，
-            再由 AI 智能体按《项目宪法》编排成流水线。
+            造船的第一步是初步设计：定主尺度、算浮性、画型线。这些活儿有大量公式和经验可循，
+            但散落在教科书和规范里，靠人手算、在软件之间来回搬。OpenHull 把它们写成代码：
+            任务书进，方案出，公式全部标出处，算错了自己会报错。
           </p>
           <p data-i18n="intro.p2">
-            人负责专业判断，AI 负责代码与搬运数据的手。
+            AI 负责写代码、搬数据；公式对不对，人说了算。
           </p>
         </div>
 
@@ -283,7 +281,7 @@
                 <path d="M13.8 16 L14.2 13.9 H16.2 L16.4 16.05 Z" fill="currentColor"/>
               </svg>
               <p class="hull__mono">OpenHull</p>
-              <p class="pipeline__core-sub" data-i18n="intro.core">智能体编排 · 公式白名单 · 基准验证</p>
+              <p class="pipeline__core-sub" data-i18n="intro.core">公式有出处 · 算错会报错 · 结果对基准</p>
             </div>
             <svg class="pipeline__flow" viewBox="0 0 120 24" fill="none">
               <path d="M0 12 H108" stroke="currentColor" stroke-width="1" stroke-dasharray="4 4"/>
@@ -311,13 +309,12 @@
         <header class="section__head reveal">
           <div>
             <p class="section__no">02 <span data-i18n="process.kicker">— 开发进程 / DEVELOPMENT</span></p>
-            <h2 class="section__title" data-i18n="process.title">六个阶段，验收只认数字</h2>
+            <h2 class="section__title" data-i18n="process.title">做到哪了</h2>
           </div>
           <span class="section__meta hull__mono">SEC.02 / PIPELINE</span>
         </header>
         <p class="section__lead reveal" data-i18n="process.lead">
-          每个任务颗粒度不超过一晚。AI 先出实现方案，人审定公式，编码完成后再对公开基准船数据
-          逐项核对误差——"完成了"三个字不算数，数字达标才算数。
+          按阶段推进，每个阶段出一个能跑的版本。验收标准写在动手之前，达标才往下走。
         </p>
 
         <ol class="timeline">
@@ -329,7 +326,7 @@
                 <span class="tl__ver hull__mono">2026-09</span>
                 <span class="badge badge--done" data-i18n="badge.done">已完成</span>
               </div>
-              <p data-i18n="process.s0d">项目宪法《AGENTS.md》九节：单位制、公式白名单、适用边界守卫、禁区与验收容差表；例题船选定 JBC + Series 60；设计任务书 TB-001 获批；代码骨架落地，21 项测试全绿。</p>
+              <p data-i18n="process.s0d">定规矩：宪法《AGENTS.md》、任务书 TB-001、基准船 JBC + Series 60、代码骨架。</p>
             </div>
           </li>
 
@@ -341,7 +338,7 @@
                 <span class="tl__ver hull__mono">v0.1</span>
                 <span class="badge badge--done" data-i18n="badge.done">已完成</span>
               </div>
-              <p data-i18n="process.s1d">任务 1.1–1.9 全部完成并发布 v0.1：解释性数据结构、可插拔主尺度初估注册表、重量浮力平衡迭代、辛普森积分静水力内核、初稳性与干舷校核、命令行入口——158 项测试全绿，GitHub Actions CI 上线。</p>
+              <p data-i18n="process.s1d">1.1 到 1.9 全部做完：主尺度估算、重量浮力平衡、静水力、初稳性、干舷、命令行。发了个 v0.1，158 个测试，CI 是绿的。</p>
               <p class="tl__chips hull__mono" aria-label="task progress"><span class="chip chip--done">1.1–1.9 ✓</span><span class="chip chip--done">v0.1 ✓</span></p>
             </div>
           </li>
@@ -354,7 +351,7 @@
                 <span class="tl__ver hull__mono">v0.2</span>
                 <span class="badge badge--active" data-i18n="badge.doing">进行中</span>
               </div>
-              <p data-i18n="process.s2d">任务 2.1–2.5 已完成：母型船型值数字化、Lackenby 变换、以 FreeCAD 精确切片替代 gmsh 网格，从 JBC 官方 IGES 与 DXF 型值表重建 93 m / 116.6 m 实船三视图，光顺性数值检查对母型零报警。下一步 2.6 · 静水力联动（吃真型值）。</p>
+              <p data-i18n="process.s2d">型值数字化和 Lackenby 变换都好了。画图最初走 gmsh，发现它会悄悄丢掉艉部曲面，换成 FreeCAD 逐站切片——Cb 复算 0.8618，官方 0.858，对上了。93m 和 116.6m 两条实船的三视图都画出来了。接着做 2.6：让静水力吃真型值。</p>
               <p class="tl__chips hull__mono" aria-label="task progress"><span class="chip chip--done">2.1 ✓</span><span class="chip chip--done">2.3 ✓</span><span class="chip chip--done">2.4 ✓</span><span class="chip chip--done">2.5 ✓</span><span class="chip chip--next">▸ 2.6</span><span class="chip">2.7</span><span class="chip">…</span></p>
             </div>
           </li>
@@ -423,44 +420,25 @@
 
         <div class="adv__grid">
           <article class="adv reveal">
-            <span class="adv__no hull__mono">A-01</span>
             <h3 data-i18n="adv.a1t">可追溯</h3>
-            <p data-i18n="adv.a1d">每一个输出结果都必须可追溯至某条公式或公开文献。经验公式强制声明适用范围——Fn、Cb 超出边界的输入一律报错拒绝，而不是悄悄给出一个行家一眼看穿的错误数字。</p>
+            <p data-i18n="adv.a1d">每个输出都能指回某条公式、某一页文献。经验公式必须声明适用范围，超了就报错，不出数。</p>
           </article>
           <article class="adv reveal" data-delay="1">
-            <span class="adv__no hull__mono">A-02</span>
             <h3 data-i18n="adv.a2t">基准验证优先</h3>
-            <p data-i18n="adv.a2d">与 JBC、Series 60 等公开基准船数据逐项对比，验证优先于新功能开发。静水力误差 <1%、KM 误差 <2%、TPC 误差 <3%——每个数字分开报告，藏在哪个总评里都不行。</p>
+            <p data-i18n="adv.a2d">JBC、Series 60 的公开数据摆在那里，逐项对：静水力 <1%、KM <2%、TPC <3%，分开报。</p>
           </article>
           <article class="adv reveal" data-delay="2">
-            <span class="adv__no hull__mono">A-03</span>
             <h3 data-i18n="adv.a3t">人机各司其职</h3>
-            <p data-i18n="adv.a3d">公式对不对、量级合不合理，由工程师拍板；代码、集成、数据搬运交给 AI。公式先入白名单再实现，页码级出处备查——AI 幻觉公式在制度上就无法进入代码库。</p>
+            <p data-i18n="adv.a3d">公式对不对、量级合不合理，工程师拍板；写代码、搬数据是 AI 的活。公式先入白名单，再实现。</p>
           </article>
           <article class="adv reveal" data-delay="3">
-            <span class="adv__no hull__mono">A-04</span>
             <h3 data-i18n="adv.a4t">解释性报错</h3>
-            <p data-i18n="adv.a4d">数据结构逐字段与跨字段校验，报错必须讲清四件事：哪个字段、输入了什么、允许范围是什么、物理或数学上为什么——比如 Cb=1.5 会被告知"排水体积塞不进外接矩形，所以 Cb ≤ 1"。</p>
-          </article>
-          <article class="adv reveal" data-delay="4">
-            <span class="adv__no hull__mono">A-05</span>
-            <h3 data-i18n="adv.a5t">算法可插拔</h3>
-            <p data-i18n="adv.a5d">每种算法自带 id、出处与适用范围元数据，挂在注册表上随取随用；任务书可以按 id 钉死算法，未来的前端下拉框直接生成——工程知识以可组合的方式沉淀。</p>
-          </article>
-          <article class="adv reveal" data-delay="5">
-            <span class="adv__no hull__mono">A-06</span>
-            <h3 data-i18n="adv.a6t">彻底开源</h3>
-            <p data-i18n="adv.a6d">MIT 许可，不替代解算器、不遥控 CAD 软件，只做「替代人在软件间搬运数据的手」。核心资产是仓库里经得起核对的 Python 代码与文档，谁都可以审阅、复算、fork。</p>
+            <p data-i18n="adv.a4d">报错要说清四件事：哪个字段、填了什么、允许范围、物理上为什么。Cb=1.5 会被告诉：体积塞不进外接矩形，所以 Cb ≤ 1。</p>
           </article>
 
-          <article class="adv adv--wide adv--callout reveal" data-delay="6">
-            <p class="adv__no hull__mono" data-i18n="adv.posLabel">POSITION · 卡位</p>
-            <p class="position__text" data-i18n="adv.posText">
-              商业船舶软件垄断的是交付环节，而初步设计的知识内核是公开的。
-              2026 年的生态调研显示：基础件齐全、学术先例俱在，
-              唯独「AI 智能体编排层」无人做成——
-              全世界尚无同类开源项目，这就是 OpenHull 的核心价值。
-            </p>
+          <article class="adv adv--wide reveal" data-delay="4">
+            <p class="adv__no hull__mono" data-i18n="adv.posLabel">为什么做这个</p>
+            <p class="position__text" data-i18n="adv.posText">商业软件把功夫花在交付环节，而初步设计用的公式和试验数据本来就是公开的。让 AI 把这些公开知识变成能跑、可核查的代码，这件事还没人认真做过——所以有了这个项目。</p>
           </article>
         </div>
       </div>
@@ -469,8 +447,8 @@
     <!-- ═══════════════ CTA ═══════════════ -->
     <section class="cta" id="github">
       <div class="wrap cta__inner reveal">
-        <h2 class="cta__title" data-i18n="cta.title">从一份任务书开始</h2>
-        <p class="cta__sub" data-i18n="cta.sub">项目正在施工，欢迎围观、验收与共建。</p>
+        <h2 class="cta__title" data-i18n="cta.title">想看代码？</h2>
+        <p class="cta__sub" data-i18n="cta.sub">还在写，欢迎提 issue 挑错。</p>
         <div class="hero__cta">
           <a class="btn btn--primary" href="https://github.com/5777-wq/OpenHull" target="_blank" rel="noopener">
             <svg viewBox="0 0 16 16" aria-hidden="true" class="btn__gh"><path fill="currentColor" d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27s1.36.09 2 .27c1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.01 8.01 0 0 0 16 8c0-4.42-3.58-8-8-8Z"/></svg>
@@ -487,7 +465,7 @@
       <div class="wrap">
         <p class="footer__watermark" aria-hidden="true">OpenHull</p>
         <div class="footer__row">
-          <p data-i18n="footer.line">由 AI 智能体与人类工程师协作建造。</p>
+          <p data-i18n="footer.line">一个人，和几个 AI，晚上写的。</p>
           <p class="hull__mono">© 2026 OpenHull Contributors · MIT License</p>
         </div>
       </div>
