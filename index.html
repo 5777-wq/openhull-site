@@ -61,7 +61,7 @@
       <div class="hero__inner">
         <p class="hero__overline reveal">
           <span class="hero__status-dot" aria-hidden="true"></span>
-          <span data-i18n="hero.overline">开源施工中 · 阶段 1 计算内核 · 1.1–1.3 完成</span>
+          <span data-i18n="hero.overline">开源施工中 · 阶段 2 型线生成 · v0.1 已发布</span>
         </p>
 
         <h1 class="hero__title reveal" data-delay="1">
@@ -195,8 +195,8 @@
           <span data-i18n="stats.l3">大开发阶段 · 从骨架到 v1.0</span>
         </div>
         <div class="stat reveal" data-delay="3">
-          <strong data-count="56">56</strong>
-          <span data-i18n="stats.l4">项测试全绿 · 随任务增长</span>
+          <strong data-count="158">158</strong>
+          <span data-i18n="stats.l4">项测试全绿 · CI 运行中</span>
         </div>
       </div>
     </section>
@@ -301,28 +301,29 @@
             </div>
           </li>
 
-          <li class="tl tl--active reveal">
+          <li class="tl tl--done reveal">
             <div class="tl__node"></div>
             <div class="tl__body">
               <div class="tl__head">
                 <h3 data-i18n="process.s1t">阶段 1 · 主尺度与静水力内核</h3>
                 <span class="tl__ver hull__mono">v0.1</span>
-                <span class="badge badge--active" data-i18n="badge.doing">进行中</span>
+                <span class="badge badge--done" data-i18n="badge.done">已完成</span>
               </div>
-              <p data-i18n="process.s1d">任务 1.1–1.3 已完成：解释性数据结构、可插拔主尺度初估注册表（载重系数法 / Watson 1977 / 母型船比例法）、重量浮力平衡迭代——56 项测试全绿，误差逐项对齐 JBC 公开值。当前推进 1.4 · 静水力计算内核（辛普森数值积分）。</p>
-              <p class="tl__chips hull__mono" aria-label="task progress"><span class="chip chip--done">1.1 ✓</span><span class="chip chip--done">1.2 ✓</span><span class="chip chip--done">1.3 ✓</span><span class="chip chip--next">▸ 1.4</span><span class="chip">1.5</span><span class="chip">1.6</span><span class="chip">…</span></p>
+              <p data-i18n="process.s1d">任务 1.1–1.9 全部完成并发布 v0.1：解释性数据结构、可插拔主尺度初估注册表、重量浮力平衡迭代、辛普森积分静水力内核、初稳性与干舷校核、命令行入口——158 项测试全绿，GitHub Actions CI 上线。</p>
+              <p class="tl__chips hull__mono" aria-label="task progress"><span class="chip chip--done">1.1–1.9 ✓</span><span class="chip chip--done">v0.1 ✓</span></p>
             </div>
           </li>
 
-          <li class="tl reveal">
+          <li class="tl tl--active reveal">
             <div class="tl__node"></div>
             <div class="tl__body">
               <div class="tl__head">
                 <h3 data-i18n="process.s2t">阶段 2 · 参数化型线生成</h3>
                 <span class="tl__ver hull__mono">v0.2</span>
-                <span class="badge" data-i18n="badge.plan">规划中</span>
+                <span class="badge badge--active" data-i18n="badge.doing">进行中</span>
               </div>
-              <p data-i18n="process.s2d">母型船型值数字化，Lackenby 变换把 Cb 精确变换到目标值，生成横剖面 / 半宽水线 / 纵剖线三视图，光顺性数值检查，静水力改吃真型值，DXF 图纸输出。</p>
+              <p data-i18n="process.s2d">任务 2.1–2.5 已完成：母型船型值数字化、Lackenby 变换、以 FreeCAD 精确切片替代 gmsh 网格，从 JBC 官方 IGES 与 DXF 型值表重建 93 m / 116.6 m 实船三视图，光顺性数值检查对母型零报警。下一步 2.6 · 静水力联动（吃真型值）。</p>
+              <p class="tl__chips hull__mono" aria-label="task progress"><span class="chip chip--done">2.1 ✓</span><span class="chip chip--done">2.3 ✓</span><span class="chip chip--done">2.4 ✓</span><span class="chip chip--done">2.5 ✓</span><span class="chip chip--next">▸ 2.6</span><span class="chip">2.7</span><span class="chip">…</span></p>
             </div>
           </li>
 
@@ -445,7 +446,7 @@
           </a>
           <a class="btn btn--ghost" href="https://github.com/5777-wq/OpenHull/blob/main/AGENTS.md" target="_blank" rel="noopener"><span data-i18n="cta.constitution">阅读项目宪法 AGENTS.md</span> ↗</a>
         </div>
-        <p class="cta__meta hull__mono">MIT License · README ×10 Languages · Python · uv</p>
+        <p class="cta__meta hull__mono">v0.1 Released · CI Green · MIT License · README ×10 · Python · uv</p>
       </div>
     </section>
 
