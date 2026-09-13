@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>OpenHull — Terminal</title>
+  <link rel="icon" type="image/svg+xml" href="assets/img/favicon.svg">
+  <link rel="stylesheet" href="assets/css/tokens.css">
+  <link rel="stylesheet" href="assets/css/fonts.css">
+  <link rel="stylesheet" href="assets/css/terminal.css">
+</head>
+<body>
+
+  <header class="nav">
+    <div class="nav__inner">
+      <a class="brand" href="index.html">OpenHull<span class="cursor">▌</span></a>
+      <nav class="nav__links">
+        <a class="nav__gh" href="https://github.com/5777-wq/OpenHull" target="_blank" rel="noopener">GitHub ↗</a>
+        <div class="theme-menu">
+          <button class="theme-btn" id="styleBtn" aria-haspopup="true" aria-expanded="false" aria-label="切换风格 / Switch style">
+            <svg viewBox="0 0 20 20" width="14" height="14" aria-hidden="true">
+              <rect x="2.5" y="2.5" width="6.5" height="9" rx="1" fill="currentColor"/>
+              <rect x="11" y="2.5" width="6.5" height="5" rx="1" fill="currentColor" opacity=".55"/>
+              <rect x="11" y="9.5" width="6.5" height="8" rx="1" fill="currentColor" opacity=".3"/>
+              <rect x="2.5" y="13.5" width="6.5" height="4" rx="1" fill="currentColor" opacity=".55"/>
+            </svg>
+          </button>
+          <div class="theme-pop" id="stylePop" hidden>
+            <button data-style-href="index.html"><i class="sw sw-paper"></i><span data-i18n="style.drafting">图纸风</span></button>
+            <button data-style-href="bento.html"><i class="sw sw-deep"></i><span data-i18n="style.bento">Bento 卡片风</span></button>
+            <button class="active" data-style-href="terminal.html"><i class="sw sw-terminal"></i><span data-i18n="style.terminal">终端文档风</span></button>
+          </div>
+        </div>
+        <div class="theme-menu">
+          <button class="theme-btn" id="themeBtn" aria-haspopup="true" aria-expanded="false" aria-label="切换主题 / Switch theme">
+            <svg viewBox="0 0 20 20" width="14" height="14" aria-hidden="true">
+              <circle cx="10" cy="10" r="7.5" fill="none" stroke="currentColor" stroke-width="1.4"/>
+              <path d="M10 2.5 a7.5 7.5 0 0 1 0 15 Z" fill="currentColor"/>
+            </svg>
+          </button>
+          <div class="theme-pop" id="themePop" hidden>
+            <button data-theme-set="paper"><i class="sw sw-paper"></i><span data-i18n="theme.paper">纸墨</span></button>
+            <button data-theme-set="noir"><i class="sw sw-noir"></i><span data-i18n="theme.noir">墨夜</span></button>
+            <button data-theme-set="deep"><i class="sw sw-deep"></i><span data-i18n="theme.deep">深海</span></button>
+            <button data-theme-set="blueprint"><i class="sw sw-blueprint"></i><span data-i18n="theme.blueprint">蓝图</span></button>
+            <button data-theme-set="amber"><i class="sw sw-amber"></i><span data-i18n="theme.amber">琥珀</span></button>
+            <button data-theme-set="terminal"><i class="sw sw-terminal"></i><span data-i18n="theme.terminal">终端</span></button>
+          </div>
+        </div>
+        <button class="lang-toggle" id="langToggle" type="button" aria-label="Switch language">EN</button>
+      </nav>
+    </div>
+  </header>
+
+  <main class="doc">
+
+    <section class="sec reveal">
+      <p class="prompt"><span class="ps">$</span> openhull run examples/taskbook_bulk_carrier.yaml<span class="caret">▌</span></p>
+      <p class="out-line"><span class="dim">[openhull]</span> <span data-i18n="t.line1">任务书已读取 — 好望角型散货船 · 载重 149,920 t · 服务航速 14.5 kn</span></p>
+      <p class="out-line"><span class="dim">[openhull]</span> <span data-i18n="t.line2">产出：主尺度方案 → 静水力表 → 型线图 → 阻力/推进/稳性 → DXF 图纸与报告</span></p>
+      <p class="out-line"><span class="ok">[ok]</span> <span data-i18n="t.line3">158 项测试全绿 · CI 运行中 · v0.1 已发布 · 阶段 2 型线生成进行到 2.6 前夜</span></p>
+      <p class="lead" data-i18n="t.lead">由 AI 智能体编排的开源参数化船舶初步设计工具链。每一个输出可追溯至公式或公开文献；每一个算法声明适用范围；验收只认数字。</p>
+      <p class="links">
+        <a href="https://github.com/5777-wq/OpenHull" target="_blank" rel="noopener">[1] GitHub</a>
+        <a href="#roadmap">[2] <span data-i18n="t.l2">路线图</span></a>
+        <a href="#design">[3] <span data-i18n="t.l3">设计决策</span></a>
+      </p>
+    </section>
+
+    <section class="sec reveal" id="roadmap">
+      <h2 data-i18n="t.rm">ROADMAP · 验收只认数字</h2>
+      <ol class="log">
+        <li><b>#0</b> <span data-i18n="t.g0">立项与立宪 — 宪法九节 · 任务书 TB-001 · JBC + Series 60 · 代码骨架</span><em>2026-09 ✓</em></li>
+        <li><b>#1</b> <span data-i18n="t.g1">主尺度与静水力内核 — 主尺度初估注册表 · 重量浮力平衡 · 静水力 · 稳性干舷 · CLI</span><em>v0.1 ✓</em></li>
+        <li><b>#2</b> <span data-i18n="t.g2">参数化型线生成 — 母型船型值 · Lackenby · FreeCAD 精确切片 · 93m/116.6m 三视图 · 光顺检查</span><em class="now" data-i18n="badge.doing">进行中</em></li>
+        <li><b>#3</b> <span data-i18n="t.g3">性能闭环 — Holtrop-Mennen 阻力 · 推进 · 稳性衡准 · 自动寻优</span><em data-i18n="badge.plan">规划中</em></li>
+        <li><b>#4</b> <span data-i18n="t.g4">出图与报告 — 静水力曲线 · 总布置 · 报告自动生成</span><em data-i18n="badge.plan">规划中</em></li>
+        <li><b>#5</b> <span data-i18n="t.g5">开源发布 v1.0 — 双船型验证 · 完整文档</span><em data-i18n="badge.plan">规划中</em></li>
+      </ol>
+      <p class="stat-line"><span data-i18n="t.stat">当前状态</span>: tests=158(passing) ci=green stage=2/5 next=2.6 · hydrostatics-on-true-offsets</p>
+    </section>
+
+    <section class="sec reveal" id="design">
+      <h2 data-i18n="t.dd">DESIGN DECISIONS · 写进宪法</h2>
+      <ol class="rules">
+        <li><span data-i18n="t.d1">可追溯 — 每个输出可追溯至公式或公开文献；经验公式声明适用范围，越界拒绝。</span></li>
+        <li><span data-i18n="t.d2">基准验证优先 — 对 JBC / Series 60 逐项核对：静水力 &lt;1% · KM &lt;2% · TPC &lt;3%，分开报告。</span></li>
+        <li><span data-i18n="t.d3">人机分工 — 人审定公式与出处，AI 负责代码；公式先入白名单再实现。</span></li>
+        <li><span data-i18n="t.d4">解释性报错 — 哪个字段、输入了什么、允许范围、物理上为什么，四要素齐全。</span></li>
+      </ol>
+    </section>
+
+    <section class="sec reveal" id="source">
+      <h2 data-i18n="t.src">SOURCE</h2>
+      <p class="src-line">git clone <a href="https://github.com/5777-wq/OpenHull" target="_blank" rel="noopener">https://github.com/5777-wq/OpenHull</a></p>
+      <p class="src-line">license=MIT lang=Python stack=uv+pytest+CI readme=10-languages</p>
+    </section>
+
+    <footer class="footer">
+      <p>© 2026 OpenHull Contributors · MIT · <span data-i18n="t.foot">由 AI 智能体与人类工程师协作建造。</span></p>
+    </footer>
+  </main>
+
+  <script>
+    window.OH_I18N = {
+      zh: {
+        "t.line1": "任务书已读取 — 好望角型散货船 · 载重 149,920 t · 服务航速 14.5 kn",
+        "t.line2": "产出：主尺度方案 → 静水力表 → 型线图 → 阻力/推进/稳性 → DXF 图纸与报告",
+        "t.line3": "158 项测试全绿 · CI 运行中 · v0.1 已发布 · 阶段 2 进行到 2.6 前夜",
+        "t.lead": "由 AI 智能体编排的开源参数化船舶初步设计工具链。每一个输出可追溯至公式或公开文献；每一个算法声明适用范围；验收只认数字。",
+        "t.l2": "路线图", "t.l3": "设计决策",
+        "t.rm": "ROADMAP · 验收只认数字",
+        "t.g0": "立项与立宪 — 宪法九节 · 任务书 TB-001 · JBC + Series 60 · 代码骨架",
+        "t.g1": "主尺度与静水力内核 — 主尺度初估注册表 · 重量浮力平衡 · 静水力 · 稳性干舷 · CLI",
+        "t.g2": "参数化型线生成 — 母型船型值 · Lackenby · FreeCAD 精确切片 · 93m/116.6m 三视图 · 光顺检查",
+        "t.g3": "性能闭环 — Holtrop-Mennen 阻力 · 推进 · 稳性衡准 · 自动寻优",
+        "t.g4": "出图与报告 — 静水力曲线 · 总布置 · 报告自动生成",
+        "t.g5": "开源发布 v1.0 — 双船型验证 · 完整文档",
+        "t.stat": "当前状态",
+        "t.dd": "DESIGN DECISIONS · 写进宪法",
+        "t.d1": "可追溯 — 每个输出可追溯至公式或公开文献；经验公式声明适用范围，越界拒绝。",
+        "t.d2": "基准验证优先 — 对 JBC / Series 60 逐项核对：静水力 <1% · KM <2% · TPC <3%，分开报告。",
+        "t.d3": "人机分工 — 人审定公式与出处，AI 负责代码；公式先入白名单再实现。",
+        "t.d4": "解释性报错 — 哪个字段、输入了什么、允许范围、物理上为什么，四要素齐全。",
+        "t.src": "SOURCE",
+        "t.foot": "由 AI 智能体与人类工程师协作建造。",
+        "badge.doing": "进行中", "badge.plan": "规划中",
+        "theme.paper": "纸墨", "theme.noir": "墨夜", "theme.deep": "深海", "theme.blueprint": "蓝图", "theme.amber": "琥珀", "theme.terminal": "终端",
+        "style.drafting": "图纸风", "style.bento": "Bento 卡片风", "style.terminal": "终端文档风",
+        "doc.title": "OpenHull — Terminal"
+      },
+      en: {
+        "t.line1": "Task book loaded — Capesize bulk carrier · DW 149,920 t · service speed 14.5 kn",
+        "t.line2": "Output: principal dimensions → hydrostatics → lines plan → resistance/propulsion/stability → DXF & report",
+        "t.line3": "158 tests green · CI live · v0.1 released · stage 2 approaching 2.6",
+        "t.lead": "The open-source parametric ship preliminary-design toolchain, orchestrated by AI agents. Every output traceable to an equation or reference; every algorithm declares its range; only numbers pass acceptance.",
+        "t.l2": "Roadmap", "t.l3": "Design decisions",
+        "t.rm": "ROADMAP · only numbers pass acceptance",
+        "t.g0": "Foundation — constitution · task book TB-001 · JBC + Series 60 · skeleton",
+        "t.g1": "Dimensions & hydrostatics — dimension registry · weight-buoyancy balance · hydrostatics · stability/freeboard · CLI",
+        "t.g2": "Hull lines — parent offsets · Lackenby · FreeCAD slicing · 93m/116.6m plans · fairness checks",
+        "t.g3": "Performance loop — Holtrop-Mennen · propulsion · stability criteria · auto search",
+        "t.g4": "Drawings & reports — hydrostatic curves · GA · auto-generated reports",
+        "t.g5": "Open-source v1.0 — two ship types validated · full docs",
+        "t.stat": "status",
+        "t.dd": "DESIGN DECISIONS · written into the constitution",
+        "t.d1": "Traceable — every output traces to an equation or reference; ranges declared, violations rejected.",
+        "t.d2": "Validation first — against JBC / Series 60: hydrostatics <1% · KM <2% · TPC <3%, reported separately.",
+        "t.d3": "Division of labor — humans approve formulas and sources, AI writes code; whitelist before implementation.",
+        "t.d4": "Explanatory errors — which field, what was given, what is allowed, and why.",
+        "t.src": "SOURCE",
+        "t.foot": "Built by AI agents and human engineers, together.",
+        "badge.doing": "IN PROGRESS", "badge.plan": "PLANNED",
+        "theme.paper": "Paper", "theme.noir": "Noir", "theme.deep": "Deep Sea", "theme.blueprint": "Blueprint", "theme.amber": "Amber", "theme.terminal": "Terminal",
+        "style.drafting": "Drafting Sheet", "style.bento": "Bento Cards", "style.terminal": "Terminal Docs",
+        "doc.title": "OpenHull — Terminal"
+      }
+    };
+  </script>
+  <script src="assets/js/site.js"></script>
+</body>
+</html>

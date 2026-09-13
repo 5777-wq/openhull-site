@@ -15,6 +15,7 @@
   <link rel="preload" href="assets/fonts/fraunces-latin-600.woff2" as="font" type="font/woff2" crossorigin>
   <link rel="preload" href="assets/fonts/fraunces-latin-600-italic.woff2" as="font" type="font/woff2" crossorigin>
   <link rel="preload" href="assets/fonts/plexmono-latin-400.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="stylesheet" href="assets/css/tokens.css">
   <link rel="stylesheet" href="assets/css/fonts.css">
   <link rel="stylesheet" href="assets/css/style.css">
 </head>
@@ -40,6 +41,21 @@
         <a href="https://github.com/5777-wq/OpenHull" target="_blank" rel="noopener">
           GitHub <span class="nav__gh-arrow" aria-hidden="true">↗</span>
         </a>
+        <div class="theme-menu">
+          <button class="theme-btn" id="styleBtn" aria-haspopup="true" aria-expanded="false" aria-label="切换风格 / Switch style">
+            <svg viewBox="0 0 20 20" width="15" height="15" aria-hidden="true">
+              <rect x="2.5" y="2.5" width="6.5" height="9" rx="1.2" fill="currentColor"/>
+              <rect x="11" y="2.5" width="6.5" height="5" rx="1.2" fill="currentColor" opacity=".55"/>
+              <rect x="11" y="9.5" width="6.5" height="8" rx="1.2" fill="currentColor" opacity=".3"/>
+              <rect x="2.5" y="13.5" width="6.5" height="4" rx="1.2" fill="currentColor" opacity=".55"/>
+            </svg>
+          </button>
+          <div class="theme-pop" id="stylePop" hidden>
+            <button class="active" data-style-href="./"><i class="sw sw-paper"></i><span data-i18n="style.drafting">图纸风</span></button>
+            <button data-style-href="bento.html"><i class="sw sw-deep"></i><span data-i18n="style.bento">Bento 卡片风</span></button>
+            <button data-style-href="terminal.html"><i class="sw sw-terminal"></i><span data-i18n="style.terminal">终端文档风</span></button>
+          </div>
+        </div>
         <div class="theme-menu">
           <button class="theme-btn" id="themeBtn" aria-haspopup="true" aria-expanded="false" aria-label="切换主题 / Switch theme">
             <svg viewBox="0 0 20 20" width="15" height="15" aria-hidden="true">

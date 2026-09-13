@@ -85,6 +85,9 @@
       "theme.blueprint": "蓝图",
       "theme.amber": "琥珀",
       "theme.terminal": "终端",
+      "style.drafting": "图纸风",
+      "style.bento": "Bento 卡片风",
+      "style.terminal": "终端文档风",
       "doc.title": "OpenHull — Design the shell that carries it all."
     },
     en: {
@@ -160,6 +163,9 @@
       "theme.blueprint": "Blueprint",
       "theme.amber": "Amber",
       "theme.terminal": "Terminal",
+      "style.drafting": "Drafting Sheet",
+      "style.bento": "Bento Cards",
+      "style.terminal": "Terminal Docs",
       "doc.title": "OpenHull — Design the shell that carries it all."
     }
   };
@@ -252,6 +258,38 @@
     else initTheme = localStorage.getItem("openhull-theme") || "paper";
   } catch (e) {}
   applyTheme(initTheme);
+
+  /* ─────────────── 风格切换（跨页布局） ─────────────── */
+
+  var styleBtn = document.getElementById("styleBtn");
+  var stylePop = document.getElementById("stylePop");
+  if (styleBtn && stylePop) {
+    function goStyle(base) {
+      var curLang = document.documentElement.lang === "en" ? "en" : "zh";
+      location.href = base + "?theme=" +
+        (document.documentElement.getAttribute("data-theme") || "paper") +
+        "&lang=" + curLang;
+    }
+    styleBtn.addEventListener("click", function (e) {
+      e.stopPropagation();
+      stylePop.hidden = !stylePop.hidden;
+      styleBtn.setAttribute("aria-expanded", String(!stylePop.hidden));
+    });
+    stylePop.querySelectorAll("[data-style-href]").forEach(function (b) {
+      b.addEventListener("click", function () {
+        goStyle(b.getAttribute("data-style-href"));
+      });
+    });
+    document.addEventListener("click", function (e) {
+      if (!stylePop.hidden && !e.target.closest("#styleBtn") && !e.target.closest("#stylePop")) {
+        stylePop.hidden = true;
+        styleBtn.setAttribute("aria-expanded", "false");
+      }
+    });
+    document.addEventListener("keydown", function (e) {
+      if (e.key === "Escape" && !stylePop.hidden) stylePop.hidden = true;
+    });
+  }
 
   /* ─────────────── 导航滚动态 ─────────────── */
 
