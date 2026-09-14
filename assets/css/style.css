@@ -125,53 +125,20 @@ button { font: inherit; background: none; border: 0; cursor: pointer; color: inh
 }
 .lang-toggle:hover { border-color: var(--brass); background: rgba(var(--accent-rgb), .05); }
 
-/* ─────────────────────────── 主题切换器 ─────────────────────────── */
+/* ─────────────────────────── 主题切换按钮 ─────────────────────────── */
 
-.theme-menu { position: relative; }
 .theme-btn {
   width: 34px; height: 34px;
   border: 1px solid var(--line-2);
   border-radius: 50%;
   display: flex; align-items: center; justify-content: center;
   color: var(--text);
+  background: none;
+  cursor: pointer;
   transition: border-color .25s ease, color .25s ease;
 }
 .theme-btn:hover { border-color: var(--brass); color: var(--brass); }
-.theme-pop {
-  position: absolute;
-  right: 0; top: calc(100% + 10px);
-  min-width: 150px;
-  background: var(--bg-2);
-  border: 1px solid var(--line-2);
-  border-radius: 6px;
-  padding: 6px;
-  box-shadow: 0 18px 44px -14px rgba(var(--accent-rgb), .3);
-  z-index: 120;
-}
-.theme-pop button {
-  display: flex; align-items: center; gap: 10px;
-  width: 100%;
-  padding: 8px 12px;
-  border-radius: 4px;
-  font-size: .85rem;
-  color: var(--text);
-  transition: background .2s ease;
-}
-.theme-pop button:hover { background: rgba(var(--fg-rgb), .06); color: var(--ivory); }
-.theme-pop button.active { color: var(--ivory); }
-.theme-pop button.active::after { content: "✓"; margin-left: auto; color: var(--brass); font-size: .8rem; }
-.sw {
-  width: 14px; height: 14px;
-  border-radius: 50%;
-  border: 1px solid var(--line-2);
-  flex: none;
-}
-.sw-paper    { background: linear-gradient(135deg, #fbfbf9 50%, #161613 50%); }
-.sw-noir     { background: linear-gradient(135deg, #060607 50%, #f2f2f0 50%); }
-.sw-deep     { background: linear-gradient(135deg, #0b1622 50%, #4fd1c5 50%); }
-.sw-blueprint{ background: linear-gradient(135deg, #0d2137 50%, #ffd166 50%); }
-.sw-amber    { background: linear-gradient(135deg, #121417 50%, #f59e0b 50%); }
-.sw-terminal { background: linear-gradient(135deg, #050807 50%, #34d399 50%); }
+.theme-btn[aria-pressed="true"] .theme-half { opacity: .25; }
 
 /* ─────────────────────────── HERO ─────────────────────────── */
 
@@ -234,7 +201,7 @@ button { font: inherit; background: none; border: 0; cursor: pointer; color: inh
   padding: 0 56px;
 }
 
-.hero__overline {
+.hero__meta {
   display: inline-flex;
   align-items: center;
   gap: 10px;
@@ -314,7 +281,22 @@ button { font: inherit; background: none; border: 0; cursor: pointer; color: inh
 .btn--ghost:hover { border-color: var(--brass); color: var(--brass-hi); transform: translateY(-2px); }
 
 /* 型线图 */
-.hero__figure { margin-top: 30px; }
+.hero__figure {
+  margin-top: 26px;
+  border: 1px solid var(--line-2);
+  border-radius: 4px;
+  padding: 16px 24px 10px;
+  background: var(--bg-2);
+}
+.figure__label {
+  display: flex;
+  justify-content: space-between;
+  gap: 12px;
+  font-size: .62rem;
+  letter-spacing: .18em;
+  color: var(--faint);
+  margin-bottom: 4px;
+}
 .hull { width: 100%; height: auto; display: block; }
 .hull__profile path { filter: drop-shadow(0 10px 24px rgba(var(--accent-rgb), .18)); }
 .hull__plate {
@@ -481,6 +463,57 @@ button { font: inherit; background: none; border: 0; cursor: pointer; color: inh
 .pipeline__list li:first-child { border-top: 1px solid var(--line); }
 .pipeline__list li:hover { color: var(--ivory); transform: translateX(8px); }
 .pipeline__list i { font-family: var(--mono); font-style: normal; font-size: .7rem; color: var(--brass); letter-spacing: .1em; }
+
+
+/* ─────────────────────────── 怎么用 ─────────────────────────── */
+
+.steps {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 0 48px;
+  margin-bottom: 54px;
+}
+.steps li { padding: 22px 0 4px; border-top: 1px solid var(--line); }
+.steps b {
+  display: block;
+  font-weight: 400;
+  font-size: .72rem;
+  letter-spacing: .16em;
+  color: var(--brass);
+  margin-bottom: 12px;
+}
+.steps h3 {
+  font-family: var(--serif);
+  font-weight: 600;
+  font-size: 1.12rem;
+  color: var(--ivory);
+  margin-bottom: 10px;
+}
+.steps p { font-size: .88rem; color: var(--muted); }
+
+.cmd { border: 1px solid var(--line); border-radius: 4px; overflow: hidden; }
+.cmd__bar {
+  padding: 9px 16px;
+  border-bottom: 1px solid var(--line);
+  color: var(--faint);
+  font-size: .64rem;
+  letter-spacing: .16em;
+}
+.cmd pre {
+  background: var(--code-bg);
+  padding: 18px 20px;
+  font-family: var(--mono);
+  font-size: .78rem;
+  line-height: 2;
+  color: #c3c8cf;
+  overflow-x: auto;
+}
+.cmd .p { color: #7d838d; }
+.cmd .cmd-key { color: #f0f2f5; font-weight: 500; }
+.cmd .out { color: #9aa2ad; }
+.cmd .ok2 { color: #e6e9ed; font-weight: 600; }
+
+.section .cmd { margin-top: 8px; }
 
 /* ─────────────────────────── 02 进程 ─────────────────────────── */
 
@@ -704,6 +737,7 @@ button { font: inherit; background: none; border: 0; cursor: pointer; color: inh
 /* ─────────────────────────── 响应式 ─────────────────────────── */
 
 @media (max-width: 1020px) {
+  .steps { grid-template-columns: 1fr; gap: 0; }
   .pipeline { grid-template-columns: 1fr; gap: 40px; }
   .pipeline__mid { display: flex; align-items: center; gap: 24px; }
   .pipeline__core { margin: 0; }

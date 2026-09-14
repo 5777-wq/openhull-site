@@ -41,22 +41,12 @@
         <a href="https://github.com/5777-wq/OpenHull" target="_blank" rel="noopener">
           GitHub <span class="nav__gh-arrow" aria-hidden="true">↗</span>
         </a>
-        <div class="theme-menu">
-          <button class="theme-btn" id="themeBtn" aria-haspopup="true" aria-expanded="false" aria-label="切换主题 / Switch theme">
-            <svg viewBox="0 0 20 20" width="15" height="15" aria-hidden="true">
-              <circle cx="10" cy="10" r="7.5" fill="none" stroke="currentColor" stroke-width="1.4"/>
-              <path d="M10 2.5 a7.5 7.5 0 0 1 0 15 Z" fill="currentColor"/>
-            </svg>
-          </button>
-          <div class="theme-pop" id="themePop" hidden>
-            <button data-theme-set="paper"><i class="sw sw-paper"></i><span data-i18n="theme.paper">纸墨</span></button>
-            <button data-theme-set="noir"><i class="sw sw-noir"></i><span data-i18n="theme.noir">墨夜</span></button>
-            <button data-theme-set="deep"><i class="sw sw-deep"></i><span data-i18n="theme.deep">深海</span></button>
-            <button data-theme-set="blueprint"><i class="sw sw-blueprint"></i><span data-i18n="theme.blueprint">蓝图</span></button>
-            <button data-theme-set="amber"><i class="sw sw-amber"></i><span data-i18n="theme.amber">琥珀</span></button>
-            <button data-theme-set="terminal"><i class="sw sw-terminal"></i><span data-i18n="theme.terminal">终端</span></button>
-          </div>
-        </div>
+        <button class="theme-btn" id="themeToggle" type="button" aria-label="切换黑白主题 / Toggle light &amp; dark">
+          <svg viewBox="0 0 20 20" width="15" height="15" aria-hidden="true">
+            <circle cx="10" cy="10" r="7.5" fill="none" stroke="currentColor" stroke-width="1.4"/>
+            <path class="theme-half" d="M10 2.5 a7.5 7.5 0 0 1 0 15 Z" fill="currentColor"/>
+          </svg>
+        </button>
         <button class="lang-toggle" id="langToggle" type="button" aria-label="Switch language">EN</button>
       </nav>
     </div>
@@ -75,8 +65,7 @@
       </div>
 
       <div class="hero__inner">
-        <p class="hero__overline reveal">
-          <span class="hero__status-dot" aria-hidden="true"></span>
+        <p class="hero__meta reveal">
           <span data-i18n="hero.overline">个人项目，夜间施工 · v0.1 已发布 · 正在写阶段 2：型线</span>
         </p>
 
@@ -102,7 +91,8 @@
         </div>
 
         <!-- 型线图视觉：散货船侧视轮廓（JBC 锚定，L/B≈11:1） -->
-        <div class="hero__figure reveal" data-delay="5" aria-hidden="true">
+        <figure class="hero__figure reveal" data-delay="5" aria-hidden="true">
+          <figcaption class="figure__label hull__mono"><span>TB-001 · LINES PLAN</span><span>CAPESIZE BULK CARRIER</span></figcaption>
           <svg id="hullSvg" class="hull" viewBox="0 40 1160 360" fill="none" preserveAspectRatio="xMidYMax meet">
             <!-- LBP 尺寸线 -->
             <g stroke="var(--brass)" opacity=".55">
@@ -188,9 +178,55 @@
               </g>
             </g>
           </svg>
-          <p class="hero__plate hull__mono" aria-hidden="true">
+          <p class="hero__plate hull__mono">
             OpenHull · PROFILE — TB-001 CAPESIZE BULK CARRIER · SCALE 1:1200 · SHEET 01
           </p>
+        </figure>
+      </div>
+    </section>
+
+    <!-- ═══════════════ HOW IT WORKS ═══════════════ -->
+    <section class="section howto" id="how">
+      <div class="wrap">
+        <header class="section__head reveal">
+          <div>
+            <p class="section__no" data-i18n="how.kicker">— 怎么用</p>
+            <h2 class="section__title" data-i18n="how.title">三步：写任务书、跑命令、拿方案</h2>
+          </div>
+          <span class="section__meta hull__mono">QUICKSTART</span>
+        </header>
+
+        <ol class="steps">
+          <li class="reveal">
+            <b class="hull__mono">01</b>
+            <h3 data-i18n="how.t1">写任务书</h3>
+            <p data-i18n="how.d1">一个 YAML 文件，写清船型、载重吨、服务航速、航区。示例任务书 TB-001 锚定 JBC 基准船，每个数字标了出处。</p>
+          </li>
+          <li class="reveal" data-delay="1">
+            <b class="hull__mono">02</b>
+            <h3 data-i18n="how.t2">跑一条命令</h3>
+            <p data-i18n="how.d2">主尺度、静水力一路算下去，出结果。公式在外，出处可查；输入越界会直接报错。</p>
+          </li>
+          <li class="reveal" data-delay="2">
+            <b class="hull__mono">03</b>
+            <h3 data-i18n="how.t3">拿结果</h3>
+            <p data-i18n="how.d3">控制台出主尺度方案和静水力表，CSV 可直接用 Excel 打开；型线图已经能画，设计报告在阶段 4。</p>
+          </li>
+        </ol>
+
+        <div class="cmd reveal" data-delay="3">
+          <div class="cmd__bar hull__mono"><span data-i18n="how.cmdLabel">终端</span></div>
+<pre><code><span class="p">$</span> <span class="cmd-key">uv run openhull run</span> examples/taskbook_bulk_carrier.yaml
+
+<span class="out">ship_type        bulk_carrier
+deadweight_t     149920
+service_speed_kn 14.5
+--- principal dimensions ---
+L  280.000 m    B  45.000 m    D  25.000 m
+d  16.500 m     Cb 0.8580
+--- hydrostatics @ d = 16.500 m ---
+∇  178369.9 m3   KM 19.870 m   TPC 50.21 t/cm
+<span class="ok2">[ok]</span> within tolerance vs JBC published values</span></code></pre>
         </div>
       </div>
     </section>

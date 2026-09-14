@@ -3,7 +3,7 @@
    ═══════════════════════════════════════════════════════════ */
 
 :root {
-  /* ── 黑白编辑部风格（Minimalist Monochrome Editorial）──
+  /* ── 白色主题 paper（默认）—— 纸白 × 墨黑（Minimalist Monochrome Editorial）──
      历史变量名保留（--brass/--ivory）以免全量改名，
      语义已变为：--ivory = 主前景(墨黑) · --brass = 强调(墨黑) */
   --bg:        #fbfbf9;
@@ -44,43 +44,6 @@
   --nav-bg: rgba(6, 6, 7, .8); --on-accent: #0a0a0b; --code-bg: #0e0e10;
 }
 /* ── 皮肤：深海 deep（藏青 × 青）── */
-[data-theme="deep"] {
-  --bg: #0b1622; --bg-2: #10202f; --bg-3: #142839;
-  --ivory: #eaf2f8; --text: #b8c9d6; --muted: #7e95a8; --faint: #52708a;
-  --brass: #4fd1c5; --brass-hi: #7fe0d8;
-  --accent-rgb: 79, 209, 197; --fg-rgb: 234, 242, 248;
-  --brass-dim: rgba(var(--accent-rgb), .35);
-  --line: rgba(var(--fg-rgb), .09); --line-2: rgba(var(--fg-rgb), .16);
-  --nav-bg: rgba(11, 22, 34, .8); --on-accent: #06231f; --code-bg: #0a1420;
-}
 /* ── 皮肤：蓝图 blueprint（图纸蓝 × 信号黄）── */
-[data-theme="blueprint"] {
-  --bg: #0d2137; --bg-2: #102a45; --bg-3: #143154;
-  --ivory: #dce9f5; --text: #b3c7dc; --muted: #7d9cbd; --faint: #55779c;
-  --brass: #ffd166; --brass-hi: #ffe29a;
-  --accent-rgb: 255, 209, 102; --fg-rgb: 220, 233, 245;
-  --brass-dim: rgba(var(--accent-rgb), .35);
-  --line: rgba(var(--fg-rgb), .1); --line-2: rgba(var(--fg-rgb), .18);
-  --nav-bg: rgba(13, 33, 55, .82); --on-accent: #1a2a3f; --code-bg: #0a1a30;
-}
-
 /* ── 皮肤：琥珀 amber（石墨 × 琥珀橙）── */
-[data-theme="amber"] {
-  --bg: #121417; --bg-2: #191c20; --bg-3: #202329;
-  --ivory: #f5f5f4; --text: #b6b9be; --muted: #83878e; --faint: #565a61;
-  --brass: #f59e0b; --brass-hi: #fbbf24;
-  --accent-rgb: 245, 158, 11; --fg-rgb: 245, 245, 244;
-  --brass-dim: rgba(var(--accent-rgb), .35);
-  --line: rgba(var(--fg-rgb), .1); --line-2: rgba(var(--fg-rgb), .18);
-  --nav-bg: rgba(18, 20, 23, .82); --on-accent: #1a1205; --code-bg: #0d0f12;
-}
 /* ── 皮肤：终端 terminal（纯黑 × 终端绿）── */
-[data-theme="terminal"] {
-  --bg: #050807; --bg-2: #0b100d; --bg-3: #101713;
-  --ivory: #f2f5f3; --text: #b3c2ba; --muted: #7e8d85; --faint: #4f5c55;
-  --brass: #34d399; --brass-hi: #6ee7b7;
-  --accent-rgb: 52, 211, 153; --fg-rgb: 242, 245, 243;
-  --brass-dim: rgba(var(--accent-rgb), .35);
-  --line: rgba(var(--fg-rgb), .1); --line-2: rgba(var(--fg-rgb), .18);
-  --nav-bg: rgba(5, 8, 7, .82); --on-accent: #04120c; --code-bg: #071009;
-}

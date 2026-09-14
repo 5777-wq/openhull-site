@@ -25,6 +25,15 @@
       "stats.l2": "艘基准船：JBC、Series 60",
       "stats.l3": "个阶段，从骨架到 v1.0",
       "stats.l4": "个测试，都是绿的",
+      "how.kicker": "— 怎么用",
+      "how.title": "三步：写任务书、跑命令、拿方案",
+      "how.t1": "写任务书",
+      "how.d1": "一个 YAML 文件，写清船型、载重吨、服务航速、航区。示例任务书 TB-001 锚定 JBC 基准船，每个数字标了出处。",
+      "how.t2": "跑一条命令",
+      "how.d2": "主尺度、静水力一路算下去，出结果。公式的出处可查；输入越界会直接报错。",
+      "how.t3": "拿结果",
+      "how.d3": "控制台出主尺度方案和静水力表，CSV 可直接用 Excel 打开；型线图已经能画，设计报告在阶段 4。",
+      "how.cmdLabel": "终端",
       "intro.kicker": "— 它是什么",
       "intro.title": "它做什么",
       "intro.p1": "造船的第一步是初步设计：定主尺度、算浮性、画型线。这些活儿有大量公式和经验可循，但散落在教科书和规范里，靠人手算、在软件之间来回搬。OpenHull 把它们写成代码：任务书进，方案出，公式全部标出处，算错了自己会报错。",
@@ -75,12 +84,6 @@
       "cta.sub": "还在写，欢迎提 issue 挑错。",
       "cta.constitution": "阅读项目宪法 AGENTS.md",
       "footer.line": "一个人，和几个 AI，晚上写的。",
-      "theme.paper": "纸墨",
-      "theme.noir": "墨夜",
-      "theme.deep": "深海",
-      "theme.blueprint": "蓝图",
-      "theme.amber": "琥珀",
-      "theme.terminal": "终端",
       "doc.title": "OpenHull — Design the shell that carries it all."
     },
     en: {
@@ -96,6 +99,15 @@
       "stats.l2": "benchmark ships: JBC, Series 60",
       "stats.l3": "stages, skeleton to v1.0",
       "stats.l4": "tests, all green",
+      "how.kicker": "— How to use",
+      "how.title": "Three steps: write a task book, run one command, get a design",
+      "how.t1": "Write a task book",
+      "how.d1": "One YAML file: ship type, deadweight, service speed, trading area. The example TB-001 is anchored to the JBC benchmark, every number tagged with its source.",
+      "how.t2": "Run one command",
+      "how.d2": "Dimensions and hydrostatics are computed in one pass. Formula sources are traceable; out-of-range input errors out.",
+      "how.t3": "Get the results",
+      "how.d3": "Principal dimensions and the hydrostatics table on the console, CSV opens straight in Excel. Lines plans already draw; reports come in stage 4.",
+      "how.cmdLabel": "terminal",
       "intro.kicker": "— What it is",
       "intro.title": "What it does",
       "intro.p1": "Step one of ship design is preliminary design: pick dimensions, check buoyancy, draw the lines. The formulas and experience exist, but they live in textbooks and rules, worked by hand and shuffled between programs. OpenHull turns them into code: task book in, design out, every formula cited, and it errors loudly when something is wrong.",
@@ -146,12 +158,6 @@
       "cta.sub": "Still under construction — issues that point out mistakes are welcome.",
       "cta.constitution": "Read the constitution, AGENTS.md",
       "footer.line": "One person, a few AI agents, written at night.",
-      "theme.paper": "Paper",
-      "theme.noir": "Noir",
-      "theme.deep": "Deep Sea",
-      "theme.blueprint": "Blueprint",
-      "theme.amber": "Amber",
-      "theme.terminal": "Terminal",
       "doc.title": "OpenHull — Design the shell that carries it all."
     }
   };
@@ -186,20 +192,16 @@
   }
   applyLang(lang);
 
-  /* ─────────────── 主题切换 ─────────────── */
+  /* ─────────────── 黑白主题切换 ─────────────── */
 
-  var THEMES = ["paper", "noir", "deep", "blueprint", "amber", "terminal"];
+  var THEMES = ["paper", "noir"];
 
   function applyTheme(t) {
     if (THEMES.indexOf(t) < 0) t = "paper";
     document.documentElement.setAttribute("data-theme", t);
     try { localStorage.setItem("openhull-theme", t); } catch (e) {}
-    var pop = document.getElementById("themePop");
-    if (pop) {
-      pop.querySelectorAll("[data-theme-set]").forEach(function (b) {
-        b.classList.toggle("active", b.getAttribute("data-theme-set") === t);
-      });
-    }
+    var btn = document.getElementById("themeToggle");
+    if (btn) btn.setAttribute("aria-pressed", String(t === "noir"));
   }
 
   function setTheme(t) {
@@ -207,32 +209,11 @@
     else applyTheme(t);
   }
 
-  var themeBtn = document.getElementById("themeBtn");
-  var themePop = document.getElementById("themePop");
-  if (themeBtn && themePop) {
-    themeBtn.addEventListener("click", function (e) {
-      e.stopPropagation();
-      themePop.hidden = !themePop.hidden;
-      themeBtn.setAttribute("aria-expanded", String(!themePop.hidden));
-    });
-    themePop.querySelectorAll("[data-theme-set]").forEach(function (b) {
-      b.addEventListener("click", function () {
-        setTheme(b.getAttribute("data-theme-set"));
-        themePop.hidden = true;
-        themeBtn.setAttribute("aria-expanded", "false");
-      });
-    });
-    document.addEventListener("click", function (e) {
-      if (!themePop.hidden && !e.target.closest(".theme-menu")) {
-        themePop.hidden = true;
-        themeBtn.setAttribute("aria-expanded", "false");
-      }
-    });
-    document.addEventListener("keydown", function (e) {
-      if (e.key === "Escape" && !themePop.hidden) {
-        themePop.hidden = true;
-        themeBtn.setAttribute("aria-expanded", "false");
-      }
+  var themeBtn = document.getElementById("themeToggle");
+  if (themeBtn) {
+    themeBtn.addEventListener("click", function () {
+      var cur = document.documentElement.getAttribute("data-theme") === "noir" ? "paper" : "noir";
+      setTheme(cur);
     });
   }
 
