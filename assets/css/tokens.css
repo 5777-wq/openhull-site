@@ -35,7 +35,7 @@
 }
 /* ── 皮肤：墨夜 noir（纯黑单色）── */
 [data-theme="noir"] {
-  --bg: #060607; --bg-2: #0c0c0e; --bg-3: #131316;
+  --bg: #050506; --bg-2: #0a0a0c; --bg-3: #111113;
   --ivory: #f2f2f0; --text: #c9c9cd; --muted: #8f8f96; --faint: #606067;
   --brass: #f2f2f0; --brass-hi: #ffffff;
   --accent-rgb: 242, 242, 240; --fg-rgb: 242, 242, 240;

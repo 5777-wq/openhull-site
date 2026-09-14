@@ -14,7 +14,8 @@ body {
   color: var(--text);
   font-family: var(--sans);
   font-size: 16px;
-  line-height: 1.85;
+  line-height: 1.8;
+  letter-spacing: .002em;
   -webkit-font-smoothing: antialiased;
   text-rendering: optimizeLegibility;
   overflow-x: hidden;
@@ -227,9 +228,10 @@ button { font: inherit; background: none; border: 0; cursor: pointer; color: inh
 .hero__title {
   font-family: var(--serif-en);
   font-weight: 560;
-  font-size: clamp(2.25rem, 7.2vw, 5.4rem);
-  line-height: 1.06;
-  letter-spacing: -.015em;
+  font-size: clamp(2.4rem, 7.6vw, 6.1rem);
+  line-height: 1.02;
+  letter-spacing: -.022em;
+  text-wrap: balance;
   color: var(--ivory);
   margin-bottom: 30px;
 }
@@ -244,7 +246,8 @@ button { font: inherit; background: none; border: 0; cursor: pointer; color: inh
   margin-bottom: 18px;
 }
 .hero__desc {
-  max-width: 620px;
+  max-width: 60ch;
+  text-wrap: pretty;
   font-size: .98rem;
   color: var(--muted);
   margin-bottom: 44px;
@@ -282,12 +285,25 @@ button { font: inherit; background: none; border: 0; cursor: pointer; color: inh
 
 /* 型线图 */
 .hero__figure {
-  margin-top: 26px;
+  margin-top: 0;
   border: 1px solid var(--line-2);
   border-radius: 4px;
   padding: 16px 24px 10px;
   background: var(--bg-2);
 }
+.howto__grid {
+  display: grid;
+  grid-template-columns: 1.55fr 1fr;
+  gap: 14px;
+  align-items: start;
+}
+.hero__detail {
+  border: 1px solid var(--line-2);
+  border-radius: 4px;
+  padding: 16px 20px 12px;
+  background: var(--bg-2);
+}
+.hero__detail .hull { margin-top: 4px; }
 .figure__label {
   display: flex;
   justify-content: space-between;
@@ -319,15 +335,23 @@ button { font: inherit; background: none; border: 0; cursor: pointer; color: inh
 }
 .stat { padding: 6px 34px; border-left: 1px solid var(--line); }
 .stat:first-child { border-left: 0; padding-left: 0; }
+.stat__key {
+  display: block;
+  font-size: .62rem;
+  letter-spacing: .2em;
+  color: var(--faint);
+  margin-bottom: 14px;
+}
 .stat strong {
   display: block;
   font-family: var(--serif-en);
   font-weight: 560;
-  font-size: 2.9rem;
-  line-height: 1.1;
+  font-size: 3.1rem;
+  line-height: 1;
   color: var(--ivory);
-  margin-bottom: 6px;
+  margin-bottom: 8px;
   font-variant-numeric: tabular-nums;
+  letter-spacing: -.01em;
 }
 .stat span { font-size: .82rem; color: var(--muted); letter-spacing: .04em; }
 
@@ -337,14 +361,16 @@ button { font: inherit; background: none; border: 0; cursor: pointer; color: inh
 .section--alt { background: var(--bg-2); border-top: 1px solid var(--line); border-bottom: 1px solid var(--line); }
 
 .section__head {
-  margin-bottom: 60px;
-  display: flex;
-  justify-content: space-between;
-  align-items: flex-end;
-  gap: 24px;
-  padding-bottom: 26px;
+  margin-bottom: 56px;
+  display: grid;
+  grid-template-columns: minmax(120px, 190px) 1fr auto;
+  align-items: end;
+  gap: 20px 28px;
+  padding-bottom: 24px;
   border-bottom: 1px solid var(--line);
 }
+.section__head > div { display: contents; }
+.section__head .section__no { margin-bottom: 6px; }
 .section__meta { color: var(--faint); white-space: nowrap; padding-bottom: 8px; }
 .section__no {
   font-family: var(--mono);
@@ -356,9 +382,10 @@ button { font: inherit; background: none; border: 0; cursor: pointer; color: inh
 .section__title {
   font-family: var(--serif);
   font-weight: 600;
-  font-size: clamp(1.9rem, 3.6vw, 2.75rem);
-  line-height: 1.25;
-  letter-spacing: .015em;
+  font-size: clamp(1.75rem, 3.2vw, 2.5rem);
+  line-height: 1.28;
+  letter-spacing: .01em;
+  text-wrap: balance;
   color: var(--ivory);
 }
 .section__lead {
@@ -371,7 +398,7 @@ button { font: inherit; background: none; border: 0; cursor: pointer; color: inh
 /* ─────────────────────────── 01 简介 ─────────────────────────── */
 
 .intro__lead { max-width: 760px; margin-bottom: 80px; }
-.intro__lead p { font-size: 1.06rem; color: var(--text); margin-bottom: 20px; }
+.intro__lead p { font-size: 1.06rem; color: var(--text); margin-bottom: 20px; text-wrap: pretty; }
 .intro__lead p:last-child {
   font-family: var(--serif);
   color: var(--brass-hi);
@@ -705,23 +732,29 @@ button { font: inherit; background: none; border: 0; cursor: pointer; color: inh
   user-select: none;
   margin-bottom: 54px;
 }
-.footer__row {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  gap: 20px;
-  flex-wrap: wrap;
+.footer__cols {
+  display: grid;
+  grid-template-columns: 1.6fr 1fr 1fr;
+  gap: 40px;
   color: var(--faint);
   font-size: .84rem;
 }
-.footer__row .hull__mono { font-size: .68rem; }
+.footer__key {
+  font-size: .62rem;
+  letter-spacing: .2em;
+  color: var(--text);
+  margin-bottom: 12px;
+}
+.footer__col p { margin-bottom: 6px; max-width: 34ch; }
+.footer__col a { border-bottom: 1px solid var(--line-2); padding-bottom: 1px; }
+.footer__col a:hover { border-bottom-color: var(--brass); color: var(--ivory); }
 
 /* ─────────────────────────── 动效 ─────────────────────────── */
 
 .reveal {
   opacity: 0;
-  transform: translateY(22px);
-  transition: opacity .8s var(--ease-out), transform .8s var(--ease-out);
+  transform: translateY(26px);
+  transition: opacity 1s var(--ease-out), transform 1s var(--ease-out);
 }
 .reveal[data-delay="1"] { transition-delay: .07s; }
 .reveal[data-delay="2"] { transition-delay: .14s; }
@@ -737,6 +770,8 @@ button { font: inherit; background: none; border: 0; cursor: pointer; color: inh
 /* ─────────────────────────── 响应式 ─────────────────────────── */
 
 @media (max-width: 1020px) {
+  .howto__grid { grid-template-columns: 1fr; }
+  .footer__cols { grid-template-columns: 1fr 1fr; gap: 28px; }
   .steps { grid-template-columns: 1fr; gap: 0; }
   .pipeline { grid-template-columns: 1fr; gap: 40px; }
   .pipeline__mid { display: flex; align-items: center; gap: 24px; }
@@ -753,8 +788,10 @@ button { font: inherit; background: none; border: 0; cursor: pointer; color: inh
   .stat { padding: 0 26px; }
   .stat:nth-child(odd) { border-left: 0; padding-left: 0; }
   .section { padding: 110px 0; }
-  .section__head { flex-direction: column; align-items: flex-start; gap: 8px; }
+  .section__head { grid-template-columns: 1fr; align-items: start; gap: 6px; }
+  .section__head > div { display: block; }
   .section__meta { display: none; }
+  .footer__cols { grid-template-columns: 1fr; gap: 24px; }
 }
 
 @media (max-width: 640px) {

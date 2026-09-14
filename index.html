@@ -182,6 +182,8 @@
             OpenHull · PROFILE — TB-001 CAPESIZE BULK CARRIER · SCALE 1:1200 · SHEET 01
           </p>
         </figure>
+
+
       </div>
     </section>
 
@@ -214,6 +216,34 @@
           </li>
         </ol>
 
+        <div class="howto__grid">
+                <figure class="hero__detail" aria-hidden="true">
+          <figcaption class="figure__label hull__mono">
+            <span data-i18n="fig.detail">艏部细节 · BOW DETAIL</span><span>1:600</span>
+          </figcaption>
+          <svg class="hull" viewBox="826 166 364 162" fill="none" preserveAspectRatio="xMidYMid meet">
+            <path d="M126 206
+              C 240 213, 420 217, 620 217
+              C 780 217, 920 210, 1036 192
+              C 1041 191, 1043 194, 1041 199
+              C 1037 213, 1035 226, 1037 236
+              C 1047 240, 1053 249, 1050 261
+              C 1044 273, 1024 279, 1000 282
+              C 972 286, 946 290, 922 295 L 210 300" stroke="var(--ivory)" stroke-width="0.55"/>
+            <path d="M880 205 C 950 209, 1000 208, 1036 192" stroke="var(--brass)" stroke-width="0.42"/>
+            <g stroke="var(--brass)" stroke-width="0.3" opacity=".55">
+              <rect x="960" y="195" width="86" height="13"/>
+            </g>
+            <line x1="950" y1="210" x2="942" y2="168" stroke="var(--ivory)" stroke-width="0.28" opacity=".6"/>
+            <g stroke="var(--brass)" stroke-width="0.28" stroke-dasharray="11 9" opacity=".4">
+              <line x1="1068" y1="232" x2="1106" y2="232"/>
+            </g>
+            <g fill="var(--brass)" opacity=".9">
+              <text x="1108" y="226" class="hull__mono">T 16.500 m</text>
+            </g>
+          </svg>
+        </figure>
+
         <div class="cmd reveal" data-delay="3">
           <div class="cmd__bar hull__mono"><span data-i18n="how.cmdLabel">终端</span></div>
 <pre><code><span class="p">$</span> <span class="cmd-key">uv run openhull run</span> examples/taskbook_bulk_carrier.yaml
@@ -228,6 +258,7 @@ d  16.500 m     Cb 0.8580
 ∇  178369.9 m3   KM 19.870 m   TPC 50.21 t/cm
 <span class="ok2">[ok]</span> within tolerance vs JBC published values</span></code></pre>
         </div>
+        </div>
       </div>
     </section>
 
@@ -235,18 +266,22 @@ d  16.500 m     Cb 0.8580
     <section class="stats">
       <div class="wrap stats__row">
         <div class="stat reveal">
+          <span class="stat__key hull__mono">README</span>
           <strong data-count="10">10</strong>
           <span data-i18n="stats.l1">种语言的 README</span>
         </div>
         <div class="stat reveal" data-delay="1">
+          <span class="stat__key hull__mono">BENCHMARK</span>
           <strong data-count="2">2</strong>
           <span data-i18n="stats.l2">艘基准船：JBC、Series 60</span>
         </div>
         <div class="stat reveal" data-delay="2">
+          <span class="stat__key hull__mono">STAGES</span>
           <strong data-count="6">6</strong>
           <span data-i18n="stats.l3">个阶段，从骨架到 v1.0</span>
         </div>
         <div class="stat reveal" data-delay="3">
+          <span class="stat__key hull__mono">TESTS</span>
           <strong data-count="158">158</strong>
           <span data-i18n="stats.l4">个测试，都是绿的</span>
         </div>
@@ -485,9 +520,24 @@ d  16.500 m     Cb 0.8580
     <footer class="footer">
       <div class="wrap">
         <p class="footer__watermark" aria-hidden="true">OpenHull</p>
-        <div class="footer__row">
-          <p data-i18n="footer.line">一个人，和几个 AI，晚上写的。</p>
-          <p class="hull__mono">© 2026 OpenHull Contributors · MIT License</p>
+        <div class="footer__cols">
+          <div class="footer__col">
+            <p class="footer__key hull__mono" data-i18n="footer.aboutKey">关于</p>
+            <p data-i18n="footer.line">一个人，和几个 AI，晚上写的。</p>
+            <p data-i18n="footer.goal">目标只有一个：把船舶初步设计里能写成公式的东西，交给代码。</p>
+          </div>
+          <div class="footer__col">
+            <p class="footer__key hull__mono" data-i18n="footer.linksKey">链接</p>
+            <p><a href="https://github.com/5777-wq/OpenHull" target="_blank" rel="noopener">GitHub</a></p>
+            <p><a href="https://github.com/5777-wq/OpenHull/blob/main/AGENTS.md" target="_blank" rel="noopener">AGENTS.md</a></p>
+            <p><a href="https://github.com/5777-wq/OpenHull/blob/main/README_zh.md" target="_blank" rel="noopener">README</a></p>
+          </div>
+          <div class="footer__col">
+            <p class="footer__key hull__mono" data-i18n="footer.stateKey">状态</p>
+            <p class="hull__mono">v0.1 released</p>
+            <p class="hull__mono">158 tests · CI green</p>
+            <p class="hull__mono">MIT License · © 2026</p>
+          </div>
         </div>
       </div>
     </footer>
