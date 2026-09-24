@@ -109,8 +109,8 @@
   footer .wrap{display:flex;justify-content:space-between;gap:20px;flex-wrap:wrap;align-items:center}
   footer a{color:#fff;text-decoration:none;margin-right:18px}
   footer a:hover{text-decoration:underline}
-  .reveal{opacity:0;transform:translateY(18px);transition:.7s ease}
-  .reveal.on{opacity:1;transform:none}
+  .js .reveal{opacity:0;transform:translateY(18px);transition:.7s ease}
+  .js .reveal.on{opacity:1;transform:none}
   @media (max-width:720px){.nav__links{display:none}.hero{padding:64px 0 52px}}
 </style>
 </head>
@@ -274,7 +274,8 @@ ga.png / ga.dxf    <span class="c"># 总布置简图与分层 DXF</span>
 </footer>
 
 <script>
-  // scroll reveal
+  document.documentElement.classList.add('js');
+  // scroll reveal (progressive enhancement)
   const io = new IntersectionObserver(es => es.forEach(e => {
     if (e.isIntersecting) { e.target.classList.add('on'); io.unobserve(e.target); }
   }), { threshold: 0.12 });
