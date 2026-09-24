@@ -125,7 +125,7 @@
     <div class="nav__links">
       <a href="#features">功能</a>
       <a href="#quickstart">快速上手</a>
-      <a href="#roadmap">路线图</a>
+      <a href="#agent">智能体</a>
       <a href="#validation">验证</a>
       <a href="https://5777-wq.github.io/OpenHull/" target="_blank" rel="noopener">文档站</a>
       <a class="gh" href="https://github.com/5777-wq/OpenHull" target="_blank" rel="noopener">GitHub ↗</a>
@@ -142,7 +142,7 @@
     <div class="stats">
       <div class="stat"><b>348</b><span>测试全绿</span></div>
       <div class="stat"><b>22</b><span>条验收记录</span></div>
-      <div class="stat"><b>5 / 5</b><span>路线图阶段</span></div>
+      <div class="stat"><b>9</b><span>大设计环节</span></div>
       <div class="stat"><b>10</b><span>语言 README</span></div>
     </div>
     <div class="cta">
@@ -211,18 +211,24 @@ ga.png / ga.dxf    <span class="c"># 总布置简图与分层 DXF</span>
   </div>
 </section>
 
-<section id="roadmap">
+<section id="agent">
   <div class="wrap">
-    <span class="kicker">ROADMAP</span>
-    <h2 class="sec__title">路线图：五个阶段全部完成</h2>
-    <p class="sec__sub">2026-09-04 铺龙骨，2026-09-23 v1.0.0 收官——每个阶段都有版本号与验收数字。</p>
-    <div class="tl">
-      <div class="tl__item"><span class="tl__dot"></span><h3>阶段 1 · 主尺度与静水力内核 <span class="ver2">v0.1</span></h3><p>载重量比法 + 诺曼平衡 + 静水力内核，解析形体验收。</p></div>
-      <div class="tl__item"><span class="tl__dot"></span><h3>阶段 2 · 参数化船型生成 <span class="ver2">v0.2</span></h3><p>Series 60 母型数字化、Lackenby 变换、真实型值上的全链贯通、型线三视图与 DXF。</p></div>
-      <div class="tl__item"><span class="tl__dot"></span><h3>阶段 3 · 性能闭环 <span class="ver2">v0.3</span></h3><p>艾亚阻力、Holtrop 推进因子、B 系列螺旋桨（三重裁判验证）、IS Code 稳性、设计空间寻优。</p></div>
-      <div class="tl__item"><span class="tl__dot"></span><h3>阶段 4 · 图纸与报告 <span class="ver2">v0.4</span></h3><p>静水力曲线图、总布置简图与分层 DXF、中文设计报告；耐波性两级并入闭环。</p></div>
-      <div class="tl__item"><span class="tl__dot"></span><h3>阶段 5 · 文档与社区发布 <span class="ver2">v1.0</span></h3><p>文档站、双语 CONTRIBUTING、Issue/PR 模板、Kwon 失速估算（开放来源归档页核）、十语 README。</p></div>
+    <span class="kicker">FOR AI AGENTS</span>
+    <h2 class="sec__title">一句话，交给你的 AI 智能体</h2>
+    <p class="sec__sub">OpenHull 就是为智能体编排设计的：把下面这句话发给任何支持技能的 AI 智能体（ZCode、Claude Code 等），它会自己安装工具、写好任务书、跑完整条设计链。</p>
+    <div class="steps" style="margin-bottom:26px">
+      <div class="step">
+        <div class="step__head"><b>复制这句话发给你的智能体</b><button class="copy">复制</button></div>
+        <pre>「请安装并使用 OpenHull 技能（https://github.com/5777-wq/OpenHull/tree/main/skills/openhull），
+然后帮我设计一条 5 万吨散货船，服务航速 14.5 节，出设计报告和总布置简图。」</pre>
+      </div>
     </div>
+    <div class="grid">
+      <div class="card"><span class="tag">AUTO INSTALL</span><h3>① 自动安装</h3><p>智能体读取技能文件后执行一条命令装好 CLI：<span class="mono">uv tool install "git+https://github.com/5777-wq/OpenHull"</span>，并自检版本。</p></div>
+      <div class="card"><span class="tag">AUTO DRAFT</span><h3>② 自己写任务书</h3><p>技能内置最小任务书模板——只需载重吨、航速、吃水、方形系数四个字段，其余参数由智能体按内置方法补全。</p></div>
+      <div class="card"><span class="tag">FULL OUTPUT</span><h3>③ 出齐成果</h3><p>中文设计报告、静水力曲线图、总布置简图与 DXF、方案空间对比——全部可溯源，跳过项如实声明。</p></div>
+    </div>
+    <p style="margin-top:22px;font-size:.92rem;color:var(--muted)">技能源码（任意智能体可自行读取安装）：<a href="https://github.com/5777-wq/OpenHull/tree/main/skills/openhull" target="_blank" rel="noopener" style="color:var(--accent)">github.com/5777-wq/OpenHull/skills/openhull ↗</a></p>
   </div>
 </section>
 
