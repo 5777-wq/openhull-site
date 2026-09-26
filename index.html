@@ -415,20 +415,31 @@
     bar.style.width = (h.scrollTop / (h.scrollHeight - h.clientHeight) * 100) + '%';
   }, { passive: true });
 
-  // scroll reveal with per-section stagger
-  const io = new IntersectionObserver(es => es.forEach(e => {
-    if (e.isIntersecting) { e.target.classList.add('on'); io.unobserve(e.target); }
-  }), { threshold: 0.12 });
-  document.querySelectorAll('.grid,.pills,.outrow,table,.steps,.sec__head,.linkrow,.agent-note').forEach(box => {
-    box.querySelectorAll(':scope > .card,:scope > .pill,:scope > .outchip,:scope > tbody > tr,:scope > .step').forEach((el, i) => {
-      el.classList.add('reveal');
-      el.style.transitionDelay = (Math.min(i, 8) * 70) + 'ms';
+  // scroll reveal — observe each hidden element ITSELF (a container-level
+  // observer lights up the container while its children stay invisible)
+  let ioFired = false;
+  const io = new IntersectionObserver(es => {
+    ioFired = true;
+    es.forEach(e => {
+      if (e.isIntersecting) { e.target.classList.add('on'); io.unobserve(e.target); }
     });
-    if (box.matches('.steps,table,.sec__head,.linkrow,.agent-note')) {
-      box.classList.add('reveal');
-    }
-    io.observe(box);
+  }, { threshold: 0.12 });
+  document.querySelectorAll(
+    '.grid > .card, .pills > .pill, .outrow > .outchip, table tbody > tr, .steps > .step'
+  ).forEach((el, i) => {
+    el.classList.add('reveal');
+    el.style.transitionDelay = (Math.min(i % 9, 8) * 70) + 'ms';
+    io.observe(el);
   });
+  document.querySelectorAll('.sec__head, .steps, table, .linkrow, .agent-note').forEach(el => {
+    el.classList.add('reveal');
+    io.observe(el);
+  });
+  // safety net: if the observer never fires (old browser, extension),
+  // show everything — missing content is worse than missing animation
+  setTimeout(() => {
+    if (!ioFired) document.querySelectorAll('.reveal').forEach(el => el.classList.add('on'));
+  }, 1500);
 
   // stat count-up — progressive enhancement: the markup already carries the
   // final value, JS only animates from zero; a throttled/hidden tab can never
