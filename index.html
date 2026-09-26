@@ -6,115 +6,202 @@
 <title>OpenHull — 开源参数化船舶初步设计工具链</title>
 <meta name="description" content="OpenHull：由 AI 智能体编排的开源参数化船舶初步设计工具链。一份任务书，自动产出主尺度、静水力、IS Code 稳性、阻力推进、螺旋桨、耐波性、失速估算、图纸与中文设计报告——每个数字可溯源。">
 <meta property="og:title" content="OpenHull — 开源参数化船舶初步设计工具链">
-<meta property="og:description" content="一份任务书，自动产出主尺度、静水力、稳性、性能、耐波性、图纸与中文设计报告。v1.2.0 已发布，405 项测试全绿。">
+<meta property="og:description" content="一份任务书，自动产出主尺度、静水力、稳性、性能、耐波性、图纸与中文设计报告。v1.3.0 已发布，419 项测试全绿。">
 <meta property="og:type" content="website">
+<meta name="theme-color" content="#0e2238">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath fill='%231a6fb5' d='M2 17c2.5 0 2.5 1.6 5 1.6S9.5 17 12 17s2.5 1.6 5 1.6S19.5 17 22 17v3c-2.5 0-2.5 1.6-5 1.6S14.5 20 12 20s-2.5 1.6-5 1.6S4.5 20 2 20v-3zM3 14l9-11 9 11h-6v-2h-6v2H3z'/%3E%3C/svg%3E">
 <style>
   :root{
-    --navy:#16324f; --navy2:#1f4e79; --ink:#1c2733; --muted:#5b6b7b;
-    --bg:#f7f9fb; --card:#ffffff; --line:#dfe7ee;
-    --accent:#1a6fb5; --accent2:#0f9d8a; --gold:#c9a227;
+    --navy:#16324f; --navy-deep:#0e2238; --navy2:#1f4e79;
+    --ink:#1c2733; --muted:#5b6b7b;
+    --bg:#f7f9fb; --card:#ffffff; --line:#e1e9f1;
+    --accent:#1a6fb5; --accent-soft:#eaf2fa;
+    --accent2:#0f9d8a; --gold:#c9a227;
     --code-bg:#0f1c2b; --code-ink:#d8e6f3;
-    --radius:14px;
+    --radius:16px;
+    --shadow-sm:0 1px 2px rgba(14,34,56,.05),0 2px 8px rgba(14,34,56,.05);
+    --shadow-md:0 4px 14px rgba(14,34,56,.08),0 12px 32px rgba(14,34,56,.09);
     --mono:ui-monospace,'Cascadia Code',Consolas,'Courier New',monospace;
+    --ease:cubic-bezier(.22,.61,.36,1);
   }
   *{margin:0;padding:0;box-sizing:border-box}
   html{scroll-behavior:smooth}
-  body{font-family:"Source Han Sans SC","Noto Sans SC","Microsoft YaHei","PingFang SC",system-ui,-apple-system,sans-serif;color:var(--ink);background:var(--bg);line-height:1.75}
-  .wrap{max-width:1080px;margin:0 auto;padding:0 24px}
+  body{font-family:"Source Han Sans SC","Noto Sans SC","Microsoft YaHei","PingFang SC",system-ui,-apple-system,sans-serif;color:var(--ink);background:var(--bg);line-height:1.8;-webkit-font-smoothing:antialiased}
+  .wrap{max-width:1120px;margin:0 auto;padding:0 28px}
   .mono{font-family:var(--mono)}
 
+  /* ---- scroll progress ---- */
+  #progress{position:fixed;top:0;left:0;height:2.5px;width:0;z-index:99;
+    background:linear-gradient(90deg,var(--accent),var(--accent2));border-radius:0 2px 2px 0}
+
   /* ---- nav ---- */
-  .nav{position:sticky;top:0;z-index:50;background:rgba(255,255,255,.92);backdrop-filter:blur(8px);border-bottom:1px solid var(--line)}
-  .nav__in{max-width:1080px;margin:0 auto;padding:14px 24px;display:flex;align-items:center;gap:28px}
+  .nav{position:sticky;top:0;z-index:50;background:rgba(255,255,255,.86);backdrop-filter:blur(12px);border-bottom:1px solid var(--line)}
+  .nav__in{max-width:1120px;margin:0 auto;padding:14px 28px;display:flex;align-items:center;gap:28px}
   .brand{display:flex;align-items:center;gap:10px;text-decoration:none;color:var(--navy);font-weight:800;font-size:1.15rem;letter-spacing:.5px}
-  .brand svg{width:26px;height:26px;color:var(--accent)}
-  .nav__links{margin-left:auto;display:flex;gap:22px;flex-wrap:wrap}
-  .nav__links a{text-decoration:none;color:var(--muted);font-size:.95rem;font-weight:500}
-  .nav__links a:hover{color:var(--accent)}
+  .brand svg{width:27px;height:27px;color:var(--accent);transition:transform .5s var(--ease)}
+  .brand:hover svg{transform:translateY(-2px) rotate(-4deg)}
+  .nav__links{margin-left:auto;display:flex;gap:24px;flex-wrap:wrap}
+  .nav__links a{position:relative;text-decoration:none;color:var(--muted);font-size:.94rem;font-weight:500;padding:2px 0;transition:color .2s}
+  .nav__links a::after{content:"";position:absolute;left:0;bottom:-3px;width:0;height:2px;background:var(--accent);border-radius:2px;transition:width .28s var(--ease)}
+  .nav__links a:hover{color:var(--navy)}
+  .nav__links a:hover::after{width:100%}
   .nav__links a.gh{color:var(--navy);font-weight:700}
 
   /* ---- hero ---- */
-  .hero{background:linear-gradient(160deg,#0e2238 0%,#16324f 55%,#1f4e79 100%);color:#fff;padding:88px 0 72px;position:relative;overflow:hidden}
-  .hero::after{content:"";position:absolute;inset:0;background:
-    radial-gradient(600px 300px at 85% 20%,rgba(26,111,181,.35),transparent 70%),
-    radial-gradient(500px 260px at 10% 90%,rgba(15,157,138,.18),transparent 70%);pointer-events:none}
-  .hero .wrap{position:relative;z-index:1}
-  .ver{display:inline-flex;align-items:center;gap:8px;background:rgba(255,255,255,.12);border:1px solid rgba(255,255,255,.25);border-radius:999px;padding:5px 16px;font-size:.86rem;letter-spacing:1px;color:#cfe3f5}
+  .hero{background:linear-gradient(165deg,#0b1c2e 0%,var(--navy-deep) 30%,var(--navy) 68%,var(--navy2) 100%);color:#fff;position:relative;overflow:hidden}
+  .hero__grid-bg{position:absolute;inset:0;opacity:.35;pointer-events:none;
+    background-image:linear-gradient(rgba(120,170,220,.07) 1px,transparent 1px),linear-gradient(90deg,rgba(120,170,220,.07) 1px,transparent 1px);
+    background-size:56px 56px;
+    -webkit-mask-image:radial-gradient(75% 90% at 60% 40%,#000 30%,transparent 100%);
+            mask-image:radial-gradient(75% 90% at 60% 40%,#000 30%,transparent 100%)}
+  .hero::after{content:"";position:absolute;inset:0;pointer-events:none;background:
+    radial-gradient(640px 320px at 82% 24%,rgba(26,111,181,.42),transparent 70%),
+    radial-gradient(520px 280px at 8% 92%,rgba(15,157,138,.16),transparent 70%)}
+  .hero .wrap{position:relative;z-index:2;display:grid;grid-template-columns:minmax(0,1.25fr) minmax(0,.85fr);gap:40px;align-items:center;padding:92px 28px 84px}
+  .hero__copy{min-width:0}
+  .ver{display:inline-flex;align-items:center;gap:8px;background:rgba(255,255,255,.10);border:1px solid rgba(255,255,255,.22);border-radius:999px;padding:5px 16px;font-size:.85rem;letter-spacing:.5px;color:#cfe3f5}
   .ver b{color:#fff}
-  .hero h1{font-size:clamp(2rem,5vw,3.2rem);line-height:1.2;margin:22px 0 10px;font-weight:900}
-  .hero .slogan{font-family:Georgia,'Times New Roman',serif;font-style:italic;font-size:1.15rem;color:#a8c6e2;margin-bottom:18px}
-  .hero p.lead{max-width:760px;font-size:1.08rem;color:#dbe9f6}
+  .ver .dot{width:7px;height:7px;border-radius:50%;background:var(--accent2);box-shadow:0 0 0 3px rgba(15,157,138,.25)}
+  .hero h1{font-size:clamp(2.1rem,4.6vw,3.3rem);line-height:1.22;margin:24px 0 10px;font-weight:900;letter-spacing:.01em}
+  .hero h1 em{font-style:normal;background:linear-gradient(92deg,#7fc0f2,#4fd0bd);-webkit-background-clip:text;background-clip:text;color:transparent}
+  .hero .slogan{font-family:Georgia,'Times New Roman',serif;font-style:italic;font-size:1.12rem;color:#9dc0de;margin-bottom:16px}
+  .hero p.lead{max-width:640px;font-size:1.05rem;color:#d5e6f4}
   .hero p.lead b{color:#fff}
-  .stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:14px;margin-top:38px;max-width:820px}
-  .stat{background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.16);border-radius:12px;padding:14px 10px;text-align:center}
-  .stat b{display:block;font-size:1.5rem;color:#fff;font-family:var(--mono)}
-  .stat span{font-size:.82rem;color:#a8c6e2}
-  .cta{margin-top:36px;display:flex;gap:14px;flex-wrap:wrap}
-  .btn{display:inline-block;padding:12px 26px;border-radius:10px;text-decoration:none;font-weight:700;font-size:1rem;transition:.2s}
-  .btn--primary{background:#fff;color:var(--navy)}
-  .btn--primary:hover{transform:translateY(-2px);box-shadow:0 8px 24px rgba(0,0,0,.25)}
-  .btn--ghost{border:1.5px solid rgba(255,255,255,.55);color:#fff}
-  .btn--ghost:hover{background:rgba(255,255,255,.12)}
+  .stats{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-top:36px;max-width:700px}
+  .stat{background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.14);border-radius:13px;padding:15px 10px 12px;text-align:center;transition:transform .3s var(--ease),background .3s}
+  .stat:hover{transform:translateY(-3px);background:rgba(255,255,255,.12)}
+  .stat b{display:block;font-size:1.3rem;color:#fff;font-family:var(--mono);line-height:1.25;white-space:nowrap}
+  .stat b i{font-style:normal;font-size:.78em;color:#9dc0de}
+  .stat > span{font-size:.78rem;color:#a8c6e2;display:block;margin-top:3px}
+  .cta{margin-top:34px;display:flex;gap:14px;flex-wrap:wrap;align-items:center}
+  .btn{position:relative;display:inline-block;padding:12px 26px;border-radius:11px;text-decoration:none;font-weight:700;font-size:.98rem;transition:transform .25s var(--ease),box-shadow .25s,background .25s}
+  .btn--primary{background:#fff;color:var(--navy-deep);overflow:hidden}
+  .btn--primary:hover{transform:translateY(-2px);box-shadow:0 10px 28px rgba(0,0,0,.32)}
+  .btn--primary::after{content:"";position:absolute;top:0;left:-80%;width:50%;height:100%;background:linear-gradient(100deg,transparent,rgba(26,111,181,.18),transparent);transform:skewX(-18deg);transition:left .6s var(--ease)}
+  .btn--primary:hover::after{left:130%}
+  .btn--ghost{border:1.5px solid rgba(255,255,255,.5);color:#fff}
+  .btn--ghost:hover{background:rgba(255,255,255,.12);transform:translateY(-2px)}
+  .hero__emblem{position:relative;display:flex;justify-content:center;min-width:0}
+  .hero__emblem svg{width:min(100%,360px);height:auto;overflow:visible}
+  .ring{fill:none;stroke:#7fb2dd;opacity:.28}
+  .ring--1{animation:spin 46s linear infinite;transform-origin:center}
+  .ring--2{animation:spin 70s linear infinite reverse;transform-origin:center}
+  @keyframes spin{to{transform:rotate(360deg)}}
+  .mark-fill{fill:url(#markGrad)}
+  .mark-stroke{fill:none;stroke:#8fd0ef;stroke-width:.55;stroke-linejoin:round;
+    stroke-dasharray:120;stroke-dashoffset:120;animation:draw 2.4s var(--ease) .3s forwards}
+  @keyframes draw{to{stroke-dashoffset:0}}
+  .mark-fill{opacity:0;animation:fadein 1.2s ease 1.6s forwards}
+  @keyframes fadein{to{opacity:1}}
+  .float{animation:float 7s ease-in-out infinite;transform-origin:center}
+  @keyframes float{0%,100%{transform:translateY(0)}50%{transform:translateY(-10px)}}
+  .ripple{fill:none;stroke:#4fa3dd;transform-origin:center;animation:ripple 4.5s ease-out infinite}
+  .ripple--2{animation-delay:1.5s}
+  .ripple--3{animation-delay:3s}
+  @keyframes ripple{0%{transform:scale(.82);opacity:.45}70%{opacity:0}100%{transform:scale(1.28);opacity:0}}
+  .wave-line{stroke:#4fa3dd;fill:none;opacity:.5;animation:drift 9s ease-in-out infinite}
+  .wave-line--2{animation-delay:-4.5s;opacity:.3}
+  @keyframes drift{0%,100%{transform:translateX(0)}50%{transform:translateX(9px)}}
 
   /* ---- sections ---- */
-  section{padding:72px 0}
+  section{padding:82px 0}
   section:nth-of-type(even){background:#fff;border-top:1px solid var(--line);border-bottom:1px solid var(--line)}
-  .sec__title{font-size:1.7rem;font-weight:900;color:var(--navy);margin-bottom:6px}
-  .sec__sub{color:var(--muted);margin-bottom:34px}
-  .kicker{display:inline-block;font-size:.8rem;letter-spacing:2px;color:var(--accent);font-weight:800;margin-bottom:8px}
+  .sec__head{margin-bottom:40px}
+  .kicker{display:inline-flex;align-items:center;gap:10px;font-size:.78rem;letter-spacing:2.5px;color:var(--accent);font-weight:800;margin-bottom:10px}
+  .kicker::before{content:"";width:26px;height:2px;background:var(--accent);border-radius:2px}
+  .sec__title{font-size:1.85rem;font-weight:900;color:var(--navy);margin-bottom:8px;letter-spacing:.01em}
+  .sec__sub{color:var(--muted);max-width:720px}
+  .sec__sub a{color:var(--accent);text-decoration:none;font-weight:600}
+  .sec__sub a:hover{text-decoration:underline}
 
   /* ---- features ---- */
   .grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:18px}
-  .card{background:var(--card);border:1px solid var(--line);border-radius:var(--radius);padding:22px 22px 18px;transition:.2s}
-  .card:hover{transform:translateY(-3px);box-shadow:0 10px 28px rgba(22,50,79,.10)}
-  .card h3{font-size:1.02rem;color:var(--navy);margin-bottom:6px}
+  .card{position:relative;background:var(--card);border:1px solid var(--line);border-radius:var(--radius);padding:24px 22px 20px;box-shadow:var(--shadow-sm);transition:transform .3s var(--ease),box-shadow .3s var(--ease)}
+  .card::before{content:"";position:absolute;top:-1px;left:22px;right:100%;height:2.5px;background:linear-gradient(90deg,var(--accent),var(--accent2));border-radius:2px;transition:right .45s var(--ease)}
+  .card:hover{transform:translateY(-4px);box-shadow:var(--shadow-md)}
+  .card:hover::before{right:22px}
+  .card h3{font-size:1.03rem;color:var(--navy);margin-bottom:6px}
   .card p{font-size:.9rem;color:var(--muted)}
-  .card .tag{display:inline-block;font-family:var(--mono);font-size:.72rem;background:#eaf2fa;color:var(--accent);border-radius:6px;padding:2px 8px;margin-bottom:10px}
+  .card .tag{display:inline-block;font-family:var(--mono);font-size:.71rem;letter-spacing:1px;background:var(--accent-soft);color:var(--accent);border-radius:6px;padding:2px 9px;margin-bottom:11px}
 
   /* ---- quickstart ---- */
   .steps{display:grid;gap:16px;max-width:880px}
-  .step{background:var(--code-bg);border-radius:var(--radius);overflow:hidden}
+  .step{background:var(--code-bg);border-radius:var(--radius);overflow:hidden;box-shadow:var(--shadow-md)}
   .step__head{display:flex;align-items:center;justify-content:space-between;padding:10px 16px;background:rgba(255,255,255,.06);color:#9fbdd8;font-size:.85rem}
   .step__head b{color:#fff}
-  .copy{border:1px solid rgba(255,255,255,.25);background:transparent;color:#9fbdd8;border-radius:6px;padding:3px 10px;font-size:.75rem;cursor:pointer}
+  .copy{border:1px solid rgba(255,255,255,.25);background:transparent;color:#9fbdd8;border-radius:6px;padding:3px 10px;font-size:.75rem;cursor:pointer;transition:.2s}
   .copy:hover{color:#fff;border-color:#fff}
-  .step pre{padding:16px 18px;overflow-x:auto;font-family:var(--mono);font-size:.86rem;line-height:1.7;color:var(--code-ink)}
+  .step pre{padding:16px 18px;overflow-x:auto;font-family:var(--mono);font-size:.86rem;line-height:1.75;color:var(--code-ink)}
   .c{color:#6f8fae}
   .o{color:#7fd0b0}
+  .outrow{display:flex;gap:10px;flex-wrap:wrap;margin-top:18px;max-width:880px}
+  .outchip{background:#fff;border:1px solid var(--line);border-radius:10px;padding:8px 14px;font-size:.85rem;color:var(--muted);box-shadow:var(--shadow-sm)}
+  .outchip .mono{color:var(--accent);font-weight:700;font-size:.82rem}
+  .linkrow{margin-top:20px;font-size:.92rem;color:var(--muted);display:flex;gap:22px;flex-wrap:wrap}
+  .linkrow a{color:var(--accent);text-decoration:none;font-weight:600}
+  .linkrow a:hover{text-decoration:underline}
 
-  /* ---- roadmap ---- */
-  .tl{position:relative;max-width:760px;margin:0 auto;padding-left:30px}
-  .tl::before{content:"";position:absolute;left:8px;top:6px;bottom:6px;width:2px;background:var(--line)}
-  .tl__item{position:relative;padding:0 0 26px 22px}
-  .tl__dot{position:absolute;left:-30px;top:6px;width:18px;height:18px;border-radius:50%;background:var(--accent2);border:3px solid #fff;box-shadow:0 0 0 2px var(--accent2)}
-  .tl__item h3{font-size:1.02rem;color:var(--navy)}
-  .tl__item .ver2{font-family:var(--mono);font-size:.8rem;color:#fff;background:var(--accent);border-radius:6px;padding:1px 8px;margin-left:8px}
-  .tl__item p{font-size:.9rem;color:var(--muted)}
+  /* ---- agent ---- */
+  .agent-note{margin-top:22px;font-size:.92rem;color:var(--muted)}
+  .agent-note a{color:var(--accent);font-weight:600;text-decoration:none}
+  .agent-note a:hover{text-decoration:underline}
 
   /* ---- validation ---- */
-  table{width:100%;border-collapse:collapse;background:var(--card);border-radius:var(--radius);overflow:hidden;font-size:.92rem}
-  th,td{padding:12px 16px;text-align:left;border-bottom:1px solid var(--line)}
-  th{background:#eef4f9;color:var(--navy);font-weight:800}
-  tr:last-child td{border-bottom:none}
-  td:last-child{font-family:var(--mono);font-size:.85rem;color:var(--accent2)}
+  table{width:100%;border-collapse:collapse;background:var(--card);border-radius:var(--radius);overflow:hidden;font-size:.92rem;box-shadow:var(--shadow-sm)}
+  th,td{padding:13px 18px;text-align:left;border-bottom:1px solid var(--line)}
+  th{background:#eef4f9;color:var(--navy);font-weight:800;font-size:.86rem;letter-spacing:.03em}
+  tbody tr{transition:background .2s}
+  tbody tr:hover{background:#f4f9fd}
+  tbody tr:last-child td{border-bottom:none}
+  td:last-child{font-family:var(--mono);font-size:.84rem;color:var(--accent2);white-space:nowrap}
+  @media (max-width:720px){td:last-child{white-space:normal}}
 
   /* ---- principles ---- */
   .pills{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:16px}
-  .pill{background:var(--card);border-left:4px solid var(--gold);border-radius:10px;padding:16px 18px;border-top:1px solid var(--line);border-right:1px solid var(--line);border-bottom:1px solid var(--line)}
+  .pill{background:var(--card);border:1px solid var(--line);border-left:4px solid var(--gold);border-radius:12px;padding:17px 19px;box-shadow:var(--shadow-sm);transition:transform .3s var(--ease),box-shadow .3s var(--ease)}
+  .pill:hover{transform:translateY(-3px);box-shadow:var(--shadow-md)}
   .pill b{color:var(--navy)}
   .pill p{font-size:.88rem;color:var(--muted)}
 
   /* ---- footer ---- */
-  footer{background:var(--navy);color:#a8c6e2;padding:40px 0;font-size:.9rem}
-  footer .wrap{display:flex;justify-content:space-between;gap:20px;flex-wrap:wrap;align-items:center}
-  footer a{color:#fff;text-decoration:none;margin-right:18px}
-  footer a:hover{text-decoration:underline}
-  .js .reveal{opacity:0;transform:translateY(18px);transition:.7s ease}
+  footer{background:var(--navy-deep);color:#a8c6e2;padding:52px 0 0;font-size:.9rem}
+  footer .cols{display:grid;grid-template-columns:1.4fr 1fr 1fr;gap:36px;padding-bottom:36px}
+  footer h4{color:#fff;font-size:.86rem;letter-spacing:1.5px;margin-bottom:14px;font-weight:800}
+  footer .fbrand{display:flex;align-items:center;gap:10px;color:#fff;font-weight:800;font-size:1.1rem;margin-bottom:10px}
+  footer .fbrand svg{width:24px;height:24px;color:#5aa5dd}
+  footer .slogan{font-family:Georgia,serif;font-style:italic;font-size:.9rem;color:#7fa5c6}
+  footer a{color:#cfe3f5;text-decoration:none;display:block;padding:3px 0;transition:color .2s}
+  footer a:hover{color:#fff}
+  footer .facts{font-size:.88rem;line-height:2.1}
+  footer .facts b{color:#fff;font-family:var(--mono)}
+  footer .bar{border-top:1px solid rgba(255,255,255,.1);padding:16px 0;display:flex;justify-content:space-between;gap:14px;flex-wrap:wrap;font-size:.82rem;color:#7fa5c6}
+
+  /* ---- reveal / motion ---- */
+  .js .reveal{opacity:0;transform:translateY(20px);transition:opacity .7s var(--ease),transform .7s var(--ease)}
   .js .reveal.on{opacity:1;transform:none}
-  @media (max-width:720px){.nav__links{display:none}.hero{padding:64px 0 52px}}
+  .hero .up{opacity:0;transform:translateY(16px);animation:heroUp .8s var(--ease) forwards}
+  @keyframes heroUp{to{opacity:1;transform:none}}
+
+  @media (prefers-reduced-motion:reduce){
+    *,*::before,*::after{animation:none!important;transition:none!important}
+    .js .reveal{opacity:1;transform:none}
+    .hero .up{opacity:1;transform:none}
+    .mark-stroke{stroke-dashoffset:0}.mark-fill{opacity:1}
+  }
+  @media (max-width:900px){
+    .hero .wrap{grid-template-columns:1fr;padding:64px 24px 56px}
+    .hero__emblem{order:-1}
+    .hero__emblem svg{width:min(58vw,220px)}
+    .stats{grid-template-columns:repeat(2,1fr)}
+    .ver{font-size:.76rem;padding:4px 12px}
+    .ver-date{display:none}
+    footer .cols{grid-template-columns:1fr;gap:22px}
+  }
+  @media (max-width:720px){.nav__links{display:none}}
 </style>
 </head>
 <body id="top">
+<div id="progress"></div>
 
 <nav class="nav">
   <div class="nav__in">
@@ -134,29 +221,54 @@
 </nav>
 
 <header class="hero">
+  <div class="hero__grid-bg"></div>
   <div class="wrap">
-    <span class="ver">🚢 <b>v1.2.0</b> · 2026-09-25 · MIT 开源 · 405 项测试全绿</span>
-    <h1>一份任务书，<br>跑完整条初步设计链</h1>
-    <p class="slogan">Design the shell that carries it all.</p>
-    <p class="lead">OpenHull 是由 AI 智能体编排的开源参数化船舶初步设计工具链：输入船型、载重吨、服务航速与航区，自动产出<b>主尺度、静水力、IS Code 稳性、阻力与推进、螺旋桨设计、耐波性、失速估算、总布置简图与中文设计报告</b>——每个数字都溯源到公式白名单。</p>
-    <div class="stats">
-      <div class="stat"><b>405</b><span>测试全绿</span></div>
-      <div class="stat"><b>23</b><span>条验收记录</span></div>
-      <div class="stat"><b>9</b><span>大设计环节</span></div>
-      <div class="stat"><b>10</b><span>语言 README</span></div>
+    <div class="hero__copy">
+      <span class="ver up" style="animation-delay:.05s"><span class="dot"></span><b>v1.3.0</b> · <span class="ver-date">2026-09-26 ·</span> MIT 开源 · 419 项测试全绿</span>
+      <h1 class="up" style="animation-delay:.15s">一份任务书，<br>跑完<em>整条初步设计链</em></h1>
+      <p class="slogan up" style="animation-delay:.25s">Design the shell that carries it all.</p>
+      <p class="lead up" style="animation-delay:.35s">OpenHull 是由 AI 智能体编排的开源参数化船舶初步设计工具链：输入船型、载重吨、服务航速与航区，自动产出<b>主尺度、静水力、IS Code 稳性、阻力与推进、螺旋桨设计、耐波性、失速估算、总布置简图与中文设计报告</b>——每个数字都溯源到公式白名单。</p>
+      <div class="stats up" style="animation-delay:.45s">
+        <div class="stat"><b><span data-count="419">419</span></b><span>项自动化测试全绿</span></div>
+        <div class="stat"><b><span data-count="26">26</span></b><span>条公开验收记录</span></div>
+        <div class="stat"><b>±<span data-count="0.32" data-decimals="2">0.32</span><i> kn</i></b><span>DTMB 1712 航速锚</span></div>
+        <div class="stat"><b><span data-count="2.8" data-decimals="1">2.8</span><i> %</i></b><span>敞水效率平均偏差</span></div>
+      </div>
+      <div class="cta up" style="animation-delay:.55s">
+        <a class="btn btn--primary" href="https://github.com/5777-wq/OpenHull" target="_blank" rel="noopener">GitHub 仓库</a>
+        <a class="btn btn--ghost" href="https://5777-wq.github.io/OpenHull/quickstart-zh/" target="_blank" rel="noopener">中文快速上手 →</a>
+      </div>
     </div>
-    <div class="cta">
-      <a class="btn btn--primary" href="https://github.com/5777-wq/OpenHull" target="_blank" rel="noopener">GitHub 仓库</a>
-      <a class="btn btn--ghost" href="https://5777-wq.github.io/OpenHull/quickstart-zh/" target="_blank" rel="noopener">中文快速上手 →</a>
+    <div class="hero__emblem up" style="animation-delay:.3s" aria-hidden="true">
+      <svg viewBox="0 0 240 240">
+        <defs>
+          <linearGradient id="markGrad" x1="0" y1="0" x2="1" y2="1">
+            <stop offset="0" stop-color="#6db6ec"/><stop offset="1" stop-color="#1a6fb5"/>
+          </linearGradient>
+        </defs>
+        <circle class="ripple" cx="120" cy="120" r="86" stroke-width="1.4"/>
+        <circle class="ripple ripple--2" cx="120" cy="120" r="86" stroke-width="1.4"/>
+        <circle class="ripple ripple--3" cx="120" cy="120" r="86" stroke-width="1.4"/>
+        <circle class="ring ring--1" cx="120" cy="120" r="102" stroke-width="1" stroke-dasharray="3 7"/>
+        <circle class="ring ring--2" cx="120" cy="120" r="114" stroke-width="1" stroke-dasharray="2 9" opacity=".2"/>
+        <g class="float">
+          <path class="mark-fill" transform="translate(48 40) scale(6)" d="M2 17c2.5 0 2.5 1.6 5 1.6S9.5 17 12 17s2.5 1.6 5 1.6S19.5 17 22 17v3c-2.5 0-2.5 1.6-5 1.6S14.5 20 12 20s-2.5 1.6-5 1.6S4.5 20 2 20v-3zM3 14l9-11 9 11h-6v-2h-6v2H3z"/>
+          <path class="mark-stroke" transform="translate(48 40) scale(6)" d="M2 17c2.5 0 2.5 1.6 5 1.6S9.5 17 12 17s2.5 1.6 5 1.6S19.5 17 22 17v3c-2.5 0-2.5 1.6-5 1.6S14.5 20 12 20s-2.5 1.6-5 1.6S4.5 20 2 20v-3zM3 14l9-11 9 11h-6v-2h-6v2H3z"/>
+        </g>
+        <path class="wave-line" stroke-width="1.6" d="M34 196c10-7 20-7 30 0s20 7 30 0 20-7 30 0 20 7 30 0 20-7 30 0 20 7 26 4"/>
+        <path class="wave-line wave-line--2" stroke-width="1.4" d="M42 208c10-6 18-6 28 0s18 6 28 0 18-6 28 0 18 6 28 0 18-6 26-3"/>
+      </svg>
     </div>
   </div>
 </header>
 
 <section id="features">
   <div class="wrap">
-    <span class="kicker">CAPABILITIES</span>
-    <h2 class="sec__title">它做什么</h2>
-    <p class="sec__sub">从任务书到交付物，九个环节全部自动化——每一条经验公式都有白名单出处。</p>
+    <div class="sec__head">
+      <span class="kicker">CAPABILITIES</span>
+      <h2 class="sec__title">它做什么</h2>
+      <p class="sec__sub">从任务书到交付物，九个环节全部自动化——每一条经验公式都有白名单出处，方法与公式出处见<a href="https://5777-wq.github.io/OpenHull/methods-zh/" target="_blank" rel="noopener">文档站方法页 ↗</a>。</p>
+    </div>
     <div class="grid">
       <div class="card"><span class="tag">DIMENSIONS</span><h3>主尺度与重量</h3><p>载重量比法估算、诺曼系数迭代的重量浮力平衡，输出主尺度方案与载重量比。</p></div>
       <div class="card"><span class="tag">HULL FORM</span><h3>参数化船型</h3><p>数字化 Series 60 母型 + Lackenby 变换，交付真实型值表与分层 DXF 型线图。</p></div>
@@ -173,87 +285,84 @@
 
 <section id="quickstart">
   <div class="wrap">
-    <span class="kicker">QUICK START</span>
-    <h2 class="sec__title">三步跑通</h2>
-    <p class="sec__sub">需要 Python ≥ 3.11；RAO 功能为可选扩展（capytaine），不装不影响其余功能。</p>
+    <div class="sec__head">
+      <span class="kicker">QUICK START</span>
+      <h2 class="sec__title">两条命令，第一条船</h2>
+      <p class="sec__sub">需要 Python ≥ 3.11。完整安装方式（pip / 源码 / RAO 可选扩展）与任务书全字段说明见<a href="https://5777-wq.github.io/OpenHull/quickstart-zh/" target="_blank" rel="noopener">文档站快速上手 ↗</a>。</p>
+    </div>
     <div class="steps">
       <div class="step">
-        <div class="step__head"><b>① 安装</b><button class="copy">复制</button></div>
-        <pre><span class="c"># 方式一：uv（推荐）</span>
-git clone https://github.com/5777-wq/OpenHull.git
-cd OpenHull
-uv sync
+        <div class="step__head"><b>安装并运行仓库自带的 25 万吨散货船示例（JBC 基准船锚定）</b><button class="copy">复制</button></div>
+        <pre><span class="o">uv tool install</span> "git+https://github.com/5777-wq/OpenHull@v1.3.0"
+<span class="o">openhull run</span> examples/taskbook_bulk_carrier.yaml --report design_report.md
 
-<span class="c"># 方式二：pip</span>
-pip install -e .
-<span class="c"># 耐波性 RAO 可选扩展：</span>
-<span class="o">pip install -e '.[seakeeping]'</span></pre>
+<span class="c"># 跑全链之前，可先秒级预检 8 道适用域关卡：</span>
+<span class="o">openhull check</span> examples/taskbook_bulk_carrier.yaml</pre>
       </div>
-      <div class="step">
-        <div class="step__head"><b>② 写任务书，跑一条命令</b><button class="copy">复制</button></div>
-        <pre><span class="c"># 仓库自带 25 万吨级散货船示例任务书（JBC 基准船锚定）</span>
-<span class="o">openhull run</span> examples/taskbook_bulk_carrier.yaml \
-    --report design_report.md \
-    --hydro-curve-chart curves.png \
-    --arrangement-chart ga.png \
-    --arrangement-dxf ga.dxf</pre>
-      </div>
-      <div class="step">
-        <div class="step__head"><b>③ 拿成果</b><button class="copy">复制</button></div>
-        <pre>design_report.md   <span class="c"># 中文设计报告（稳性逐条判定/耐波性/分舱表）</span>
-curves.png         <span class="c"># 静水力曲线图（教材版式 12 要素）</span>
-ga.png / ga.dxf    <span class="c"># 总布置简图与分层 DXF</span>
-<span class="c"># 方案扫描与 RAO：</span>
-<span class="o">openhull optimize</span> 任务书.yaml      <span class="c"># 192 方案 → 64 可行 → 帕累托前沿</span>
-<span class="o">openhull rao</span> 任务书.yaml           <span class="c"># 顶浪/横浪垂荡·横摇·纵摇 RAO</span></pre>
-      </div>
+    </div>
+    <div class="outrow">
+      <span class="outchip"><span class="mono">design_report.md</span> 中文设计报告（稳性逐条判定/耐波性/分舱表）</span>
+      <span class="outchip"><span class="mono">curves.png</span> 静水力曲线图（教材版式 12 要素）</span>
+      <span class="outchip"><span class="mono">ga.png / ga.dxf</span> 总布置简图与分层 DXF</span>
+    </div>
+    <div class="linkrow">
+      <span>更多成果物：<span class="mono">--hydro-curve-chart / --arrangement-chart / --arrangement-dxf / --json / --csv</span></span>
+      <a href="https://5777-wq.github.io/OpenHull/quickstart-zh/" target="_blank" rel="noopener">方案扫描与 RAO 用法 ↗</a>
     </div>
   </div>
 </section>
 
 <section id="agent">
   <div class="wrap">
-    <span class="kicker">FOR AI AGENTS</span>
-    <h2 class="sec__title">一句话，交给你的 AI 智能体</h2>
-    <p class="sec__sub">OpenHull 就是为智能体编排设计的：把下面这句话发给任何支持技能的 AI 智能体（ZCode、Claude Code 等），它会自己安装工具、写好任务书、跑完整条设计链。</p>
-    <div class="steps" style="margin-bottom:26px">
+    <div class="sec__head">
+      <span class="kicker">FOR AI AGENTS</span>
+      <h2 class="sec__title">一句话，交给你的 AI 智能体</h2>
+      <p class="sec__sub">OpenHull 就是为智能体编排设计的：把下面这句话发给任何支持技能的 AI 智能体（ZCode、Claude Code 等），它会自己安装工具、写好任务书、跑完整条设计链。</p>
+    </div>
+    <div class="steps">
       <div class="step">
         <div class="step__head"><b>复制这句话发给你的智能体</b><button class="copy">复制</button></div>
         <pre>「请安装并使用 OpenHull 技能（https://github.com/5777-wq/OpenHull/tree/main/skills/openhull），
 然后帮我设计一条 5 万吨散货船，服务航速 14.5 节，出设计报告和总布置简图。」</pre>
       </div>
     </div>
-    <div class="grid">
-      <div class="card"><span class="tag">AUTO INSTALL</span><h3>① 自动安装</h3><p>智能体读取技能文件后执行一条命令装好 CLI：<span class="mono">uv tool install "git+https://github.com/5777-wq/OpenHull"</span>，并自检版本。</p></div>
+    <div class="grid" style="margin-top:22px">
+      <div class="card"><span class="tag">AUTO INSTALL</span><h3>① 自动安装</h3><p>智能体读取技能文件后执行一条命令装好 CLI 并自检版本——安装即锁定发布标签，可复现、可审计。</p></div>
       <div class="card"><span class="tag">AUTO DRAFT</span><h3>② 自己写任务书</h3><p>技能内置最小任务书模板——只需载重吨、航速、吃水、方形系数四个字段，其余参数由智能体按内置方法补全。</p></div>
       <div class="card"><span class="tag">FULL OUTPUT</span><h3>③ 出齐成果</h3><p>中文设计报告、静水力曲线图、总布置简图与 DXF、方案空间对比——全部可溯源，跳过项如实声明。</p></div>
     </div>
-    <p style="margin-top:22px;font-size:.92rem;color:var(--muted)">技能源码（任意智能体可自行读取安装）：<a href="https://github.com/5777-wq/OpenHull/tree/main/skills/openhull" target="_blank" rel="noopener" style="color:var(--accent)">github.com/5777-wq/OpenHull/skills/openhull ↗</a></p>
+    <p class="agent-note">技能源码（任意智能体可自行读取安装）：<a href="https://github.com/5777-wq/OpenHull/tree/main/skills/openhull" target="_blank" rel="noopener">github.com/5777-wq/OpenHull/skills/openhull ↗</a></p>
   </div>
 </section>
 
 <section id="validation">
   <div class="wrap">
-    <span class="kicker">VALIDATION</span>
-    <h2 class="sec__title">验证亮点</h2>
-    <p class="sec__sub">公开基准船 + 书内算例 + 独立路径互检，22 条验收记录逐条含数字。</p>
+    <div class="sec__head">
+      <span class="kicker">VALIDATION</span>
+      <h2 class="sec__title">公开基准，逐条含数字</h2>
+      <p class="sec__sub"><b>26 条验收记录</b>全部含具体数字与复现命令，锚定公开基准船、书内算例与独立路径互检——完整清单见<a href="https://github.com/5777-wq/OpenHull/blob/main/VALIDATION.md" target="_blank" rel="noopener">VALIDATION.md ↗</a>。</p>
+    </div>
     <table>
-      <tr><th>锚点</th><th>一致性</th></tr>
-      <tr><td>NMRI JBC 基准船</td><td>排水体积 / Cb / Cm / LCB 复现</td></tr>
-      <tr><td>DTMB 1712 报告（Series 60）</td><td>按公开轴功率复算航速 ±0.32 kn</td></tr>
-      <tr><td>NMRI MP687 实测敞水数据</td><td>B 系列 ηo 平均偏差 2.8 %</td></tr>
-      <tr><td>书内算例（《船舶原理》下册）</td><td>螺旋桨终局设计差 0.07 kn；横摇周期恒等式精确</td></tr>
-      <tr><td>面板网格 vs 站面积分</td><td>排水体积互差 0.1 %</td></tr>
-      <tr><td>KCS 失速（公开对比）</td><td>速比 f_w 差 0.01 以内</td></tr>
+      <thead><tr><th>锚点</th><th>一致性</th></tr></thead>
+      <tbody>
+        <tr><td>NMRI JBC 基准船（主尺度反向锚）</td><td>L −1.94 % · B +1.69 %（±5 % 判据内）</td></tr>
+        <tr><td>DTMB 1712 报告（Series 60）</td><td>按公开轴功率复算航速 ±0.32 kn</td></tr>
+        <tr><td>NMRI MP687 实测敞水数据</td><td>B 系列 ηo 平均偏差 2.8 %</td></tr>
+        <tr><td>KCS 波浪失速互检（公开对比）</td><td>速比 f_w 0.929 vs 0.932</td></tr>
+        <tr><td>书内算例（《船舶原理》下册）</td><td>螺旋桨终局设计差 0.07 kn</td></tr>
+        <tr><td>面板网格 vs 站面积分</td><td>排水体积互差 0.1 %</td></tr>
+      </tbody>
     </table>
   </div>
 </section>
 
 <section id="principles">
   <div class="wrap">
-    <span class="kicker">PRINCIPLES</span>
-    <h2 class="sec__title">把工程纪律写进章程</h2>
-    <p class="sec__sub">这四条写在项目章程（AGENTS.md）里，AI 智能体和贡献者都必须遵守。</p>
+    <div class="sec__head">
+      <span class="kicker">PRINCIPLES</span>
+      <h2 class="sec__title">把工程纪律写进章程</h2>
+      <p class="sec__sub">这四条写在项目章程（AGENTS.md）里，AI 智能体和贡献者都必须遵守。</p>
+    </div>
     <div class="pills">
       <div class="pill"><b>① 白名单先行</b><p>经验公式先入 AGENTS.md §5 白名单、对照原书页面核验后才能实现——先立账本再动手。</p></div>
       <div class="pill"><b>② 验收靠数字</b><p>书上算例、独立路径互检、公开基准船数据；"能跑"不算验收。</p></div>
@@ -265,29 +374,83 @@ ga.png / ga.dxf    <span class="c"># 总布置简图与分层 DXF</span>
 
 <footer>
   <div class="wrap">
-    <div>
-      <b style="color:#fff">OpenHull</b> · Design the shell that carries it all.<br>
-      <span style="font-size:.82rem">MIT License © 5777-wq · 由 AI 智能体编排，为船舶工程师服务</span>
+    <div class="cols">
+      <div>
+        <div class="fbrand"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M2 17c2.5 0 2.5 1.6 5 1.6S9.5 17 12 17s2.5 1.6 5 1.6S19.5 17 22 17v3c-2.5 0-2.5 1.6-5 1.6S14.5 20 12 20s-2.5 1.6-5 1.6S4.5 20 2 20v-3zM3 14l9-11 9 11h-6v-2h-6v2H3z"/></svg>OpenHull</div>
+        <div class="slogan">Design the shell that carries it all.</div>
+      </div>
+      <div>
+        <h4>项目</h4>
+        <a href="https://github.com/5777-wq/OpenHull" target="_blank" rel="noopener">GitHub 仓库</a>
+        <a href="https://5777-wq.github.io/OpenHull/" target="_blank" rel="noopener">文档站</a>
+        <a href="https://github.com/5777-wq/OpenHull/releases/tag/v1.3.0" target="_blank" rel="noopener">发布页 v1.3.0</a>
+        <a href="https://github.com/5777-wq/OpenHull/blob/main/VALIDATION.md" target="_blank" rel="noopener">VALIDATION</a>
+        <a href="https://github.com/5777-wq/OpenHull/blob/main/CONTRIBUTING.md" target="_blank" rel="noopener">CONTRIBUTING</a>
+      </div>
+      <div>
+        <h4>数据</h4>
+        <div class="facts">
+          <b>419</b> 项测试全绿 · CI 3.11/3.12<br>
+          <b>26</b> 条公开验收记录<br>
+          IS Code 2.2 / 2.3 逐条判定<br>
+          公式白名单逐条溯源
+        </div>
+      </div>
     </div>
-    <div>
-      <a href="https://github.com/5777-wq/OpenHull" target="_blank" rel="noopener">GitHub</a>
-      <a href="https://5777-wq.github.io/OpenHull/" target="_blank" rel="noopener">文档站</a>
-      <a href="https://github.com/5777-wq/OpenHull/blob/main/VALIDATION.md" target="_blank" rel="noopener">VALIDATION</a>
-      <a href="https://github.com/5777-wq/OpenHull/blob/main/CONTRIBUTING.md" target="_blank" rel="noopener">CONTRIBUTING</a>
-      <a href="https://github.com/5777-wq/OpenHull/releases/tag/v1.2.0" target="_blank" rel="noopener">v1.2.0</a>
+    <div class="bar">
+      <span>MIT License © 5777-wq</span>
+      <span>由 AI 智能体编排，为船舶工程师服务</span>
     </div>
   </div>
 </footer>
 
 <script>
   document.documentElement.classList.add('js');
-  // scroll reveal (progressive enhancement)
+  const reduced = matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  // scroll progress bar
+  const bar = document.getElementById('progress');
+  addEventListener('scroll', () => {
+    const h = document.documentElement;
+    bar.style.width = (h.scrollTop / (h.scrollHeight - h.clientHeight) * 100) + '%';
+  }, { passive: true });
+
+  // scroll reveal with per-section stagger
   const io = new IntersectionObserver(es => es.forEach(e => {
     if (e.isIntersecting) { e.target.classList.add('on'); io.unobserve(e.target); }
   }), { threshold: 0.12 });
-  document.querySelectorAll('.card,.tl__item,.pill,.step,table').forEach(el => {
-    el.classList.add('reveal'); io.observe(el);
+  document.querySelectorAll('.grid,.pills,.outrow,table,.steps,.sec__head,.linkrow,.agent-note').forEach(box => {
+    box.querySelectorAll(':scope > .card,:scope > .pill,:scope > .outchip,:scope > tbody > tr,:scope > .step').forEach((el, i) => {
+      el.classList.add('reveal');
+      el.style.transitionDelay = (Math.min(i, 8) * 70) + 'ms';
+    });
+    if (box.matches('.steps,table,.sec__head,.linkrow,.agent-note')) {
+      box.classList.add('reveal');
+    }
+    io.observe(box);
   });
+
+  // stat count-up — progressive enhancement: the markup already carries the
+  // final value, JS only animates from zero; a throttled/hidden tab can never
+  // end up showing a wrong number (worst case: it just doesn't animate)
+  if (!reduced) {
+    const cio = new IntersectionObserver(es => es.forEach(e => {
+      if (!e.isIntersecting) return;
+      cio.unobserve(e.target);
+      const el = e.target, end = parseFloat(el.dataset.count),
+            dec = parseInt(el.dataset.decimals || '0', 10), t0 = performance.now();
+      const snap = () => { el.textContent = end.toFixed(dec); };
+      const tick = now => {
+        const p = Math.min((now - t0) / 1300, 1), eased = 1 - Math.pow(1 - p, 3);
+        el.textContent = (end * eased).toFixed(dec);
+        if (p < 1) requestAnimationFrame(tick); else snap();
+      };
+      requestAnimationFrame(tick);
+      setTimeout(snap, 1600);
+    }), { threshold: 0.6 });
+    document.querySelectorAll('[data-count]').forEach(el => cio.observe(el));
+  }
+
   // copy buttons
   document.querySelectorAll('.copy').forEach(btn => btn.addEventListener('click', () => {
     const pre = btn.closest('.step').querySelector('pre');
