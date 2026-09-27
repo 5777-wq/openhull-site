@@ -103,6 +103,12 @@
   .wave-line--2{animation-delay:-4.5s;opacity:.3}
   @keyframes drift{0%,100%{transform:translateX(0)}50%{transform:translateX(9px)}}
 
+  /* ---- promo video ---- */
+  .promovid{max-width:1100px;margin:36px auto 0;border-radius:14px;overflow:hidden;
+    border:1px solid var(--line);background:#0a0d13;
+    box-shadow:0 18px 50px rgba(10,20,35,.18)}
+  .promovid video{display:block;width:100%;height:auto}
+
   /* ---- sections ---- */
   section{padding:82px 0}
   section:nth-of-type(even){background:#fff;border-top:1px solid var(--line);border-bottom:1px solid var(--line)}
@@ -213,6 +219,7 @@
       <a href="#features">功能</a>
       <a href="#quickstart">快速上手</a>
       <a href="#agent">智能体</a>
+        <a href="#promo">视频</a>
       <a href="#validation">验证</a>
       <a href="https://5777-wq.github.io/OpenHull/" target="_blank" rel="noopener">文档站</a>
       <a class="gh" href="https://github.com/5777-wq/OpenHull" target="_blank" rel="noopener">GitHub ↗</a>
@@ -368,6 +375,22 @@
       <div class="pill"><b>② 验收靠数字</b><p>书上算例、独立路径互检、公开基准船数据；"能跑"不算验收。</p></div>
       <div class="pill"><b>③ 近似必须声明</b><p>直壁甲板、阻尼区间、被约束的自由度——写了什么假定，就声明在哪里。</p></div>
       <div class="pill"><b>④ 人机各司其职</b><p>谐摇区是否规避、衡准是否否决方案，是船舶工程师的专业判断；工具只报告，不拍板。</p></div>
+    </div>
+  </div>
+</section>
+
+<section id="promo">
+  <div class="wrap">
+    <div class="sec__head">
+      <span class="kicker">DEMO REEL</span>
+      <h2 class="sec__title">60 秒，看懂 OpenHull</h2>
+      <p class="sec__sub">一份任务书，如何变成一套可溯源的交付物——品牌短片《Design the shell that carries it all.》。</p>
+    </div>
+    <div class="promovid">
+      <video controls preload="none" playsinline
+             poster="openhull-promo-poster.jpg"
+             src="openhull-promo.mp4"
+             aria-label="OpenHull 品牌宣传片（59.5 秒，含配乐）"></video>
     </div>
   </div>
 </section>
