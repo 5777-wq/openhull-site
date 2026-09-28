@@ -6,7 +6,7 @@
 <title>OpenHull — 开源参数化船舶初步设计工具链</title>
 <meta name="description" content="OpenHull：由 AI 智能体编排的开源参数化船舶初步设计工具链。一份任务书，自动产出主尺度、静水力、IS Code 稳性、阻力推进、螺旋桨、耐波性、失速估算、图纸与中文设计报告——每个数字可溯源。">
 <meta property="og:title" content="OpenHull — 开源参数化船舶初步设计工具链">
-<meta property="og:description" content="一份任务书，自动产出主尺度、静水力、稳性、性能、耐波性、图纸与中文设计报告。v1.4.0 已发布，440 项测试全绿。">
+<meta property="og:description" content="一份任务书，自动产出主尺度、静水力、稳性、性能、耐波性、图纸与中文设计报告。v1.5.0 已发布，446 项测试全绿。">
 <meta property="og:type" content="website">
 <meta name="theme-color" content="#0e2238">
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath fill='%231a6fb5' d='M2 17c2.5 0 2.5 1.6 5 1.6S9.5 17 12 17s2.5 1.6 5 1.6S19.5 17 22 17v3c-2.5 0-2.5 1.6-5 1.6S14.5 20 12 20s-2.5 1.6-5 1.6S4.5 20 2 20v-3zM3 14l9-11 9 11h-6v-2h-6v2H3z'/%3E%3C/svg%3E">
@@ -231,13 +231,13 @@
   <div class="hero__grid-bg"></div>
   <div class="wrap">
     <div class="hero__copy">
-      <span class="ver up" style="animation-delay:.05s"><span class="dot"></span><b>v1.4.0</b> · <span class="ver-date">2026-09-28 ·</span> MIT 开源 · 440 项测试全绿</span>
+      <span class="ver up" style="animation-delay:.05s"><span class="dot"></span><b>v1.5.0</b> · <span class="ver-date">2026-09-28 ·</span> MIT 开源 · 446 项测试全绿</span>
       <h1 class="up" style="animation-delay:.15s">一份任务书，<br>跑完<em>整条初步设计链</em></h1>
       <p class="slogan up" style="animation-delay:.25s">Design the shell that carries it all.</p>
       <p class="lead up" style="animation-delay:.35s">OpenHull 是由 AI 智能体编排的开源参数化船舶初步设计工具链：输入船型、载重吨、服务航速与航区，自动产出<b>主尺度、静水力、IS Code 稳性、阻力与推进、螺旋桨设计、耐波性、失速估算、总布置简图与中文设计报告</b>——每个数字都溯源到公式白名单。</p>
       <div class="stats up" style="animation-delay:.45s">
-        <div class="stat"><b><span data-count="440">440</span></b><span>项自动化测试全绿</span></div>
-        <div class="stat"><b><span data-count="29">29</span></b><span>条公开验收记录</span></div>
+        <div class="stat"><b><span data-count="446">446</span></b><span>项自动化测试全绿</span></div>
+        <div class="stat"><b><span data-count="30">30</span></b><span>条公开验收记录</span></div>
         <div class="stat"><b>±<span data-count="0.32" data-decimals="2">0.32</span><i> kn</i></b><span>DTMB 1712 航速锚</span></div>
         <div class="stat"><b><span data-count="2.8" data-decimals="1">2.8</span><i> %</i></b><span>敞水效率平均偏差</span></div>
       </div>
@@ -316,7 +316,7 @@
     <div class="steps">
       <div class="step">
         <div class="step__head"><b>安装并运行仓库自带的 25 万吨散货船示例（JBC 基准船锚定）</b><button class="copy">复制</button></div>
-        <pre><span class="o">uv tool install</span> "git+https://github.com/5777-wq/OpenHull@v1.4.0"
+        <pre><span class="o">uv tool install</span> "git+https://github.com/5777-wq/OpenHull@v1.5.0"
 <span class="o">openhull run</span> examples/taskbook_bulk_carrier.yaml --report design_report.md
 
 <span class="c"># 跑全链之前，可先秒级预检 8 道适用域关卡：</span>
@@ -406,15 +406,15 @@
         <h4>项目</h4>
         <a href="https://github.com/5777-wq/OpenHull" target="_blank" rel="noopener">GitHub 仓库</a>
         <a href="https://5777-wq.github.io/OpenHull/" target="_blank" rel="noopener">文档站</a>
-        <a href="https://github.com/5777-wq/OpenHull/releases/tag/v1.4.0" target="_blank" rel="noopener">发布页 v1.4.0</a>
+        <a href="https://github.com/5777-wq/OpenHull/releases/tag/v1.5.0" target="_blank" rel="noopener">发布页 v1.5.0</a>
         <a href="https://github.com/5777-wq/OpenHull/blob/main/VALIDATION.md" target="_blank" rel="noopener">VALIDATION</a>
         <a href="https://github.com/5777-wq/OpenHull/blob/main/CONTRIBUTING.md" target="_blank" rel="noopener">CONTRIBUTING</a>
       </div>
       <div>
         <h4>数据</h4>
         <div class="facts">
-          <b>440</b> 项测试全绿 · CI 3.11/3.12<br>
-          <b>29</b> 条公开验收记录<br>
+          <b>446</b> 项测试全绿 · CI 3.11/3.12<br>
+          <b>30</b> 条公开验收记录<br>
           IS Code 2.2 / 2.3 逐条判定<br>
           公式白名单逐条溯源
         </div>
