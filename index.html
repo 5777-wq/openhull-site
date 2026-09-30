@@ -6,7 +6,7 @@
 <title>OpenHull — 开源参数化船舶初步设计工具链</title>
 <meta name="description" content="OpenHull：由 AI 智能体编排的开源参数化船舶初步设计工具链。一份任务书，自动产出主尺度、静水力、IS Code 稳性、阻力推进、螺旋桨、耐波性、失速估算、图纸与中文设计报告——每个数字可溯源。">
 <meta property="og:title" content="OpenHull — 开源参数化船舶初步设计工具链">
-<meta property="og:description" content="一份任务书，自动产出主尺度、静水力、稳性、性能、耐波性、图纸与中文设计报告。v1.6.0 已发布，448 项测试全绿。">
+<meta property="og:description" content="一份任务书，自动产出主尺度、静水力、稳性、干舷、性能、耐波性、图纸与中文设计报告。v1.6.0 已发布，459 项测试全绿。">
 <meta property="og:type" content="website">
 <meta name="theme-color" content="#0e2238">
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath fill='%231a6fb5' d='M2 17c2.5 0 2.5 1.6 5 1.6S9.5 17 12 17s2.5 1.6 5 1.6S19.5 17 22 17v3c-2.5 0-2.5 1.6-5 1.6S14.5 20 12 20s-2.5 1.6-5 1.6S4.5 20 2 20v-3zM3 14l9-11 9 11h-6v-2h-6v2H3z'/%3E%3C/svg%3E">
@@ -231,13 +231,13 @@
   <div class="hero__grid-bg"></div>
   <div class="wrap">
     <div class="hero__copy">
-      <span class="ver up" style="animation-delay:.05s"><span class="dot"></span><b>v1.6.0</b> · <span class="ver-date">2026-09-28 ·</span> MIT 开源 · 448 项测试全绿</span>
+      <span class="ver up" style="animation-delay:.05s"><span class="dot"></span><b>v1.6.0</b> · <span class="ver-date">2026-09-28 ·</span> MIT 开源 · 459 项测试全绿</span>
       <h1 class="up" style="animation-delay:.15s">一份任务书，<br>跑完<em>整条初步设计链</em></h1>
       <p class="slogan up" style="animation-delay:.25s">Design the shell that carries it all.</p>
       <p class="lead up" style="animation-delay:.35s">OpenHull 是由 AI 智能体编排的开源参数化船舶初步设计工具链：输入船型、载重吨、服务航速与航区，自动产出<b>主尺度、静水力、IS Code 稳性、阻力与推进、螺旋桨设计、耐波性、失速估算、总布置简图与中文设计报告</b>——每个数字都溯源到公式白名单。</p>
       <div class="stats up" style="animation-delay:.45s">
-        <div class="stat"><b><span data-count="448">448</span></b><span>项自动化测试全绿</span></div>
-        <div class="stat"><b><span data-count="31">31</span></b><span>条公开验收记录</span></div>
+        <div class="stat"><b><span data-count="459">459</span></b><span>项自动化测试全绿</span></div>
+        <div class="stat"><b><span data-count="34">34</span></b><span>条公开验收记录</span></div>
         <div class="stat"><b>±<span data-count="0.32" data-decimals="2">0.32</span><i> kn</i></b><span>DTMB 1712 航速锚</span></div>
         <div class="stat"><b><span data-count="2.8" data-decimals="1">2.8</span><i> %</i></b><span>敞水效率平均偏差</span></div>
       </div>
@@ -290,7 +290,7 @@
     <div class="sec__head">
       <span class="kicker">CAPABILITIES</span>
       <h2 class="sec__title">它做什么</h2>
-      <p class="sec__sub">从任务书到交付物，九个环节全部自动化——每一条经验公式都有白名单出处，方法与公式出处见<a href="https://5777-wq.github.io/OpenHull/methods-zh/" target="_blank" rel="noopener">文档站方法页 ↗</a>。</p>
+      <p class="sec__sub">从任务书到交付物，十个环节全部自动化——每一条经验公式都有白名单出处，方法与公式出处见<a href="https://5777-wq.github.io/OpenHull/methods-zh/" target="_blank" rel="noopener">文档站方法页 ↗</a>。</p>
     </div>
     <div class="grid">
       <div class="card"><span class="tag">DIMENSIONS</span><h3>主尺度与重量</h3><p>载重量比法估算、诺曼系数迭代的重量浮力平衡，输出主尺度方案与载重量比。</p></div>
@@ -300,6 +300,7 @@
       <div class="card"><span class="tag">PERFORMANCE</span><h3>阻力与推进</h3><p>艾亚阻力估算、Holtrop 推进因子、瓦根宁根 B 系列螺旋桨设计与空泡校核。</p></div>
       <div class="card"><span class="tag">OPTIMIZE</span><h3>方案空间扫描</h3><p>L/B × B/T × Cb 网格逐点过全链：可行方案集、逐级拒绝记录、帕累托前沿。</p></div>
       <div class="card"><span class="tag">SEAKEEPING</span><h3>耐波性两级</h3><p>书内公式固有周期与谐摇判定；可选 capytaine 扩展输出零航速 RAO 曲线。</p></div>
+      <div class="card"><span class="tag">FREEBOARD</span><h3>干舷校核</h3><p>载重线公约 B 型夏季最小干舷（表 3-9 + 五项修正），按平衡尺度逐项列账并判定。</p></div>
       <div class="card"><span class="tag">SPEED LOSS</span><h3>失速估算</h3><p>Kwon 方法：按蒲福风级、浪向与装载状态估算波浪中航速损失与实际航速。</p></div>
       <div class="card"><span class="tag">DELIVERABLES</span><h3>图纸与报告</h3><p>静水力曲线图、总布置简图（图+分层 DXF）、中文 Markdown 设计报告，一条命令出齐。</p></div>
     </div>
@@ -315,7 +316,7 @@
     </div>
     <div class="steps">
       <div class="step">
-        <div class="step__head"><b>安装并运行仓库自带的 25 万吨散货船示例（JBC 基准船锚定）</b><button class="copy">复制</button></div>
+        <div class="step__head"><b>安装并运行仓库自带的 15 万吨级散货船示例（JBC 基准船锚定）</b><button class="copy">复制</button></div>
         <pre><span class="o">uv tool install</span> "git+https://github.com/5777-wq/OpenHull@v1.6.0"
 <span class="o">openhull run</span> examples/taskbook_bulk_carrier.yaml --report design_report.md
 
@@ -363,7 +364,7 @@
     <div class="sec__head">
       <span class="kicker">VALIDATION</span>
       <h2 class="sec__title">公开基准，逐条含数字</h2>
-      <p class="sec__sub"><b>26 条验收记录</b>全部含具体数字与复现命令，锚定公开基准船、书内算例与独立路径互检——完整清单见<a href="https://github.com/5777-wq/OpenHull/blob/main/VALIDATION.md" target="_blank" rel="noopener">VALIDATION.md ↗</a>。</p>
+      <p class="sec__sub"><b>34 条验收记录</b>全部含具体数字与复现命令，锚定公开基准船、书内算例与独立路径互检——完整清单见<a href="https://github.com/5777-wq/OpenHull/blob/main/VALIDATION.md" target="_blank" rel="noopener">VALIDATION.md ↗</a>。</p>
     </div>
     <table>
       <thead><tr><th>锚点</th><th>一致性</th></tr></thead>
@@ -413,8 +414,8 @@
       <div>
         <h4>数据</h4>
         <div class="facts">
-          <b>448</b> 项测试全绿 · CI 3.11/3.12<br>
-          <b>31</b> 条公开验收记录<br>
+          <b>459</b> 项测试全绿 · CI 3.11/3.12<br>
+          <b>34</b> 条公开验收记录<br>
           IS Code 2.2 / 2.3 逐条判定<br>
           公式白名单逐条溯源
         </div>
