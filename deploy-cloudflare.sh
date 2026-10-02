@@ -1,6 +1,7 @@
 #!/usr/bin/env bash
 # OpenHull 官网 Cloudflare Pages 部署：wrangler 直传静态目录
-# 排除与 deploy.sh（腾讯服务器）一致：.git/tools/部署脚本不入站
+# 排除开发文件：.git/tools/部署脚本不入站
+# （腾讯服务器通道 2026-10-02 退役——安全组未放行 80，从未公开上线）
 # 用法一（推荐，一次性）：先 `npx wrangler login` 完成浏览器授权
 # 用法二（CI/免交互）：export CLOUDFLARE_API_TOKEN=<Pages:Edit token>
 # 之后：bash deploy-cloudflare.sh

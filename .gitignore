@@ -3,3 +3,4 @@ deploy.sh
 README.md
 tools/
 .mimosa/
+.wrangler/
