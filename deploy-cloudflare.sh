@@ -18,6 +18,6 @@ tar cf - \
   --exclude=./.gitignore \
   . | tar xf - -C "$STAGING"
 npx -y wrangler@latest pages deploy "$STAGING" \
-  --project-name=openhull-site --branch=main --commit-dirty=true
+  --project-name=openhull --branch=main --commit-dirty=true
 rm -rf "$(dirname "$STAGING")"
-echo "线上地址：https://openhull-site.pages.dev"
+echo "线上地址：https://openhull.pages.dev"
