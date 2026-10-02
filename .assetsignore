@@ -1,0 +1,6 @@
+.git
+.gitignore
+.assetsignore
+tools
+deploy.sh
+deploy-cloudflare.sh
