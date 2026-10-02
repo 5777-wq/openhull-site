@@ -74,7 +74,8 @@
   .stat b i{font-style:normal;font-size:.78em;color:#9dc0de}
   .stat > span{font-size:.78rem;color:#a8c6e2;display:block;margin-top:3px}
   .cta{margin-top:34px;display:flex;gap:14px;flex-wrap:wrap;align-items:center}
-  .btn{position:relative;display:inline-block;padding:12px 26px;border-radius:11px;text-decoration:none;font-weight:700;font-size:.98rem;transition:transform .2s cubic-bezier(0,0,.2,1),box-shadow .2s cubic-bezier(0,0,.2,1),background .2s cubic-bezier(0,0,.2,1)}
+  .btn{position:relative;display:inline-flex;align-items:center;gap:8px;padding:12px 26px;border-radius:11px;text-decoration:none;font-weight:700;font-size:.98rem;transition:transform .2s cubic-bezier(0,0,.2,1),box-shadow .2s cubic-bezier(0,0,.2,1),background .2s cubic-bezier(0,0,.2,1)}
+  .btn svg{width:16px;height:16px;flex:none}
   /* Telegram 按压律：按下瞬时着色（HighlightableButton），松开才走过渡 */
   .btn:active{transform:scale(.97);transition:none}
   .btn--primary{background:#fff;color:var(--navy-deep);overflow:hidden}
@@ -249,6 +250,7 @@
       <div class="cta up" style="animation-delay:.55s">
         <a class="btn btn--primary" href="https://github.com/5777-wq/OpenHull" target="_blank" rel="noopener">GitHub 仓库</a>
         <a class="btn btn--ghost" href="https://5777-wq.github.io/OpenHull/quickstart-zh/" target="_blank" rel="noopener">中文快速上手 →</a>
+        <a class="btn btn--ghost" href="openhull-whitepaper-zh.pdf" download="OpenHull-技术白皮书-v1.6.0.pdf"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3v12"/><path d="m7 10 5 5 5-5"/><path d="M5 21h14"/></svg>技术白皮书 PDF</a>
       </div>
     </div>
     <div class="hero__emblem up" style="animation-delay:.3s" aria-hidden="true">
